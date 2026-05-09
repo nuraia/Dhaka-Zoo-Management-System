@@ -1,11 +1,26 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'STAFF', 'VISITOR');
+
+-- CreateEnum
+CREATE TYPE "ZoneStatus" AS ENUM ('ACTIVE', 'MAINTENANCE', 'CLOSED');
+
+-- CreateEnum
+CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE');
+
+-- CreateEnum
+CREATE TYPE "HealthStatus" AS ENUM ('HEALTHY', 'SICK', 'RECOVERING', 'CRITICAL');
+
+-- CreateEnum
+CREATE TYPE "TicketStatus" AS ENUM ('ACTIVE', 'USED', 'CANCELLED');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "phone" TEXT,
     "email" TEXT NOT NULL,
     "passwordHash" TEXT NOT NULL,
-    "role" TEXT NOT NULL DEFAULT 'visitor',
-    "phone" TEXT,
+    "role" "Role" NOT NULL DEFAULT 'VISITOR',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -15,10 +30,10 @@ CREATE TABLE "User" (
 CREATE TABLE "Authority" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "role" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT,
-    "department" TEXT,
+    "position" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Authority_pkey" PRIMARY KEY ("id")
 );
@@ -30,7 +45,7 @@ CREATE TABLE "Zone" (
     "habitatType" TEXT NOT NULL,
     "capacity" INTEGER NOT NULL,
     "MapCoords" TEXT,
-    "authorityId" INTEGER NOT NULL,
+    "status" "ZoneStatus" NOT NULL DEFAULT 'ACTIVE',
 
     CONSTRAINT "Zone_pkey" PRIMARY KEY ("id")
 );
@@ -42,7 +57,9 @@ CREATE TABLE "Caregiver" (
     "email" TEXT NOT NULL,
     "phone" TEXT,
     "shift" TEXT,
+    "experience" INTEGER NOT NULL,
     "authorityId" INTEGER NOT NULL,
+    "zoneId" INTEGER NOT NULL,
 
     CONSTRAINT "Caregiver_pkey" PRIMARY KEY ("id")
 );
@@ -54,7 +71,7 @@ CREATE TABLE "FoodSupplier" (
     "email" TEXT NOT NULL,
     "phone" TEXT,
     "address" TEXT,
-    "supplyType" TEXT,
+    "supplyItems" TEXT[],
 
     CONSTRAINT "FoodSupplier_pkey" PRIMARY KEY ("id")
 );
@@ -65,8 +82,8 @@ CREATE TABLE "Animal" (
     "name" TEXT NOT NULL,
     "species" TEXT NOT NULL,
     "dob" TEXT NOT NULL,
-    "gender" TEXT NOT NULL,
-    "healthStatus" TEXT NOT NULL,
+    "gender" "Gender" NOT NULL,
+    "healthStatus" "HealthStatus" NOT NULL DEFAULT 'HEALTHY',
     "imageURL" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "zoneId" INTEGER NOT NULL,
@@ -94,7 +111,7 @@ CREATE TABLE "Ticket" (
     "visitDate" TIMESTAMP(3) NOT NULL,
     "type" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "status" TEXT NOT NULL DEFAULT 'active',
+    "status" "TicketStatus" NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" INTEGER NOT NULL,
 
@@ -114,10 +131,10 @@ CREATE UNIQUE INDEX "Caregiver_email_key" ON "Caregiver"("email");
 CREATE UNIQUE INDEX "FoodSupplier_email_key" ON "FoodSupplier"("email");
 
 -- AddForeignKey
-ALTER TABLE "Zone" ADD CONSTRAINT "Zone_authorityId_fkey" FOREIGN KEY ("authorityId") REFERENCES "Authority"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Caregiver" ADD CONSTRAINT "Caregiver_authorityId_fkey" FOREIGN KEY ("authorityId") REFERENCES "Authority"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Caregiver" ADD CONSTRAINT "Caregiver_authorityId_fkey" FOREIGN KEY ("authorityId") REFERENCES "Authority"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Caregiver" ADD CONSTRAINT "Caregiver_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Animal" ADD CONSTRAINT "Animal_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

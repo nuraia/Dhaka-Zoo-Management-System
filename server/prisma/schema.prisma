@@ -1,11 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -13,94 +7,126 @@ datasource db {
 }
 
 model User {
-  id  Int  @id @default(autoincrement())
-  name  String
-  email String @unique
+  id           Int      @id @default(autoincrement())
+  name         String
+  phone        String?
+  email        String   @unique
   passwordHash String
-  role String @default("visitor")
-  phone String?
-  createdAt DateTime @default(now())
-  tickets Ticket[]
+  role         Role     @default(VISITOR)
+  createdAt    DateTime @default(now())
+  tickets      Ticket[]
 }
 
 model Authority {
-  id Int @id @default(autoincrement())
-  name String
-  role String 
-  email String @unique
-  phone String?
-  department String?
-  zones Zone[]
+  id         Int         @id @default(autoincrement())
+  name       String
+  email      String      @unique
+  phone      String?
+  position   String
+  createdAt  DateTime    @default(now())
   caregivers Caregiver[]
 }
 
 model Zone {
-  id Int @id @default(autoincrement())
-  name String
+  id          Int         @id @default(autoincrement())
+  name        String
   habitatType String
-  capacity Int
-  MapCoords String?
-  authorityId Int
-  authority Authority @relation(fields: [authorityId], references: [id])
-  animals Animal[]
+  capacity    Int
+  MapCoords   String?
+  status      ZoneStatus  @default(ACTIVE)
+  animals     Animal[]
+  caregivers  Caregiver[]
 }
 
 model Caregiver {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  phone String?
-  shift String?
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  phone       String?
+  shift       String?
+  experience  Int
   authorityId Int
-  authority Authority @relation(fields: [authorityId], references: [id])
-  animals Animal[]
+  zoneId      Int
+  animals     Animal[]
+  authority   Authority @relation(fields: [authorityId], references: [id])
+  zone        Zone      @relation(fields: [zoneId], references: [id])
 }
 
 model FoodSupplier {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  phone String?
-  address String?
-  supplyType String?
+  id              Int               @id @default(autoincrement())
+  name            String
+  email           String            @unique
+  phone           String?
+  address         String?
+  supplyItems     String[]
   feedingSchedule FeedingSchedule[]
 }
 
 model Animal {
-  id Int @id @default(autoincrement())
-  name String
-  species String
-  dob String
-  gender String
-  healthStatus String
-  imageURL String?
-  createdAt DateTime @default(now())
-  zoneId Int
-  zone Zone @relation(fields: [zoneId], references: [id])
-  caregiverId Int
-  caregiver Caregiver @relation(fields: [caregiverId], references: [id])
+  id              Int               @id @default(autoincrement())
+  name            String
+  species         String
+  dob             String
+  gender          Gender
+  healthStatus    HealthStatus      @default(HEALTHY)
+  imageURL        String?
+  createdAt       DateTime          @default(now())
+  zoneId          Int
+  caregiverId     Int
+  caregiver       Caregiver         @relation(fields: [caregiverId], references: [id])
+  zone            Zone              @relation(fields: [zoneId], references: [id])
   feedingSchedule FeedingSchedule[]
 }
 
 model FeedingSchedule {
-  id Int @id @default(autoincrement())
-  foodItem String
-  quantity String
-  feedTime String
-  frequency String
-  animalId Int
-  animal Animal @relation(fields: [animalId], references: [id])
-  supplierId Int 
-  supplier FoodSupplier @relation(fields: [supplierId], references: [id])
+  id         Int          @id @default(autoincrement())
+  foodItem   String
+  quantity   String
+  feedTime   String
+  frequency  String
+  animalId   Int
+  supplierId Int
+  animal     Animal       @relation(fields: [animalId], references: [id])
+  supplier   FoodSupplier @relation(fields: [supplierId], references: [id])
 }
 
 model Ticket {
-  id Int @id @default(autoincrement())
+  id        Int          @id @default(autoincrement())
   visitDate DateTime
-  type String
-  price Float
-  status String @default("active")
-  createdAt DateTime @default(now())
-  userId Int
-  user User @relation(fields: [userId], references: [id])
+  type      String
+  price     Float
+  status    TicketStatus
+  createdAt DateTime     @default(now())
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  VISITOR
+}
+
+enum ZoneStatus {
+  ACTIVE
+  MAINTENANCE
+  CLOSED
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum HealthStatus {
+  HEALTHY
+  SICK
+  RECOVERING
+  CRITICAL
+}
+
+enum TicketStatus {
+  ACTIVE
+  USED
+  CANCELLED
 }
