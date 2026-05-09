@@ -11,3 +11,96 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id  Int  @id @default(autoincrement())
+  name  String
+  email String @unique
+  passwordHash String
+  role String @default("visitor")
+  phone String?
+  createdAt DateTime @default(now())
+  tickets Ticket[]
+}
+
+model Authority {
+  id Int @id @default(autoincrement())
+  name String
+  role String 
+  email String @unique
+  phone String?
+  department String?
+  zones Zone[]
+  caregivers Caregiver[]
+}
+
+model Zone {
+  id Int @id @default(autoincrement())
+  name String
+  habitatType String
+  capacity Int
+  MapCoords String?
+  authorityId Int
+  authority Authority @relation(fields: [authorityId], references: [id])
+  animals Animal[]
+}
+
+model Caregiver {
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  phone String?
+  shift String?
+  authorityId Int
+  authority Authority @relation(fields: [authorityId], references: [id])
+  animals Animal[]
+}
+
+model FoodSupplier {
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  phone String?
+  address String?
+  supplyType String?
+  feedingSchedule FeedingSchedule[]
+}
+
+model Animal {
+  id Int @id @default(autoincrement())
+  name String
+  species String
+  dob String
+  gender String
+  healthStatus String
+  imageURL String?
+  createdAt DateTime @default(now())
+  zoneId Int
+  zone Zone @relation(fields: [zoneId], references: [id])
+  caregiverId Int
+  caregiver Caregiver @relation(fields: [caregiverId], references: [id])
+  feedingSchedule FeedingSchedule[]
+}
+
+model FeedingSchedule {
+  id Int @id @default(autoincrement())
+  foodItem String
+  quantity String
+  feedTime String
+  frequency String
+  animalId Int
+  animal Animal @relation(fields: [animalId], references: [id])
+  supplierId Int 
+  supplier FoodSupplier @relation(fields: [supplierId], references: [id])
+}
+
+model Ticket {
+  id Int @id @default(autoincrement())
+  visitDate DateTime
+  type String
+  price Float
+  status String @default("active")
+  createdAt DateTime @default(now())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+}
