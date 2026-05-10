@@ -137,10 +137,10 @@ ALTER TABLE "Caregiver" ADD CONSTRAINT "Caregiver_authorityId_fkey" FOREIGN KEY 
 ALTER TABLE "Caregiver" ADD CONSTRAINT "Caregiver_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Animal" ADD CONSTRAINT "Animal_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Animal" ADD CONSTRAINT "Animal_caregiverId_fkey" FOREIGN KEY ("caregiverId") REFERENCES "Caregiver"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Animal" ADD CONSTRAINT "Animal_caregiverId_fkey" FOREIGN KEY ("caregiverId") REFERENCES "Caregiver"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Animal" ADD CONSTRAINT "Animal_zoneId_fkey" FOREIGN KEY ("zoneId") REFERENCES "Zone"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "FeedingSchedule" ADD CONSTRAINT "FeedingSchedule_animalId_fkey" FOREIGN KEY ("animalId") REFERENCES "Animal"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
