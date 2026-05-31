@@ -2,6 +2,14 @@
 
 Dhaka Zoo Management System is a full-stack database project for a Mirpur/Dhaka Zoo style visitor experience. It combines a public-facing React website with an Express API, JWT auth, Prisma ORM, PostgreSQL, normalized zoo operations data, and seed data large enough to demonstrate meaningful relational queries.
 
+## Live Website
+
+Frontend GitHub Pages link:
+
+https://nuraia.github.io/Dhaka-Zoo-Management-System/
+
+Note: GitHub Pages hosts only the React frontend. Login, ticket booking, seed data, and database-backed animal data require the Express backend and PostgreSQL database to be running locally or deployed to a backend host such as Render, Railway, or Vercel Serverless with a hosted PostgreSQL database.
+
 ## Tech Stack
 
 - Frontend: React, Vite, React Router, CSS custom properties
@@ -57,29 +65,63 @@ Useful indexes were added for common lookups:
 
 Joins are used throughout the app: animal details join `Animal -> Species -> Zone`, feeding views join `FeedingSchedule -> Animal -> FoodItem`, and ticket history joins `Ticket -> User` plus optional `TicketZone -> Zone`.
 
-## Local Setup
+## Quick Local Tutorial
 
-### 1. Environment
+Use these steps to run the complete project on any local PC.
+
+### 1. Install Required Software
+
+Install:
+
+- Node.js
+- Git
+- PostgreSQL
+- pgAdmin, optional but recommended
+
+After installing PostgreSQL, create a database named:
+
+```text
+dhaka_zoo
+```
+
+You can create it from pgAdmin:
+
+1. Open pgAdmin.
+2. Connect to your local PostgreSQL server.
+3. Right-click `Databases`.
+4. Click `Create > Database`.
+5. Use the name `dhaka_zoo`.
+
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/nuraia/Dhaka-Zoo-Management-System.git
+cd Dhaka-Zoo-Management-System
+```
+
+### 3. Configure Environment
 
 Copy `.env.example` into `server/.env` and fill in values:
 
-```bash
-cp .env.example server/.env
+```powershell
+Copy-Item .env.example server/.env
 ```
 
-Required values:
+Example `server/.env`:
 
 ```env
-DATABASE_URL=
-JWT_SECRET=
+DATABASE_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/dhaka_zoo
+JWT_SECRET=dhaka-zoo-local-secret-12345
 PORT=5000
 CLIENT_URL=http://localhost:5173
 CLAUDE_API_KEY=
 ```
 
+Replace `YOUR_PASSWORD` with the PostgreSQL password you set during installation.
+
 `CLAUDE_API_KEY` is reserved for future ZooBot work and is not used by the current backend.
 
-### 2. Backend
+### 4. Run Backend
 
 ```bash
 cd server
@@ -92,7 +134,15 @@ npm run dev
 
 If you are using a disposable local database and do not need migration history, `npm run prisma:push` can be used instead of `npm run prisma:migrate`.
 
-### 3. Frontend
+The backend runs at:
+
+```text
+http://localhost:5000
+```
+
+### 5. Run Frontend
+
+Open a second terminal from the repository root:
 
 ```bash
 cd client
@@ -100,7 +150,86 @@ npm install
 npm run dev
 ```
 
+The frontend runs at:
+
+```text
+http://localhost:5173
+```
+
 The frontend expects the API at `http://localhost:5000/api` by default. You can override it with `VITE_API_URL`.
+
+### 6. Demo Login
+
+After running `npm run seed`, use:
+
+```text
+Visitor:
+visitor@dhakazoo.local
+Visitor12345
+```
+
+```text
+Admin:
+admin@dhakazoo.local
+Admin12345
+```
+
+## Deployment Notes
+
+### GitHub Pages Frontend
+
+This repository includes a GitHub Actions workflow for GitHub Pages. To enable it:
+
+1. Open the GitHub repository.
+2. Go to `Settings > Pages`.
+3. Set source to `GitHub Actions`.
+4. Push to `main`.
+
+The live frontend URL is:
+
+```text
+https://nuraia.github.io/Dhaka-Zoo-Management-System/
+```
+
+For login and tickets to work on the live frontend, deploy the backend separately and add this GitHub Actions variable:
+
+```text
+VITE_API_URL=https://YOUR_BACKEND_URL/api
+```
+
+Add it from:
+
+```text
+Settings > Secrets and variables > Actions > Variables
+```
+
+### Backend Deployment
+
+Deploy the `server` folder to a Node.js host such as Render or Railway.
+
+Recommended backend settings:
+
+```text
+Root Directory: server
+Build Command: npm install && npm run prisma:generate && npx prisma migrate deploy
+Start Command: npm start
+```
+
+Backend environment variables:
+
+```env
+DATABASE_URL=your_hosted_postgresql_connection_string
+JWT_SECRET=your_secure_secret
+PORT=5000
+CLIENT_URL=https://nuraia.github.io
+CLAUDE_API_KEY=
+```
+
+Run the seed command once on the hosted backend/database:
+
+```bash
+npm run seed
+```
 
 ## Seed Data
 

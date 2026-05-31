@@ -13,11 +13,14 @@ import enquiryRoutes from "./routes/enquiry.js";
 
 const app = express();
 const port = Number(process.env.PORT || 5000);
-const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin: clientUrl,
+    origin: allowedOrigins,
     credentials: true,
   }),
 );

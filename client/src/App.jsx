@@ -9,6 +9,10 @@ import TicketsPage from './pages/TicketsPage.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import './App.css'
 
+const routerBaseName = import.meta.env.BASE_URL === '/'
+  ? undefined
+  : import.meta.env.BASE_URL.replace(/\/$/, '')
+
 function ProtectedRoute({ children }) {
   const { user, initializing } = useAuth()
   const location = useLocation()
@@ -50,7 +54,7 @@ function AppRoutes() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBaseName}>
       <AuthProvider>
         <AppRoutes />
       </AuthProvider>
