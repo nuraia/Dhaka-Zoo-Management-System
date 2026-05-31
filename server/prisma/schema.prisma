@@ -1,27 +1,24 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  // Removed `url` property as it is now configured in `prisma.config.ts`
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   name         String
   phone        String?
-  email        String   @unique
-  passwordHash String
-  role         Role     @default(VISITOR)
-  createdAt    DateTime @default(now())
+  email        String       @unique
+  passwordHash String       @map("password_hash")
+  role         Role         @default(VISITOR)
+  createdAt    DateTime     @default(now()) @map("created_at")
   tickets      Ticket[]
+  dayPlans     DayPlan[]
+  feedingLogs  FeedingLog[] @relation("FeedingLogMarker")
+  auditLogs    AuditLog[]
 }
 
 model Authority {
@@ -30,19 +27,22 @@ model Authority {
   email      String      @unique
   phone      String?
   position   String
-  createdAt  DateTime    @default(now())
+  createdAt  DateTime    @default(now()) @map("created_at")
   caregivers Caregiver[]
 }
 
 model Zone {
-  id          Int         @id @default(autoincrement())
-  name        String
-  habitatType String
-  capacity    Int
-  MapCoords   String?
-  status      ZoneStatus  @default(ACTIVE)
-  animals     Animal[]
-  caregivers  Caregiver[]
+  id           Int           @id @default(autoincrement())
+  name         String
+  habitatType  String
+  capacity     Int
+  mapCoords    String?       @map("map_coords")
+  description  String        @default("")
+  status       ZoneStatus    @default(ACTIVE)
+  animals      Animal[]
+  caregivers   Caregiver[]
+  dayPlanZones DayPlanZone[]
+  ticketZones  TicketZone[]
 }
 
 model Caregiver {
@@ -52,60 +52,180 @@ model Caregiver {
   phone       String?
   shift       String?
   experience  Int
-  authorityId Int
-  zoneId      Int
+  authorityId Int       @map("authority_id")
+  zoneId      Int       @map("zone_id")
   animals     Animal[]
   authority   Authority @relation(fields: [authorityId], references: [id])
   zone        Zone      @relation(fields: [zoneId], references: [id])
+
+  @@index([authorityId])
+  @@index([zoneId])
 }
 
 model FoodSupplier {
-  id              Int               @id @default(autoincrement())
-  name            String
-  email           String            @unique
-  phone           String?
-  address         String?
-  supplyItems     String[]
-  feedingSchedule FeedingSchedule[]
+  id               Int               @id @default(autoincrement())
+  name             String
+  email            String            @unique
+  phone            String?
+  address          String?
+  supplyItems      String[]
+  feedingSchedules FeedingSchedule[]
+}
+
+model Species {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  dietType    DietType @map("diet_type")
+  habitat     String
+  description String
+  animals     Animal[]
+
+  @@index([name])
 }
 
 model Animal {
-  id              Int               @id @default(autoincrement())
-  name            String
-  species         String
-  dob             String
-  gender          Gender
-  healthStatus    HealthStatus      @default(HEALTHY)
-  imageURL        String?
-  createdAt       DateTime          @default(now())
-  zoneId          Int
-  caregiverId     Int
-  caregiver       Caregiver         @relation(fields: [caregiverId], references: [id])
-  zone            Zone              @relation(fields: [zoneId], references: [id])
-  feedingSchedule FeedingSchedule[]
+  id               Int               @id @default(autoincrement())
+  name             String
+  speciesId        Int               @map("species_id")
+  zoneId           Int               @map("zone_id")
+  dob              DateTime
+  gender           Gender?
+  healthStatus     HealthStatus      @default(HEALTHY) @map("health_status")
+  imageUrl         String?           @map("image_url")
+  lastFedAt        DateTime?         @map("last_fed_at")
+  createdAt        DateTime          @default(now()) @map("created_at")
+  caregiverId      Int?              @map("caregiver_id")
+  species          Species           @relation(fields: [speciesId], references: [id])
+  zone             Zone              @relation(fields: [zoneId], references: [id])
+  caregiver        Caregiver?        @relation(fields: [caregiverId], references: [id])
+  feedingSchedules FeedingSchedule[]
+  healthRecords    HealthRecord[]
+  feedingLogs      FeedingLog[]
+
+  @@index([name])
+  @@index([speciesId])
+  @@index([zoneId])
+  @@index([caregiverId])
+}
+
+model FoodItem {
+  id               Int               @id @default(autoincrement())
+  name             String            @unique
+  category         FoodCategory
+  unit             String
+  feedingSchedules FeedingSchedule[]
 }
 
 model FeedingSchedule {
+  id          Int          @id @default(autoincrement())
+  animalId    Int          @map("animal_id")
+  foodItemId  Int          @map("food_item_id")
+  time        String
+  frequency   String
+  quantity    String
+  supplierId  Int?         @map("supplier_id")
+  animal      Animal       @relation(fields: [animalId], references: [id])
+  foodItem    FoodItem     @relation(fields: [foodItemId], references: [id])
+  supplier    FoodSupplier? @relation(fields: [supplierId], references: [id])
+  feedingLogs FeedingLog[]
+
+  @@index([animalId])
+  @@index([foodItemId])
+}
+
+model HealthRecord {
   id         Int          @id @default(autoincrement())
-  foodItem   String
-  quantity   String
-  feedTime   String
-  frequency  String
-  animalId   Int
-  supplierId Int
+  animalId   Int          @map("animal_id")
+  status     HealthStatus
+  notes      String
+  recordedAt DateTime     @default(now()) @map("recorded_at")
   animal     Animal       @relation(fields: [animalId], references: [id])
-  supplier   FoodSupplier @relation(fields: [supplierId], references: [id])
+
+  @@index([animalId])
+  @@index([recordedAt])
+}
+
+model FeedingLog {
+  id                Int             @id @default(autoincrement())
+  feedingScheduleId Int             @map("feeding_schedule_id")
+  animalId          Int             @map("animal_id")
+  fedAt             DateTime        @default(now()) @map("fed_at")
+  quantity          String
+  markedByUserId    Int?            @map("marked_by_user_id")
+  feedingSchedule   FeedingSchedule @relation(fields: [feedingScheduleId], references: [id])
+  animal            Animal          @relation(fields: [animalId], references: [id])
+  markedBy          User?           @relation("FeedingLogMarker", fields: [markedByUserId], references: [id])
+
+  @@index([feedingScheduleId])
+  @@index([animalId])
+  @@index([fedAt])
 }
 
 model Ticket {
-  id        Int          @id @default(autoincrement())
-  visitDate DateTime
-  type      String
-  price     Float
-  status    TicketStatus
-  createdAt DateTime     @default(now())
-  userId    Int
-  user      User         @relation(fields: [userId], references: [id])
+  id          Int          @id @default(autoincrement())
+  userId      Int          @map("user_id")
+  visitDate   DateTime     @map("visit_date")
+  type        TicketType
+  price       Float
+  qrCode      String       @unique @map("qr_code")
+  status      TicketStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  user        User         @relation(fields: [userId], references: [id])
+  ticketZones TicketZone[]
+
+  @@index([visitDate])
+  @@index([userId])
+}
+
+model TicketZone {
+  id       Int    @id @default(autoincrement())
+  ticketId Int    @map("ticket_id")
+  zoneId   Int    @map("zone_id")
+  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  zone     Zone   @relation(fields: [zoneId], references: [id])
+
+  @@unique([ticketId, zoneId])
+  @@index([zoneId])
+}
+
+model DayPlan {
+  id        Int           @id @default(autoincrement())
+  userId    Int           @map("user_id")
+  date      DateTime
+  notes     String?
+  createdAt DateTime      @default(now()) @map("created_at")
+  user      User          @relation(fields: [userId], references: [id])
+  zones     DayPlanZone[]
+
+  @@unique([userId, date])
+  @@index([date])
+}
+
+model DayPlanZone {
+  id         Int     @id @default(autoincrement())
+  dayPlanId  Int     @map("day_plan_id")
+  zoneId     Int     @map("zone_id")
+  visitOrder Int     @map("visit_order")
+  dayPlan    DayPlan @relation(fields: [dayPlanId], references: [id], onDelete: Cascade)
+  zone       Zone    @relation(fields: [zoneId], references: [id])
+
+  @@unique([dayPlanId, zoneId])
+  @@index([visitOrder])
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    Int?     @map("user_id")
+  action    String
+  tableName String   @map("table_name")
+  recordId  String   @map("record_id")
+  oldValue  Json?    @map("old_value")
+  newValue  Json?    @map("new_value")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User?    @relation(fields: [userId], references: [id])
+
+  @@index([tableName, recordId])
+  @@index([createdAt])
 }
 
 enum Role {
@@ -130,6 +250,28 @@ enum HealthStatus {
   SICK
   RECOVERING
   CRITICAL
+}
+
+enum DietType {
+  HERBIVORE
+  CARNIVORE
+  OMNIVORE
+}
+
+enum FoodCategory {
+  MEAT
+  FISH
+  PRODUCE
+  GRAIN
+  HAY
+  SUPPLEMENT
+  OTHER
+}
+
+enum TicketType {
+  ADULT
+  CHILD
+  FAMILY
 }
 
 enum TicketStatus {

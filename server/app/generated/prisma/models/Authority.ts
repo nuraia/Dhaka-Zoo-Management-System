@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Authority
@@ -37,28 +37,28 @@ export type AuthoritySumAggregateOutputType = {
 export type AuthorityMinAggregateOutputType = {
   id: number | null
   name: string | null
-  role: string | null
   email: string | null
   phone: string | null
-  department: string | null
+  position: string | null
+  createdAt: Date | null
 }
 
 export type AuthorityMaxAggregateOutputType = {
   id: number | null
   name: string | null
-  role: string | null
   email: string | null
   phone: string | null
-  department: string | null
+  position: string | null
+  createdAt: Date | null
 }
 
 export type AuthorityCountAggregateOutputType = {
   id: number
   name: number
-  role: number
   email: number
   phone: number
-  department: number
+  position: number
+  createdAt: number
   _all: number
 }
 
@@ -74,28 +74,28 @@ export type AuthoritySumAggregateInputType = {
 export type AuthorityMinAggregateInputType = {
   id?: true
   name?: true
-  role?: true
   email?: true
   phone?: true
-  department?: true
+  position?: true
+  createdAt?: true
 }
 
 export type AuthorityMaxAggregateInputType = {
   id?: true
   name?: true
-  role?: true
   email?: true
   phone?: true
-  department?: true
+  position?: true
+  createdAt?: true
 }
 
 export type AuthorityCountAggregateInputType = {
   id?: true
   name?: true
-  role?: true
   email?: true
   phone?: true
-  department?: true
+  position?: true
+  createdAt?: true
   _all?: true
 }
 
@@ -188,10 +188,10 @@ export type AuthorityGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 export type AuthorityGroupByOutputType = {
   id: number
   name: string
-  role: string
   email: string
   phone: string | null
-  department: string | null
+  position: string
+  createdAt: Date
   _count: AuthorityCountAggregateOutputType | null
   _avg: AuthorityAvgAggregateOutputType | null
   _sum: AuthoritySumAggregateOutputType | null
@@ -220,22 +220,20 @@ export type AuthorityWhereInput = {
   NOT?: Prisma.AuthorityWhereInput | Prisma.AuthorityWhereInput[]
   id?: Prisma.IntFilter<"Authority"> | number
   name?: Prisma.StringFilter<"Authority"> | string
-  role?: Prisma.StringFilter<"Authority"> | string
   email?: Prisma.StringFilter<"Authority"> | string
   phone?: Prisma.StringNullableFilter<"Authority"> | string | null
-  department?: Prisma.StringNullableFilter<"Authority"> | string | null
-  zones?: Prisma.ZoneListRelationFilter
+  position?: Prisma.StringFilter<"Authority"> | string
+  createdAt?: Prisma.DateTimeFilter<"Authority"> | Date | string
   caregivers?: Prisma.CaregiverListRelationFilter
 }
 
 export type AuthorityOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  department?: Prisma.SortOrderInput | Prisma.SortOrder
-  zones?: Prisma.ZoneOrderByRelationAggregateInput
+  position?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   caregivers?: Prisma.CaregiverOrderByRelationAggregateInput
 }
 
@@ -246,20 +244,19 @@ export type AuthorityWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AuthorityWhereInput[]
   NOT?: Prisma.AuthorityWhereInput | Prisma.AuthorityWhereInput[]
   name?: Prisma.StringFilter<"Authority"> | string
-  role?: Prisma.StringFilter<"Authority"> | string
   phone?: Prisma.StringNullableFilter<"Authority"> | string | null
-  department?: Prisma.StringNullableFilter<"Authority"> | string | null
-  zones?: Prisma.ZoneListRelationFilter
+  position?: Prisma.StringFilter<"Authority"> | string
+  createdAt?: Prisma.DateTimeFilter<"Authority"> | Date | string
   caregivers?: Prisma.CaregiverListRelationFilter
 }, "id" | "email">
 
 export type AuthorityOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  department?: Prisma.SortOrderInput | Prisma.SortOrder
+  position?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
   _count?: Prisma.AuthorityCountOrderByAggregateInput
   _avg?: Prisma.AuthorityAvgOrderByAggregateInput
   _max?: Prisma.AuthorityMaxOrderByAggregateInput
@@ -273,87 +270,83 @@ export type AuthorityScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AuthorityScalarWhereWithAggregatesInput | Prisma.AuthorityScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Authority"> | number
   name?: Prisma.StringWithAggregatesFilter<"Authority"> | string
-  role?: Prisma.StringWithAggregatesFilter<"Authority"> | string
   email?: Prisma.StringWithAggregatesFilter<"Authority"> | string
   phone?: Prisma.StringNullableWithAggregatesFilter<"Authority"> | string | null
-  department?: Prisma.StringNullableWithAggregatesFilter<"Authority"> | string | null
+  position?: Prisma.StringWithAggregatesFilter<"Authority"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Authority"> | Date | string
 }
 
 export type AuthorityCreateInput = {
   name: string
-  role: string
   email: string
   phone?: string | null
-  department?: string | null
-  zones?: Prisma.ZoneCreateNestedManyWithoutAuthorityInput
+  position: string
+  createdAt?: Date | string
   caregivers?: Prisma.CaregiverCreateNestedManyWithoutAuthorityInput
 }
 
 export type AuthorityUncheckedCreateInput = {
   id?: number
   name: string
-  role: string
   email: string
   phone?: string | null
-  department?: string | null
-  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutAuthorityInput
+  position: string
+  createdAt?: Date | string
   caregivers?: Prisma.CaregiverUncheckedCreateNestedManyWithoutAuthorityInput
 }
 
 export type AuthorityUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zones?: Prisma.ZoneUpdateManyWithoutAuthorityNestedInput
+  position?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   caregivers?: Prisma.CaregiverUpdateManyWithoutAuthorityNestedInput
 }
 
 export type AuthorityUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zones?: Prisma.ZoneUncheckedUpdateManyWithoutAuthorityNestedInput
+  position?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   caregivers?: Prisma.CaregiverUncheckedUpdateManyWithoutAuthorityNestedInput
 }
 
 export type AuthorityCreateManyInput = {
   id?: number
   name: string
-  role: string
   email: string
   phone?: string | null
-  department?: string | null
+  position: string
+  createdAt?: Date | string
 }
 
 export type AuthorityUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AuthorityUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  position?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AuthorityCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  department?: Prisma.SortOrder
+  position?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type AuthorityAvgOrderByAggregateInput = {
@@ -363,19 +356,19 @@ export type AuthorityAvgOrderByAggregateInput = {
 export type AuthorityMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  department?: Prisma.SortOrder
+  position?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type AuthorityMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  role?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  department?: Prisma.SortOrder
+  position?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
 }
 
 export type AuthoritySumOrderByAggregateInput = {
@@ -385,20 +378,6 @@ export type AuthoritySumOrderByAggregateInput = {
 export type AuthorityScalarRelationFilter = {
   is?: Prisma.AuthorityWhereInput
   isNot?: Prisma.AuthorityWhereInput
-}
-
-export type AuthorityCreateNestedOneWithoutZonesInput = {
-  create?: Prisma.XOR<Prisma.AuthorityCreateWithoutZonesInput, Prisma.AuthorityUncheckedCreateWithoutZonesInput>
-  connectOrCreate?: Prisma.AuthorityCreateOrConnectWithoutZonesInput
-  connect?: Prisma.AuthorityWhereUniqueInput
-}
-
-export type AuthorityUpdateOneRequiredWithoutZonesNestedInput = {
-  create?: Prisma.XOR<Prisma.AuthorityCreateWithoutZonesInput, Prisma.AuthorityUncheckedCreateWithoutZonesInput>
-  connectOrCreate?: Prisma.AuthorityCreateOrConnectWithoutZonesInput
-  upsert?: Prisma.AuthorityUpsertWithoutZonesInput
-  connect?: Prisma.AuthorityWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AuthorityUpdateToOneWithWhereWithoutZonesInput, Prisma.AuthorityUpdateWithoutZonesInput>, Prisma.AuthorityUncheckedUpdateWithoutZonesInput>
 }
 
 export type AuthorityCreateNestedOneWithoutCaregiversInput = {
@@ -415,77 +394,21 @@ export type AuthorityUpdateOneRequiredWithoutCaregiversNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AuthorityUpdateToOneWithWhereWithoutCaregiversInput, Prisma.AuthorityUpdateWithoutCaregiversInput>, Prisma.AuthorityUncheckedUpdateWithoutCaregiversInput>
 }
 
-export type AuthorityCreateWithoutZonesInput = {
-  name: string
-  role: string
-  email: string
-  phone?: string | null
-  department?: string | null
-  caregivers?: Prisma.CaregiverCreateNestedManyWithoutAuthorityInput
-}
-
-export type AuthorityUncheckedCreateWithoutZonesInput = {
-  id?: number
-  name: string
-  role: string
-  email: string
-  phone?: string | null
-  department?: string | null
-  caregivers?: Prisma.CaregiverUncheckedCreateNestedManyWithoutAuthorityInput
-}
-
-export type AuthorityCreateOrConnectWithoutZonesInput = {
-  where: Prisma.AuthorityWhereUniqueInput
-  create: Prisma.XOR<Prisma.AuthorityCreateWithoutZonesInput, Prisma.AuthorityUncheckedCreateWithoutZonesInput>
-}
-
-export type AuthorityUpsertWithoutZonesInput = {
-  update: Prisma.XOR<Prisma.AuthorityUpdateWithoutZonesInput, Prisma.AuthorityUncheckedUpdateWithoutZonesInput>
-  create: Prisma.XOR<Prisma.AuthorityCreateWithoutZonesInput, Prisma.AuthorityUncheckedCreateWithoutZonesInput>
-  where?: Prisma.AuthorityWhereInput
-}
-
-export type AuthorityUpdateToOneWithWhereWithoutZonesInput = {
-  where?: Prisma.AuthorityWhereInput
-  data: Prisma.XOR<Prisma.AuthorityUpdateWithoutZonesInput, Prisma.AuthorityUncheckedUpdateWithoutZonesInput>
-}
-
-export type AuthorityUpdateWithoutZonesInput = {
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  caregivers?: Prisma.CaregiverUpdateManyWithoutAuthorityNestedInput
-}
-
-export type AuthorityUncheckedUpdateWithoutZonesInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  caregivers?: Prisma.CaregiverUncheckedUpdateManyWithoutAuthorityNestedInput
-}
-
 export type AuthorityCreateWithoutCaregiversInput = {
   name: string
-  role: string
   email: string
   phone?: string | null
-  department?: string | null
-  zones?: Prisma.ZoneCreateNestedManyWithoutAuthorityInput
+  position: string
+  createdAt?: Date | string
 }
 
 export type AuthorityUncheckedCreateWithoutCaregiversInput = {
   id?: number
   name: string
-  role: string
   email: string
   phone?: string | null
-  department?: string | null
-  zones?: Prisma.ZoneUncheckedCreateNestedManyWithoutAuthorityInput
+  position: string
+  createdAt?: Date | string
 }
 
 export type AuthorityCreateOrConnectWithoutCaregiversInput = {
@@ -506,21 +429,19 @@ export type AuthorityUpdateToOneWithWhereWithoutCaregiversInput = {
 
 export type AuthorityUpdateWithoutCaregiversInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zones?: Prisma.ZoneUpdateManyWithoutAuthorityNestedInput
+  position?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AuthorityUncheckedUpdateWithoutCaregiversInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  zones?: Prisma.ZoneUncheckedUpdateManyWithoutAuthorityNestedInput
+  position?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -529,12 +450,10 @@ export type AuthorityUncheckedUpdateWithoutCaregiversInput = {
  */
 
 export type AuthorityCountOutputType = {
-  zones: number
   caregivers: number
 }
 
 export type AuthorityCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  zones?: boolean | AuthorityCountOutputTypeCountZonesArgs
   caregivers?: boolean | AuthorityCountOutputTypeCountCaregiversArgs
 }
 
@@ -551,13 +470,6 @@ export type AuthorityCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
 /**
  * AuthorityCountOutputType without action
  */
-export type AuthorityCountOutputTypeCountZonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ZoneWhereInput
-}
-
-/**
- * AuthorityCountOutputType without action
- */
 export type AuthorityCountOutputTypeCountCaregiversArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CaregiverWhereInput
 }
@@ -566,11 +478,10 @@ export type AuthorityCountOutputTypeCountCaregiversArgs<ExtArgs extends runtime.
 export type AuthoritySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  role?: boolean
   email?: boolean
   phone?: boolean
-  department?: boolean
-  zones?: boolean | Prisma.Authority$zonesArgs<ExtArgs>
+  position?: boolean
+  createdAt?: boolean
   caregivers?: boolean | Prisma.Authority$caregiversArgs<ExtArgs>
   _count?: boolean | Prisma.AuthorityCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["authority"]>
@@ -578,33 +489,32 @@ export type AuthoritySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type AuthoritySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  role?: boolean
   email?: boolean
   phone?: boolean
-  department?: boolean
+  position?: boolean
+  createdAt?: boolean
 }, ExtArgs["result"]["authority"]>
 
 export type AuthoritySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  role?: boolean
   email?: boolean
   phone?: boolean
-  department?: boolean
+  position?: boolean
+  createdAt?: boolean
 }, ExtArgs["result"]["authority"]>
 
 export type AuthoritySelectScalar = {
   id?: boolean
   name?: boolean
-  role?: boolean
   email?: boolean
   phone?: boolean
-  department?: boolean
+  position?: boolean
+  createdAt?: boolean
 }
 
-export type AuthorityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "role" | "email" | "phone" | "department", ExtArgs["result"]["authority"]>
+export type AuthorityOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "position" | "createdAt", ExtArgs["result"]["authority"]>
 export type AuthorityInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  zones?: boolean | Prisma.Authority$zonesArgs<ExtArgs>
   caregivers?: boolean | Prisma.Authority$caregiversArgs<ExtArgs>
   _count?: boolean | Prisma.AuthorityCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -614,16 +524,15 @@ export type AuthorityIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
 export type $AuthorityPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Authority"
   objects: {
-    zones: Prisma.$ZonePayload<ExtArgs>[]
     caregivers: Prisma.$CaregiverPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    role: string
     email: string
     phone: string | null
-    department: string | null
+    position: string
+    createdAt: Date
   }, ExtArgs["result"]["authority"]>
   composites: {}
 }
@@ -1018,7 +927,6 @@ readonly fields: AuthorityFieldRefs;
  */
 export interface Prisma__AuthorityClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  zones<T extends Prisma.Authority$zonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Authority$zonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   caregivers<T extends Prisma.Authority$caregiversArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Authority$caregiversArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CaregiverPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1051,10 +959,10 @@ export interface Prisma__AuthorityClient<T, Null = never, ExtArgs extends runtim
 export interface AuthorityFieldRefs {
   readonly id: Prisma.FieldRef<"Authority", 'Int'>
   readonly name: Prisma.FieldRef<"Authority", 'String'>
-  readonly role: Prisma.FieldRef<"Authority", 'String'>
   readonly email: Prisma.FieldRef<"Authority", 'String'>
   readonly phone: Prisma.FieldRef<"Authority", 'String'>
-  readonly department: Prisma.FieldRef<"Authority", 'String'>
+  readonly position: Prisma.FieldRef<"Authority", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Authority", 'DateTime'>
 }
     
 
@@ -1445,30 +1353,6 @@ export type AuthorityDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many Authorities to delete.
    */
   limit?: number
-}
-
-/**
- * Authority.zones
- */
-export type Authority$zonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Zone
-   */
-  select?: Prisma.ZoneSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Zone
-   */
-  omit?: Prisma.ZoneOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ZoneInclude<ExtArgs> | null
-  where?: Prisma.ZoneWhereInput
-  orderBy?: Prisma.ZoneOrderByWithRelationInput | Prisma.ZoneOrderByWithRelationInput[]
-  cursor?: Prisma.ZoneWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ZoneScalarFieldEnum | Prisma.ZoneScalarFieldEnum[]
 }
 
 /**

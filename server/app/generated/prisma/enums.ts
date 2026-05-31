@@ -9,7 +9,77 @@
 * 🟢 You can import this file directly.
 */
 
+export const Role = {
+  ADMIN: 'ADMIN',
+  STAFF: 'STAFF',
+  VISITOR: 'VISITOR'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ZoneStatus = {
+  ACTIVE: 'ACTIVE',
+  MAINTENANCE: 'MAINTENANCE',
+  CLOSED: 'CLOSED'
+} as const
+
+export type ZoneStatus = (typeof ZoneStatus)[keyof typeof ZoneStatus]
+
+
+export const Gender = {
+  MALE: 'MALE',
+  FEMALE: 'FEMALE'
+} as const
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
+
+export const HealthStatus = {
+  HEALTHY: 'HEALTHY',
+  SICK: 'SICK',
+  RECOVERING: 'RECOVERING',
+  CRITICAL: 'CRITICAL'
+} as const
+
+export type HealthStatus = (typeof HealthStatus)[keyof typeof HealthStatus]
+
+
+export const DietType = {
+  HERBIVORE: 'HERBIVORE',
+  CARNIVORE: 'CARNIVORE',
+  OMNIVORE: 'OMNIVORE'
+} as const
+
+export type DietType = (typeof DietType)[keyof typeof DietType]
+
+
+export const FoodCategory = {
+  MEAT: 'MEAT',
+  FISH: 'FISH',
+  PRODUCE: 'PRODUCE',
+  GRAIN: 'GRAIN',
+  HAY: 'HAY',
+  SUPPLEMENT: 'SUPPLEMENT',
+  OTHER: 'OTHER'
+} as const
+
+export type FoodCategory = (typeof FoodCategory)[keyof typeof FoodCategory]
+
+
+export const TicketType = {
+  ADULT: 'ADULT',
+  CHILD: 'CHILD',
+  FAMILY: 'FAMILY'
+} as const
+
+export type TicketType = (typeof TicketType)[keyof typeof TicketType]
+
+
+export const TicketStatus = {
+  ACTIVE: 'ACTIVE',
+  USED: 'USED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]

@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Zone
@@ -29,13 +29,11 @@ export type AggregateZone = {
 export type ZoneAvgAggregateOutputType = {
   id: number | null
   capacity: number | null
-  authorityId: number | null
 }
 
 export type ZoneSumAggregateOutputType = {
   id: number | null
   capacity: number | null
-  authorityId: number | null
 }
 
 export type ZoneMinAggregateOutputType = {
@@ -43,8 +41,9 @@ export type ZoneMinAggregateOutputType = {
   name: string | null
   habitatType: string | null
   capacity: number | null
-  MapCoords: string | null
-  authorityId: number | null
+  mapCoords: string | null
+  description: string | null
+  status: $Enums.ZoneStatus | null
 }
 
 export type ZoneMaxAggregateOutputType = {
@@ -52,8 +51,9 @@ export type ZoneMaxAggregateOutputType = {
   name: string | null
   habitatType: string | null
   capacity: number | null
-  MapCoords: string | null
-  authorityId: number | null
+  mapCoords: string | null
+  description: string | null
+  status: $Enums.ZoneStatus | null
 }
 
 export type ZoneCountAggregateOutputType = {
@@ -61,8 +61,9 @@ export type ZoneCountAggregateOutputType = {
   name: number
   habitatType: number
   capacity: number
-  MapCoords: number
-  authorityId: number
+  mapCoords: number
+  description: number
+  status: number
   _all: number
 }
 
@@ -70,13 +71,11 @@ export type ZoneCountAggregateOutputType = {
 export type ZoneAvgAggregateInputType = {
   id?: true
   capacity?: true
-  authorityId?: true
 }
 
 export type ZoneSumAggregateInputType = {
   id?: true
   capacity?: true
-  authorityId?: true
 }
 
 export type ZoneMinAggregateInputType = {
@@ -84,8 +83,9 @@ export type ZoneMinAggregateInputType = {
   name?: true
   habitatType?: true
   capacity?: true
-  MapCoords?: true
-  authorityId?: true
+  mapCoords?: true
+  description?: true
+  status?: true
 }
 
 export type ZoneMaxAggregateInputType = {
@@ -93,8 +93,9 @@ export type ZoneMaxAggregateInputType = {
   name?: true
   habitatType?: true
   capacity?: true
-  MapCoords?: true
-  authorityId?: true
+  mapCoords?: true
+  description?: true
+  status?: true
 }
 
 export type ZoneCountAggregateInputType = {
@@ -102,8 +103,9 @@ export type ZoneCountAggregateInputType = {
   name?: true
   habitatType?: true
   capacity?: true
-  MapCoords?: true
-  authorityId?: true
+  mapCoords?: true
+  description?: true
+  status?: true
   _all?: true
 }
 
@@ -198,8 +200,9 @@ export type ZoneGroupByOutputType = {
   name: string
   habitatType: string
   capacity: number
-  MapCoords: string | null
-  authorityId: number
+  mapCoords: string | null
+  description: string
+  status: $Enums.ZoneStatus
   _count: ZoneCountAggregateOutputType | null
   _avg: ZoneAvgAggregateOutputType | null
   _sum: ZoneSumAggregateOutputType | null
@@ -230,10 +233,13 @@ export type ZoneWhereInput = {
   name?: Prisma.StringFilter<"Zone"> | string
   habitatType?: Prisma.StringFilter<"Zone"> | string
   capacity?: Prisma.IntFilter<"Zone"> | number
-  MapCoords?: Prisma.StringNullableFilter<"Zone"> | string | null
-  authorityId?: Prisma.IntFilter<"Zone"> | number
-  authority?: Prisma.XOR<Prisma.AuthorityScalarRelationFilter, Prisma.AuthorityWhereInput>
+  mapCoords?: Prisma.StringNullableFilter<"Zone"> | string | null
+  description?: Prisma.StringFilter<"Zone"> | string
+  status?: Prisma.EnumZoneStatusFilter<"Zone"> | $Enums.ZoneStatus
   animals?: Prisma.AnimalListRelationFilter
+  caregivers?: Prisma.CaregiverListRelationFilter
+  dayPlanZones?: Prisma.DayPlanZoneListRelationFilter
+  ticketZones?: Prisma.TicketZoneListRelationFilter
 }
 
 export type ZoneOrderByWithRelationInput = {
@@ -241,10 +247,13 @@ export type ZoneOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   habitatType?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
-  MapCoords?: Prisma.SortOrderInput | Prisma.SortOrder
-  authorityId?: Prisma.SortOrder
-  authority?: Prisma.AuthorityOrderByWithRelationInput
+  mapCoords?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   animals?: Prisma.AnimalOrderByRelationAggregateInput
+  caregivers?: Prisma.CaregiverOrderByRelationAggregateInput
+  dayPlanZones?: Prisma.DayPlanZoneOrderByRelationAggregateInput
+  ticketZones?: Prisma.TicketZoneOrderByRelationAggregateInput
 }
 
 export type ZoneWhereUniqueInput = Prisma.AtLeast<{
@@ -255,10 +264,13 @@ export type ZoneWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Zone"> | string
   habitatType?: Prisma.StringFilter<"Zone"> | string
   capacity?: Prisma.IntFilter<"Zone"> | number
-  MapCoords?: Prisma.StringNullableFilter<"Zone"> | string | null
-  authorityId?: Prisma.IntFilter<"Zone"> | number
-  authority?: Prisma.XOR<Prisma.AuthorityScalarRelationFilter, Prisma.AuthorityWhereInput>
+  mapCoords?: Prisma.StringNullableFilter<"Zone"> | string | null
+  description?: Prisma.StringFilter<"Zone"> | string
+  status?: Prisma.EnumZoneStatusFilter<"Zone"> | $Enums.ZoneStatus
   animals?: Prisma.AnimalListRelationFilter
+  caregivers?: Prisma.CaregiverListRelationFilter
+  dayPlanZones?: Prisma.DayPlanZoneListRelationFilter
+  ticketZones?: Prisma.TicketZoneListRelationFilter
 }, "id">
 
 export type ZoneOrderByWithAggregationInput = {
@@ -266,8 +278,9 @@ export type ZoneOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   habitatType?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
-  MapCoords?: Prisma.SortOrderInput | Prisma.SortOrder
-  authorityId?: Prisma.SortOrder
+  mapCoords?: Prisma.SortOrderInput | Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   _count?: Prisma.ZoneCountOrderByAggregateInput
   _avg?: Prisma.ZoneAvgOrderByAggregateInput
   _max?: Prisma.ZoneMaxOrderByAggregateInput
@@ -283,17 +296,22 @@ export type ZoneScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Zone"> | string
   habitatType?: Prisma.StringWithAggregatesFilter<"Zone"> | string
   capacity?: Prisma.IntWithAggregatesFilter<"Zone"> | number
-  MapCoords?: Prisma.StringNullableWithAggregatesFilter<"Zone"> | string | null
-  authorityId?: Prisma.IntWithAggregatesFilter<"Zone"> | number
+  mapCoords?: Prisma.StringNullableWithAggregatesFilter<"Zone"> | string | null
+  description?: Prisma.StringWithAggregatesFilter<"Zone"> | string
+  status?: Prisma.EnumZoneStatusWithAggregatesFilter<"Zone"> | $Enums.ZoneStatus
 }
 
 export type ZoneCreateInput = {
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
-  authority: Prisma.AuthorityCreateNestedOneWithoutZonesInput
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
   animals?: Prisma.AnimalCreateNestedManyWithoutZoneInput
+  caregivers?: Prisma.CaregiverCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUncheckedCreateInput = {
@@ -301,18 +319,26 @@ export type ZoneUncheckedCreateInput = {
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
-  authorityId: number
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
   animals?: Prisma.AnimalUncheckedCreateNestedManyWithoutZoneInput
+  caregivers?: Prisma.CaregiverUncheckedCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority?: Prisma.AuthorityUpdateOneRequiredWithoutZonesNestedInput
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
   animals?: Prisma.AnimalUpdateManyWithoutZoneNestedInput
+  caregivers?: Prisma.CaregiverUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateInput = {
@@ -320,9 +346,13 @@ export type ZoneUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authorityId?: Prisma.IntFieldUpdateOperationsInput | number
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
   animals?: Prisma.AnimalUncheckedUpdateManyWithoutZoneNestedInput
+  caregivers?: Prisma.CaregiverUncheckedUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneCreateManyInput = {
@@ -330,15 +360,18 @@ export type ZoneCreateManyInput = {
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
-  authorityId: number
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
 }
 
 export type ZoneUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
 }
 
 export type ZoneUncheckedUpdateManyInput = {
@@ -346,18 +379,9 @@ export type ZoneUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authorityId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
-export type ZoneListRelationFilter = {
-  every?: Prisma.ZoneWhereInput
-  some?: Prisma.ZoneWhereInput
-  none?: Prisma.ZoneWhereInput
-}
-
-export type ZoneOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
 }
 
 export type ZoneCountOrderByAggregateInput = {
@@ -365,14 +389,14 @@ export type ZoneCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   habitatType?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
-  MapCoords?: Prisma.SortOrder
-  authorityId?: Prisma.SortOrder
+  mapCoords?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ZoneAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
-  authorityId?: Prisma.SortOrder
 }
 
 export type ZoneMaxOrderByAggregateInput = {
@@ -380,8 +404,9 @@ export type ZoneMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   habitatType?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
-  MapCoords?: Prisma.SortOrder
-  authorityId?: Prisma.SortOrder
+  mapCoords?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ZoneMinOrderByAggregateInput = {
@@ -389,14 +414,14 @@ export type ZoneMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   habitatType?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
-  MapCoords?: Prisma.SortOrder
-  authorityId?: Prisma.SortOrder
+  mapCoords?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
 }
 
 export type ZoneSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
-  authorityId?: Prisma.SortOrder
 }
 
 export type ZoneScalarRelationFilter = {
@@ -404,46 +429,22 @@ export type ZoneScalarRelationFilter = {
   isNot?: Prisma.ZoneWhereInput
 }
 
-export type ZoneCreateNestedManyWithoutAuthorityInput = {
-  create?: Prisma.XOR<Prisma.ZoneCreateWithoutAuthorityInput, Prisma.ZoneUncheckedCreateWithoutAuthorityInput> | Prisma.ZoneCreateWithoutAuthorityInput[] | Prisma.ZoneUncheckedCreateWithoutAuthorityInput[]
-  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutAuthorityInput | Prisma.ZoneCreateOrConnectWithoutAuthorityInput[]
-  createMany?: Prisma.ZoneCreateManyAuthorityInputEnvelope
-  connect?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
+export type EnumZoneStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ZoneStatus
 }
 
-export type ZoneUncheckedCreateNestedManyWithoutAuthorityInput = {
-  create?: Prisma.XOR<Prisma.ZoneCreateWithoutAuthorityInput, Prisma.ZoneUncheckedCreateWithoutAuthorityInput> | Prisma.ZoneCreateWithoutAuthorityInput[] | Prisma.ZoneUncheckedCreateWithoutAuthorityInput[]
-  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutAuthorityInput | Prisma.ZoneCreateOrConnectWithoutAuthorityInput[]
-  createMany?: Prisma.ZoneCreateManyAuthorityInputEnvelope
-  connect?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
+export type ZoneCreateNestedOneWithoutCaregiversInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutCaregiversInput, Prisma.ZoneUncheckedCreateWithoutCaregiversInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutCaregiversInput
+  connect?: Prisma.ZoneWhereUniqueInput
 }
 
-export type ZoneUpdateManyWithoutAuthorityNestedInput = {
-  create?: Prisma.XOR<Prisma.ZoneCreateWithoutAuthorityInput, Prisma.ZoneUncheckedCreateWithoutAuthorityInput> | Prisma.ZoneCreateWithoutAuthorityInput[] | Prisma.ZoneUncheckedCreateWithoutAuthorityInput[]
-  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutAuthorityInput | Prisma.ZoneCreateOrConnectWithoutAuthorityInput[]
-  upsert?: Prisma.ZoneUpsertWithWhereUniqueWithoutAuthorityInput | Prisma.ZoneUpsertWithWhereUniqueWithoutAuthorityInput[]
-  createMany?: Prisma.ZoneCreateManyAuthorityInputEnvelope
-  set?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  disconnect?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  delete?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  connect?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  update?: Prisma.ZoneUpdateWithWhereUniqueWithoutAuthorityInput | Prisma.ZoneUpdateWithWhereUniqueWithoutAuthorityInput[]
-  updateMany?: Prisma.ZoneUpdateManyWithWhereWithoutAuthorityInput | Prisma.ZoneUpdateManyWithWhereWithoutAuthorityInput[]
-  deleteMany?: Prisma.ZoneScalarWhereInput | Prisma.ZoneScalarWhereInput[]
-}
-
-export type ZoneUncheckedUpdateManyWithoutAuthorityNestedInput = {
-  create?: Prisma.XOR<Prisma.ZoneCreateWithoutAuthorityInput, Prisma.ZoneUncheckedCreateWithoutAuthorityInput> | Prisma.ZoneCreateWithoutAuthorityInput[] | Prisma.ZoneUncheckedCreateWithoutAuthorityInput[]
-  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutAuthorityInput | Prisma.ZoneCreateOrConnectWithoutAuthorityInput[]
-  upsert?: Prisma.ZoneUpsertWithWhereUniqueWithoutAuthorityInput | Prisma.ZoneUpsertWithWhereUniqueWithoutAuthorityInput[]
-  createMany?: Prisma.ZoneCreateManyAuthorityInputEnvelope
-  set?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  disconnect?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  delete?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  connect?: Prisma.ZoneWhereUniqueInput | Prisma.ZoneWhereUniqueInput[]
-  update?: Prisma.ZoneUpdateWithWhereUniqueWithoutAuthorityInput | Prisma.ZoneUpdateWithWhereUniqueWithoutAuthorityInput[]
-  updateMany?: Prisma.ZoneUpdateManyWithWhereWithoutAuthorityInput | Prisma.ZoneUpdateManyWithWhereWithoutAuthorityInput[]
-  deleteMany?: Prisma.ZoneScalarWhereInput | Prisma.ZoneScalarWhereInput[]
+export type ZoneUpdateOneRequiredWithoutCaregiversNestedInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutCaregiversInput, Prisma.ZoneUncheckedCreateWithoutCaregiversInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutCaregiversInput
+  upsert?: Prisma.ZoneUpsertWithoutCaregiversInput
+  connect?: Prisma.ZoneWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ZoneUpdateToOneWithWhereWithoutCaregiversInput, Prisma.ZoneUpdateWithoutCaregiversInput>, Prisma.ZoneUncheckedUpdateWithoutCaregiversInput>
 }
 
 export type ZoneCreateNestedOneWithoutAnimalsInput = {
@@ -460,67 +461,110 @@ export type ZoneUpdateOneRequiredWithoutAnimalsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ZoneUpdateToOneWithWhereWithoutAnimalsInput, Prisma.ZoneUpdateWithoutAnimalsInput>, Prisma.ZoneUncheckedUpdateWithoutAnimalsInput>
 }
 
-export type ZoneCreateWithoutAuthorityInput = {
+export type ZoneCreateNestedOneWithoutTicketZonesInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutTicketZonesInput, Prisma.ZoneUncheckedCreateWithoutTicketZonesInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutTicketZonesInput
+  connect?: Prisma.ZoneWhereUniqueInput
+}
+
+export type ZoneUpdateOneRequiredWithoutTicketZonesNestedInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutTicketZonesInput, Prisma.ZoneUncheckedCreateWithoutTicketZonesInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutTicketZonesInput
+  upsert?: Prisma.ZoneUpsertWithoutTicketZonesInput
+  connect?: Prisma.ZoneWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ZoneUpdateToOneWithWhereWithoutTicketZonesInput, Prisma.ZoneUpdateWithoutTicketZonesInput>, Prisma.ZoneUncheckedUpdateWithoutTicketZonesInput>
+}
+
+export type ZoneCreateNestedOneWithoutDayPlanZonesInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutDayPlanZonesInput, Prisma.ZoneUncheckedCreateWithoutDayPlanZonesInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutDayPlanZonesInput
+  connect?: Prisma.ZoneWhereUniqueInput
+}
+
+export type ZoneUpdateOneRequiredWithoutDayPlanZonesNestedInput = {
+  create?: Prisma.XOR<Prisma.ZoneCreateWithoutDayPlanZonesInput, Prisma.ZoneUncheckedCreateWithoutDayPlanZonesInput>
+  connectOrCreate?: Prisma.ZoneCreateOrConnectWithoutDayPlanZonesInput
+  upsert?: Prisma.ZoneUpsertWithoutDayPlanZonesInput
+  connect?: Prisma.ZoneWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ZoneUpdateToOneWithWhereWithoutDayPlanZonesInput, Prisma.ZoneUpdateWithoutDayPlanZonesInput>, Prisma.ZoneUncheckedUpdateWithoutDayPlanZonesInput>
+}
+
+export type ZoneCreateWithoutCaregiversInput = {
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
   animals?: Prisma.AnimalCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneCreateNestedManyWithoutZoneInput
 }
 
-export type ZoneUncheckedCreateWithoutAuthorityInput = {
+export type ZoneUncheckedCreateWithoutCaregiversInput = {
   id?: number
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
   animals?: Prisma.AnimalUncheckedCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
-export type ZoneCreateOrConnectWithoutAuthorityInput = {
+export type ZoneCreateOrConnectWithoutCaregiversInput = {
   where: Prisma.ZoneWhereUniqueInput
-  create: Prisma.XOR<Prisma.ZoneCreateWithoutAuthorityInput, Prisma.ZoneUncheckedCreateWithoutAuthorityInput>
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutCaregiversInput, Prisma.ZoneUncheckedCreateWithoutCaregiversInput>
 }
 
-export type ZoneCreateManyAuthorityInputEnvelope = {
-  data: Prisma.ZoneCreateManyAuthorityInput | Prisma.ZoneCreateManyAuthorityInput[]
-  skipDuplicates?: boolean
+export type ZoneUpsertWithoutCaregiversInput = {
+  update: Prisma.XOR<Prisma.ZoneUpdateWithoutCaregiversInput, Prisma.ZoneUncheckedUpdateWithoutCaregiversInput>
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutCaregiversInput, Prisma.ZoneUncheckedCreateWithoutCaregiversInput>
+  where?: Prisma.ZoneWhereInput
 }
 
-export type ZoneUpsertWithWhereUniqueWithoutAuthorityInput = {
-  where: Prisma.ZoneWhereUniqueInput
-  update: Prisma.XOR<Prisma.ZoneUpdateWithoutAuthorityInput, Prisma.ZoneUncheckedUpdateWithoutAuthorityInput>
-  create: Prisma.XOR<Prisma.ZoneCreateWithoutAuthorityInput, Prisma.ZoneUncheckedCreateWithoutAuthorityInput>
+export type ZoneUpdateToOneWithWhereWithoutCaregiversInput = {
+  where?: Prisma.ZoneWhereInput
+  data: Prisma.XOR<Prisma.ZoneUpdateWithoutCaregiversInput, Prisma.ZoneUncheckedUpdateWithoutCaregiversInput>
 }
 
-export type ZoneUpdateWithWhereUniqueWithoutAuthorityInput = {
-  where: Prisma.ZoneWhereUniqueInput
-  data: Prisma.XOR<Prisma.ZoneUpdateWithoutAuthorityInput, Prisma.ZoneUncheckedUpdateWithoutAuthorityInput>
+export type ZoneUpdateWithoutCaregiversInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  habitatType?: Prisma.StringFieldUpdateOperationsInput | string
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
+  animals?: Prisma.AnimalUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUpdateManyWithoutZoneNestedInput
 }
 
-export type ZoneUpdateManyWithWhereWithoutAuthorityInput = {
-  where: Prisma.ZoneScalarWhereInput
-  data: Prisma.XOR<Prisma.ZoneUpdateManyMutationInput, Prisma.ZoneUncheckedUpdateManyWithoutAuthorityInput>
-}
-
-export type ZoneScalarWhereInput = {
-  AND?: Prisma.ZoneScalarWhereInput | Prisma.ZoneScalarWhereInput[]
-  OR?: Prisma.ZoneScalarWhereInput[]
-  NOT?: Prisma.ZoneScalarWhereInput | Prisma.ZoneScalarWhereInput[]
-  id?: Prisma.IntFilter<"Zone"> | number
-  name?: Prisma.StringFilter<"Zone"> | string
-  habitatType?: Prisma.StringFilter<"Zone"> | string
-  capacity?: Prisma.IntFilter<"Zone"> | number
-  MapCoords?: Prisma.StringNullableFilter<"Zone"> | string | null
-  authorityId?: Prisma.IntFilter<"Zone"> | number
+export type ZoneUncheckedUpdateWithoutCaregiversInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  habitatType?: Prisma.StringFieldUpdateOperationsInput | string
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
+  animals?: Prisma.AnimalUncheckedUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneCreateWithoutAnimalsInput = {
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
-  authority: Prisma.AuthorityCreateNestedOneWithoutZonesInput
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
+  caregivers?: Prisma.CaregiverCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneUncheckedCreateWithoutAnimalsInput = {
@@ -528,8 +572,12 @@ export type ZoneUncheckedCreateWithoutAnimalsInput = {
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
-  authorityId: number
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
+  caregivers?: Prisma.CaregiverUncheckedCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
 export type ZoneCreateOrConnectWithoutAnimalsInput = {
@@ -552,8 +600,12 @@ export type ZoneUpdateWithoutAnimalsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority?: Prisma.AuthorityUpdateOneRequiredWithoutZonesNestedInput
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
+  caregivers?: Prisma.CaregiverUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUpdateManyWithoutZoneNestedInput
 }
 
 export type ZoneUncheckedUpdateWithoutAnimalsInput = {
@@ -561,41 +613,144 @@ export type ZoneUncheckedUpdateWithoutAnimalsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authorityId?: Prisma.IntFieldUpdateOperationsInput | number
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
+  caregivers?: Prisma.CaregiverUncheckedUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
-export type ZoneCreateManyAuthorityInput = {
+export type ZoneCreateWithoutTicketZonesInput = {
+  name: string
+  habitatType: string
+  capacity: number
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
+  animals?: Prisma.AnimalCreateNestedManyWithoutZoneInput
+  caregivers?: Prisma.CaregiverCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneCreateNestedManyWithoutZoneInput
+}
+
+export type ZoneUncheckedCreateWithoutTicketZonesInput = {
   id?: number
   name: string
   habitatType: string
   capacity: number
-  MapCoords?: string | null
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
+  animals?: Prisma.AnimalUncheckedCreateNestedManyWithoutZoneInput
+  caregivers?: Prisma.CaregiverUncheckedCreateNestedManyWithoutZoneInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedCreateNestedManyWithoutZoneInput
 }
 
-export type ZoneUpdateWithoutAuthorityInput = {
+export type ZoneCreateOrConnectWithoutTicketZonesInput = {
+  where: Prisma.ZoneWhereUniqueInput
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutTicketZonesInput, Prisma.ZoneUncheckedCreateWithoutTicketZonesInput>
+}
+
+export type ZoneUpsertWithoutTicketZonesInput = {
+  update: Prisma.XOR<Prisma.ZoneUpdateWithoutTicketZonesInput, Prisma.ZoneUncheckedUpdateWithoutTicketZonesInput>
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutTicketZonesInput, Prisma.ZoneUncheckedCreateWithoutTicketZonesInput>
+  where?: Prisma.ZoneWhereInput
+}
+
+export type ZoneUpdateToOneWithWhereWithoutTicketZonesInput = {
+  where?: Prisma.ZoneWhereInput
+  data: Prisma.XOR<Prisma.ZoneUpdateWithoutTicketZonesInput, Prisma.ZoneUncheckedUpdateWithoutTicketZonesInput>
+}
+
+export type ZoneUpdateWithoutTicketZonesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
   animals?: Prisma.AnimalUpdateManyWithoutZoneNestedInput
+  caregivers?: Prisma.CaregiverUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUpdateManyWithoutZoneNestedInput
 }
 
-export type ZoneUncheckedUpdateWithoutAuthorityInput = {
+export type ZoneUncheckedUpdateWithoutTicketZonesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
   animals?: Prisma.AnimalUncheckedUpdateManyWithoutZoneNestedInput
+  caregivers?: Prisma.CaregiverUncheckedUpdateManyWithoutZoneNestedInput
+  dayPlanZones?: Prisma.DayPlanZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
-export type ZoneUncheckedUpdateManyWithoutAuthorityInput = {
+export type ZoneCreateWithoutDayPlanZonesInput = {
+  name: string
+  habitatType: string
+  capacity: number
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
+  animals?: Prisma.AnimalCreateNestedManyWithoutZoneInput
+  caregivers?: Prisma.CaregiverCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneCreateNestedManyWithoutZoneInput
+}
+
+export type ZoneUncheckedCreateWithoutDayPlanZonesInput = {
+  id?: number
+  name: string
+  habitatType: string
+  capacity: number
+  mapCoords?: string | null
+  description?: string
+  status?: $Enums.ZoneStatus
+  animals?: Prisma.AnimalUncheckedCreateNestedManyWithoutZoneInput
+  caregivers?: Prisma.CaregiverUncheckedCreateNestedManyWithoutZoneInput
+  ticketZones?: Prisma.TicketZoneUncheckedCreateNestedManyWithoutZoneInput
+}
+
+export type ZoneCreateOrConnectWithoutDayPlanZonesInput = {
+  where: Prisma.ZoneWhereUniqueInput
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutDayPlanZonesInput, Prisma.ZoneUncheckedCreateWithoutDayPlanZonesInput>
+}
+
+export type ZoneUpsertWithoutDayPlanZonesInput = {
+  update: Prisma.XOR<Prisma.ZoneUpdateWithoutDayPlanZonesInput, Prisma.ZoneUncheckedUpdateWithoutDayPlanZonesInput>
+  create: Prisma.XOR<Prisma.ZoneCreateWithoutDayPlanZonesInput, Prisma.ZoneUncheckedCreateWithoutDayPlanZonesInput>
+  where?: Prisma.ZoneWhereInput
+}
+
+export type ZoneUpdateToOneWithWhereWithoutDayPlanZonesInput = {
+  where?: Prisma.ZoneWhereInput
+  data: Prisma.XOR<Prisma.ZoneUpdateWithoutDayPlanZonesInput, Prisma.ZoneUncheckedUpdateWithoutDayPlanZonesInput>
+}
+
+export type ZoneUpdateWithoutDayPlanZonesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  habitatType?: Prisma.StringFieldUpdateOperationsInput | string
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
+  animals?: Prisma.AnimalUpdateManyWithoutZoneNestedInput
+  caregivers?: Prisma.CaregiverUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUpdateManyWithoutZoneNestedInput
+}
+
+export type ZoneUncheckedUpdateWithoutDayPlanZonesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   habitatType?: Prisma.StringFieldUpdateOperationsInput | string
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
-  MapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mapCoords?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumZoneStatusFieldUpdateOperationsInput | $Enums.ZoneStatus
+  animals?: Prisma.AnimalUncheckedUpdateManyWithoutZoneNestedInput
+  caregivers?: Prisma.CaregiverUncheckedUpdateManyWithoutZoneNestedInput
+  ticketZones?: Prisma.TicketZoneUncheckedUpdateManyWithoutZoneNestedInput
 }
 
 
@@ -605,10 +760,16 @@ export type ZoneUncheckedUpdateManyWithoutAuthorityInput = {
 
 export type ZoneCountOutputType = {
   animals: number
+  caregivers: number
+  dayPlanZones: number
+  ticketZones: number
 }
 
 export type ZoneCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   animals?: boolean | ZoneCountOutputTypeCountAnimalsArgs
+  caregivers?: boolean | ZoneCountOutputTypeCountCaregiversArgs
+  dayPlanZones?: boolean | ZoneCountOutputTypeCountDayPlanZonesArgs
+  ticketZones?: boolean | ZoneCountOutputTypeCountTicketZonesArgs
 }
 
 /**
@@ -628,16 +789,40 @@ export type ZoneCountOutputTypeCountAnimalsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.AnimalWhereInput
 }
 
+/**
+ * ZoneCountOutputType without action
+ */
+export type ZoneCountOutputTypeCountCaregiversArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CaregiverWhereInput
+}
+
+/**
+ * ZoneCountOutputType without action
+ */
+export type ZoneCountOutputTypeCountDayPlanZonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DayPlanZoneWhereInput
+}
+
+/**
+ * ZoneCountOutputType without action
+ */
+export type ZoneCountOutputTypeCountTicketZonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TicketZoneWhereInput
+}
+
 
 export type ZoneSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   habitatType?: boolean
   capacity?: boolean
-  MapCoords?: boolean
-  authorityId?: boolean
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  mapCoords?: boolean
+  description?: boolean
+  status?: boolean
   animals?: boolean | Prisma.Zone$animalsArgs<ExtArgs>
+  caregivers?: boolean | Prisma.Zone$caregiversArgs<ExtArgs>
+  dayPlanZones?: boolean | Prisma.Zone$dayPlanZonesArgs<ExtArgs>
+  ticketZones?: boolean | Prisma.Zone$ticketZonesArgs<ExtArgs>
   _count?: boolean | Prisma.ZoneCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["zone"]>
 
@@ -646,9 +831,9 @@ export type ZoneSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   habitatType?: boolean
   capacity?: boolean
-  MapCoords?: boolean
-  authorityId?: boolean
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  mapCoords?: boolean
+  description?: boolean
+  status?: boolean
 }, ExtArgs["result"]["zone"]>
 
 export type ZoneSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -656,9 +841,9 @@ export type ZoneSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   habitatType?: boolean
   capacity?: boolean
-  MapCoords?: boolean
-  authorityId?: boolean
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  mapCoords?: boolean
+  description?: boolean
+  status?: boolean
 }, ExtArgs["result"]["zone"]>
 
 export type ZoneSelectScalar = {
@@ -666,36 +851,38 @@ export type ZoneSelectScalar = {
   name?: boolean
   habitatType?: boolean
   capacity?: boolean
-  MapCoords?: boolean
-  authorityId?: boolean
+  mapCoords?: boolean
+  description?: boolean
+  status?: boolean
 }
 
-export type ZoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "habitatType" | "capacity" | "MapCoords" | "authorityId", ExtArgs["result"]["zone"]>
+export type ZoneOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "habitatType" | "capacity" | "mapCoords" | "description" | "status", ExtArgs["result"]["zone"]>
 export type ZoneInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
   animals?: boolean | Prisma.Zone$animalsArgs<ExtArgs>
+  caregivers?: boolean | Prisma.Zone$caregiversArgs<ExtArgs>
+  dayPlanZones?: boolean | Prisma.Zone$dayPlanZonesArgs<ExtArgs>
+  ticketZones?: boolean | Prisma.Zone$ticketZonesArgs<ExtArgs>
   _count?: boolean | Prisma.ZoneCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ZoneIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
-}
-export type ZoneIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
-}
+export type ZoneIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ZoneIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $ZonePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Zone"
   objects: {
-    authority: Prisma.$AuthorityPayload<ExtArgs>
     animals: Prisma.$AnimalPayload<ExtArgs>[]
+    caregivers: Prisma.$CaregiverPayload<ExtArgs>[]
+    dayPlanZones: Prisma.$DayPlanZonePayload<ExtArgs>[]
+    ticketZones: Prisma.$TicketZonePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     habitatType: string
     capacity: number
-    MapCoords: string | null
-    authorityId: number
+    mapCoords: string | null
+    description: string
+    status: $Enums.ZoneStatus
   }, ExtArgs["result"]["zone"]>
   composites: {}
 }
@@ -1090,8 +1277,10 @@ readonly fields: ZoneFieldRefs;
  */
 export interface Prisma__ZoneClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  authority<T extends Prisma.AuthorityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AuthorityDefaultArgs<ExtArgs>>): Prisma.Prisma__AuthorityClient<runtime.Types.Result.GetResult<Prisma.$AuthorityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   animals<T extends Prisma.Zone$animalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Zone$animalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  caregivers<T extends Prisma.Zone$caregiversArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Zone$caregiversArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CaregiverPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dayPlanZones<T extends Prisma.Zone$dayPlanZonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Zone$dayPlanZonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DayPlanZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  ticketZones<T extends Prisma.Zone$ticketZonesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Zone$ticketZonesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TicketZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1125,8 +1314,9 @@ export interface ZoneFieldRefs {
   readonly name: Prisma.FieldRef<"Zone", 'String'>
   readonly habitatType: Prisma.FieldRef<"Zone", 'String'>
   readonly capacity: Prisma.FieldRef<"Zone", 'Int'>
-  readonly MapCoords: Prisma.FieldRef<"Zone", 'String'>
-  readonly authorityId: Prisma.FieldRef<"Zone", 'Int'>
+  readonly mapCoords: Prisma.FieldRef<"Zone", 'String'>
+  readonly description: Prisma.FieldRef<"Zone", 'String'>
+  readonly status: Prisma.FieldRef<"Zone", 'ZoneStatus'>
 }
     
 
@@ -1381,10 +1571,6 @@ export type ZoneCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.ZoneCreateManyInput | Prisma.ZoneCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ZoneIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1455,10 +1641,6 @@ export type ZoneUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Zones to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ZoneIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1549,6 +1731,78 @@ export type Zone$animalsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.AnimalScalarFieldEnum | Prisma.AnimalScalarFieldEnum[]
+}
+
+/**
+ * Zone.caregivers
+ */
+export type Zone$caregiversArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Caregiver
+   */
+  select?: Prisma.CaregiverSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Caregiver
+   */
+  omit?: Prisma.CaregiverOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaregiverInclude<ExtArgs> | null
+  where?: Prisma.CaregiverWhereInput
+  orderBy?: Prisma.CaregiverOrderByWithRelationInput | Prisma.CaregiverOrderByWithRelationInput[]
+  cursor?: Prisma.CaregiverWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CaregiverScalarFieldEnum | Prisma.CaregiverScalarFieldEnum[]
+}
+
+/**
+ * Zone.dayPlanZones
+ */
+export type Zone$dayPlanZonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DayPlanZone
+   */
+  select?: Prisma.DayPlanZoneSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DayPlanZone
+   */
+  omit?: Prisma.DayPlanZoneOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DayPlanZoneInclude<ExtArgs> | null
+  where?: Prisma.DayPlanZoneWhereInput
+  orderBy?: Prisma.DayPlanZoneOrderByWithRelationInput | Prisma.DayPlanZoneOrderByWithRelationInput[]
+  cursor?: Prisma.DayPlanZoneWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DayPlanZoneScalarFieldEnum | Prisma.DayPlanZoneScalarFieldEnum[]
+}
+
+/**
+ * Zone.ticketZones
+ */
+export type Zone$ticketZonesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TicketZone
+   */
+  select?: Prisma.TicketZoneSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TicketZone
+   */
+  omit?: Prisma.TicketZoneOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TicketZoneInclude<ExtArgs> | null
+  where?: Prisma.TicketZoneWhereInput
+  orderBy?: Prisma.TicketZoneOrderByWithRelationInput | Prisma.TicketZoneOrderByWithRelationInput[]
+  cursor?: Prisma.TicketZoneWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TicketZoneScalarFieldEnum | Prisma.TicketZoneScalarFieldEnum[]
 }
 
 /**

@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model FoodSupplier
@@ -40,7 +40,6 @@ export type FoodSupplierMinAggregateOutputType = {
   email: string | null
   phone: string | null
   address: string | null
-  supplyType: string | null
 }
 
 export type FoodSupplierMaxAggregateOutputType = {
@@ -49,7 +48,6 @@ export type FoodSupplierMaxAggregateOutputType = {
   email: string | null
   phone: string | null
   address: string | null
-  supplyType: string | null
 }
 
 export type FoodSupplierCountAggregateOutputType = {
@@ -58,7 +56,7 @@ export type FoodSupplierCountAggregateOutputType = {
   email: number
   phone: number
   address: number
-  supplyType: number
+  supplyItems: number
   _all: number
 }
 
@@ -77,7 +75,6 @@ export type FoodSupplierMinAggregateInputType = {
   email?: true
   phone?: true
   address?: true
-  supplyType?: true
 }
 
 export type FoodSupplierMaxAggregateInputType = {
@@ -86,7 +83,6 @@ export type FoodSupplierMaxAggregateInputType = {
   email?: true
   phone?: true
   address?: true
-  supplyType?: true
 }
 
 export type FoodSupplierCountAggregateInputType = {
@@ -95,7 +91,7 @@ export type FoodSupplierCountAggregateInputType = {
   email?: true
   phone?: true
   address?: true
-  supplyType?: true
+  supplyItems?: true
   _all?: true
 }
 
@@ -191,7 +187,7 @@ export type FoodSupplierGroupByOutputType = {
   email: string
   phone: string | null
   address: string | null
-  supplyType: string | null
+  supplyItems: string[]
   _count: FoodSupplierCountAggregateOutputType | null
   _avg: FoodSupplierAvgAggregateOutputType | null
   _sum: FoodSupplierSumAggregateOutputType | null
@@ -223,8 +219,8 @@ export type FoodSupplierWhereInput = {
   email?: Prisma.StringFilter<"FoodSupplier"> | string
   phone?: Prisma.StringNullableFilter<"FoodSupplier"> | string | null
   address?: Prisma.StringNullableFilter<"FoodSupplier"> | string | null
-  supplyType?: Prisma.StringNullableFilter<"FoodSupplier"> | string | null
-  feedingSchedule?: Prisma.FeedingScheduleListRelationFilter
+  supplyItems?: Prisma.StringNullableListFilter<"FoodSupplier">
+  feedingSchedules?: Prisma.FeedingScheduleListRelationFilter
 }
 
 export type FoodSupplierOrderByWithRelationInput = {
@@ -233,8 +229,8 @@ export type FoodSupplierOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  supplyType?: Prisma.SortOrderInput | Prisma.SortOrder
-  feedingSchedule?: Prisma.FeedingScheduleOrderByRelationAggregateInput
+  supplyItems?: Prisma.SortOrder
+  feedingSchedules?: Prisma.FeedingScheduleOrderByRelationAggregateInput
 }
 
 export type FoodSupplierWhereUniqueInput = Prisma.AtLeast<{
@@ -246,8 +242,8 @@ export type FoodSupplierWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"FoodSupplier"> | string
   phone?: Prisma.StringNullableFilter<"FoodSupplier"> | string | null
   address?: Prisma.StringNullableFilter<"FoodSupplier"> | string | null
-  supplyType?: Prisma.StringNullableFilter<"FoodSupplier"> | string | null
-  feedingSchedule?: Prisma.FeedingScheduleListRelationFilter
+  supplyItems?: Prisma.StringNullableListFilter<"FoodSupplier">
+  feedingSchedules?: Prisma.FeedingScheduleListRelationFilter
 }, "id" | "email">
 
 export type FoodSupplierOrderByWithAggregationInput = {
@@ -256,7 +252,7 @@ export type FoodSupplierOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
-  supplyType?: Prisma.SortOrderInput | Prisma.SortOrder
+  supplyItems?: Prisma.SortOrder
   _count?: Prisma.FoodSupplierCountOrderByAggregateInput
   _avg?: Prisma.FoodSupplierAvgOrderByAggregateInput
   _max?: Prisma.FoodSupplierMaxOrderByAggregateInput
@@ -273,7 +269,7 @@ export type FoodSupplierScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"FoodSupplier"> | string
   phone?: Prisma.StringNullableWithAggregatesFilter<"FoodSupplier"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"FoodSupplier"> | string | null
-  supplyType?: Prisma.StringNullableWithAggregatesFilter<"FoodSupplier"> | string | null
+  supplyItems?: Prisma.StringNullableListFilter<"FoodSupplier">
 }
 
 export type FoodSupplierCreateInput = {
@@ -281,8 +277,8 @@ export type FoodSupplierCreateInput = {
   email: string
   phone?: string | null
   address?: string | null
-  supplyType?: string | null
-  feedingSchedule?: Prisma.FeedingScheduleCreateNestedManyWithoutSupplierInput
+  supplyItems?: Prisma.FoodSupplierCreatesupplyItemsInput | string[]
+  feedingSchedules?: Prisma.FeedingScheduleCreateNestedManyWithoutSupplierInput
 }
 
 export type FoodSupplierUncheckedCreateInput = {
@@ -291,8 +287,8 @@ export type FoodSupplierUncheckedCreateInput = {
   email: string
   phone?: string | null
   address?: string | null
-  supplyType?: string | null
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutSupplierInput
+  supplyItems?: Prisma.FoodSupplierCreatesupplyItemsInput | string[]
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutSupplierInput
 }
 
 export type FoodSupplierUpdateInput = {
@@ -300,8 +296,8 @@ export type FoodSupplierUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  feedingSchedule?: Prisma.FeedingScheduleUpdateManyWithoutSupplierNestedInput
+  supplyItems?: Prisma.FoodSupplierUpdatesupplyItemsInput | string[]
+  feedingSchedules?: Prisma.FeedingScheduleUpdateManyWithoutSupplierNestedInput
 }
 
 export type FoodSupplierUncheckedUpdateInput = {
@@ -310,8 +306,8 @@ export type FoodSupplierUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutSupplierNestedInput
+  supplyItems?: Prisma.FoodSupplierUpdatesupplyItemsInput | string[]
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutSupplierNestedInput
 }
 
 export type FoodSupplierCreateManyInput = {
@@ -320,7 +316,7 @@ export type FoodSupplierCreateManyInput = {
   email: string
   phone?: string | null
   address?: string | null
-  supplyType?: string | null
+  supplyItems?: Prisma.FoodSupplierCreatesupplyItemsInput | string[]
 }
 
 export type FoodSupplierUpdateManyMutationInput = {
@@ -328,7 +324,7 @@ export type FoodSupplierUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyItems?: Prisma.FoodSupplierUpdatesupplyItemsInput | string[]
 }
 
 export type FoodSupplierUncheckedUpdateManyInput = {
@@ -337,7 +333,15 @@ export type FoodSupplierUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyItems?: Prisma.FoodSupplierUpdatesupplyItemsInput | string[]
+}
+
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
 }
 
 export type FoodSupplierCountOrderByAggregateInput = {
@@ -346,7 +350,7 @@ export type FoodSupplierCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  supplyType?: Prisma.SortOrder
+  supplyItems?: Prisma.SortOrder
 }
 
 export type FoodSupplierAvgOrderByAggregateInput = {
@@ -359,7 +363,6 @@ export type FoodSupplierMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  supplyType?: Prisma.SortOrder
 }
 
 export type FoodSupplierMinOrderByAggregateInput = {
@@ -368,80 +371,90 @@ export type FoodSupplierMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   address?: Prisma.SortOrder
-  supplyType?: Prisma.SortOrder
 }
 
 export type FoodSupplierSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
 }
 
-export type FoodSupplierScalarRelationFilter = {
-  is?: Prisma.FoodSupplierWhereInput
-  isNot?: Prisma.FoodSupplierWhereInput
+export type FoodSupplierNullableScalarRelationFilter = {
+  is?: Prisma.FoodSupplierWhereInput | null
+  isNot?: Prisma.FoodSupplierWhereInput | null
 }
 
-export type FoodSupplierCreateNestedOneWithoutFeedingScheduleInput = {
-  create?: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingScheduleInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingScheduleInput>
-  connectOrCreate?: Prisma.FoodSupplierCreateOrConnectWithoutFeedingScheduleInput
+export type FoodSupplierCreatesupplyItemsInput = {
+  set: string[]
+}
+
+export type FoodSupplierUpdatesupplyItemsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type FoodSupplierCreateNestedOneWithoutFeedingSchedulesInput = {
+  create?: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingSchedulesInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingSchedulesInput>
+  connectOrCreate?: Prisma.FoodSupplierCreateOrConnectWithoutFeedingSchedulesInput
   connect?: Prisma.FoodSupplierWhereUniqueInput
 }
 
-export type FoodSupplierUpdateOneRequiredWithoutFeedingScheduleNestedInput = {
-  create?: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingScheduleInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingScheduleInput>
-  connectOrCreate?: Prisma.FoodSupplierCreateOrConnectWithoutFeedingScheduleInput
-  upsert?: Prisma.FoodSupplierUpsertWithoutFeedingScheduleInput
+export type FoodSupplierUpdateOneWithoutFeedingSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingSchedulesInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingSchedulesInput>
+  connectOrCreate?: Prisma.FoodSupplierCreateOrConnectWithoutFeedingSchedulesInput
+  upsert?: Prisma.FoodSupplierUpsertWithoutFeedingSchedulesInput
+  disconnect?: Prisma.FoodSupplierWhereInput | boolean
+  delete?: Prisma.FoodSupplierWhereInput | boolean
   connect?: Prisma.FoodSupplierWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.FoodSupplierUpdateToOneWithWhereWithoutFeedingScheduleInput, Prisma.FoodSupplierUpdateWithoutFeedingScheduleInput>, Prisma.FoodSupplierUncheckedUpdateWithoutFeedingScheduleInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FoodSupplierUpdateToOneWithWhereWithoutFeedingSchedulesInput, Prisma.FoodSupplierUpdateWithoutFeedingSchedulesInput>, Prisma.FoodSupplierUncheckedUpdateWithoutFeedingSchedulesInput>
 }
 
-export type FoodSupplierCreateWithoutFeedingScheduleInput = {
+export type FoodSupplierCreateWithoutFeedingSchedulesInput = {
   name: string
   email: string
   phone?: string | null
   address?: string | null
-  supplyType?: string | null
+  supplyItems?: Prisma.FoodSupplierCreatesupplyItemsInput | string[]
 }
 
-export type FoodSupplierUncheckedCreateWithoutFeedingScheduleInput = {
+export type FoodSupplierUncheckedCreateWithoutFeedingSchedulesInput = {
   id?: number
   name: string
   email: string
   phone?: string | null
   address?: string | null
-  supplyType?: string | null
+  supplyItems?: Prisma.FoodSupplierCreatesupplyItemsInput | string[]
 }
 
-export type FoodSupplierCreateOrConnectWithoutFeedingScheduleInput = {
+export type FoodSupplierCreateOrConnectWithoutFeedingSchedulesInput = {
   where: Prisma.FoodSupplierWhereUniqueInput
-  create: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingScheduleInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingScheduleInput>
+  create: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingSchedulesInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingSchedulesInput>
 }
 
-export type FoodSupplierUpsertWithoutFeedingScheduleInput = {
-  update: Prisma.XOR<Prisma.FoodSupplierUpdateWithoutFeedingScheduleInput, Prisma.FoodSupplierUncheckedUpdateWithoutFeedingScheduleInput>
-  create: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingScheduleInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingScheduleInput>
+export type FoodSupplierUpsertWithoutFeedingSchedulesInput = {
+  update: Prisma.XOR<Prisma.FoodSupplierUpdateWithoutFeedingSchedulesInput, Prisma.FoodSupplierUncheckedUpdateWithoutFeedingSchedulesInput>
+  create: Prisma.XOR<Prisma.FoodSupplierCreateWithoutFeedingSchedulesInput, Prisma.FoodSupplierUncheckedCreateWithoutFeedingSchedulesInput>
   where?: Prisma.FoodSupplierWhereInput
 }
 
-export type FoodSupplierUpdateToOneWithWhereWithoutFeedingScheduleInput = {
+export type FoodSupplierUpdateToOneWithWhereWithoutFeedingSchedulesInput = {
   where?: Prisma.FoodSupplierWhereInput
-  data: Prisma.XOR<Prisma.FoodSupplierUpdateWithoutFeedingScheduleInput, Prisma.FoodSupplierUncheckedUpdateWithoutFeedingScheduleInput>
+  data: Prisma.XOR<Prisma.FoodSupplierUpdateWithoutFeedingSchedulesInput, Prisma.FoodSupplierUncheckedUpdateWithoutFeedingSchedulesInput>
 }
 
-export type FoodSupplierUpdateWithoutFeedingScheduleInput = {
+export type FoodSupplierUpdateWithoutFeedingSchedulesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyItems?: Prisma.FoodSupplierUpdatesupplyItemsInput | string[]
 }
 
-export type FoodSupplierUncheckedUpdateWithoutFeedingScheduleInput = {
+export type FoodSupplierUncheckedUpdateWithoutFeedingSchedulesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  supplyType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  supplyItems?: Prisma.FoodSupplierUpdatesupplyItemsInput | string[]
 }
 
 
@@ -450,11 +463,11 @@ export type FoodSupplierUncheckedUpdateWithoutFeedingScheduleInput = {
  */
 
 export type FoodSupplierCountOutputType = {
-  feedingSchedule: number
+  feedingSchedules: number
 }
 
 export type FoodSupplierCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  feedingSchedule?: boolean | FoodSupplierCountOutputTypeCountFeedingScheduleArgs
+  feedingSchedules?: boolean | FoodSupplierCountOutputTypeCountFeedingSchedulesArgs
 }
 
 /**
@@ -470,7 +483,7 @@ export type FoodSupplierCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
 /**
  * FoodSupplierCountOutputType without action
  */
-export type FoodSupplierCountOutputTypeCountFeedingScheduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type FoodSupplierCountOutputTypeCountFeedingSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FeedingScheduleWhereInput
 }
 
@@ -481,8 +494,8 @@ export type FoodSupplierSelect<ExtArgs extends runtime.Types.Extensions.Internal
   email?: boolean
   phone?: boolean
   address?: boolean
-  supplyType?: boolean
-  feedingSchedule?: boolean | Prisma.FoodSupplier$feedingScheduleArgs<ExtArgs>
+  supplyItems?: boolean
+  feedingSchedules?: boolean | Prisma.FoodSupplier$feedingSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.FoodSupplierCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["foodSupplier"]>
 
@@ -492,7 +505,7 @@ export type FoodSupplierSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   email?: boolean
   phone?: boolean
   address?: boolean
-  supplyType?: boolean
+  supplyItems?: boolean
 }, ExtArgs["result"]["foodSupplier"]>
 
 export type FoodSupplierSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -501,7 +514,7 @@ export type FoodSupplierSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   email?: boolean
   phone?: boolean
   address?: boolean
-  supplyType?: boolean
+  supplyItems?: boolean
 }, ExtArgs["result"]["foodSupplier"]>
 
 export type FoodSupplierSelectScalar = {
@@ -510,12 +523,12 @@ export type FoodSupplierSelectScalar = {
   email?: boolean
   phone?: boolean
   address?: boolean
-  supplyType?: boolean
+  supplyItems?: boolean
 }
 
-export type FoodSupplierOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "address" | "supplyType", ExtArgs["result"]["foodSupplier"]>
+export type FoodSupplierOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "address" | "supplyItems", ExtArgs["result"]["foodSupplier"]>
 export type FoodSupplierInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  feedingSchedule?: boolean | Prisma.FoodSupplier$feedingScheduleArgs<ExtArgs>
+  feedingSchedules?: boolean | Prisma.FoodSupplier$feedingSchedulesArgs<ExtArgs>
   _count?: boolean | Prisma.FoodSupplierCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FoodSupplierIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -524,7 +537,7 @@ export type FoodSupplierIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type $FoodSupplierPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FoodSupplier"
   objects: {
-    feedingSchedule: Prisma.$FeedingSchedulePayload<ExtArgs>[]
+    feedingSchedules: Prisma.$FeedingSchedulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -532,7 +545,7 @@ export type $FoodSupplierPayload<ExtArgs extends runtime.Types.Extensions.Intern
     email: string
     phone: string | null
     address: string | null
-    supplyType: string | null
+    supplyItems: string[]
   }, ExtArgs["result"]["foodSupplier"]>
   composites: {}
 }
@@ -927,7 +940,7 @@ readonly fields: FoodSupplierFieldRefs;
  */
 export interface Prisma__FoodSupplierClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  feedingSchedule<T extends Prisma.FoodSupplier$feedingScheduleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoodSupplier$feedingScheduleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedingSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  feedingSchedules<T extends Prisma.FoodSupplier$feedingSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoodSupplier$feedingSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedingSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -962,7 +975,7 @@ export interface FoodSupplierFieldRefs {
   readonly email: Prisma.FieldRef<"FoodSupplier", 'String'>
   readonly phone: Prisma.FieldRef<"FoodSupplier", 'String'>
   readonly address: Prisma.FieldRef<"FoodSupplier", 'String'>
-  readonly supplyType: Prisma.FieldRef<"FoodSupplier", 'String'>
+  readonly supplyItems: Prisma.FieldRef<"FoodSupplier", 'String[]'>
 }
     
 
@@ -1356,9 +1369,9 @@ export type FoodSupplierDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * FoodSupplier.feedingSchedule
+ * FoodSupplier.feedingSchedules
  */
-export type FoodSupplier$feedingScheduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type FoodSupplier$feedingSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the FeedingSchedule
    */

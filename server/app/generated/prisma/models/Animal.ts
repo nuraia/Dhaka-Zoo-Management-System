@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Animal
@@ -28,12 +28,14 @@ export type AggregateAnimal = {
 
 export type AnimalAvgAggregateOutputType = {
   id: number | null
+  speciesId: number | null
   zoneId: number | null
   caregiverId: number | null
 }
 
 export type AnimalSumAggregateOutputType = {
   id: number | null
+  speciesId: number | null
   zoneId: number | null
   caregiverId: number | null
 }
@@ -41,39 +43,42 @@ export type AnimalSumAggregateOutputType = {
 export type AnimalMinAggregateOutputType = {
   id: number | null
   name: string | null
-  species: string | null
-  dob: string | null
-  gender: string | null
-  healthStatus: string | null
-  imageURL: string | null
-  createdAt: Date | null
+  speciesId: number | null
   zoneId: number | null
+  dob: Date | null
+  gender: $Enums.Gender | null
+  healthStatus: $Enums.HealthStatus | null
+  imageUrl: string | null
+  lastFedAt: Date | null
+  createdAt: Date | null
   caregiverId: number | null
 }
 
 export type AnimalMaxAggregateOutputType = {
   id: number | null
   name: string | null
-  species: string | null
-  dob: string | null
-  gender: string | null
-  healthStatus: string | null
-  imageURL: string | null
-  createdAt: Date | null
+  speciesId: number | null
   zoneId: number | null
+  dob: Date | null
+  gender: $Enums.Gender | null
+  healthStatus: $Enums.HealthStatus | null
+  imageUrl: string | null
+  lastFedAt: Date | null
+  createdAt: Date | null
   caregiverId: number | null
 }
 
 export type AnimalCountAggregateOutputType = {
   id: number
   name: number
-  species: number
+  speciesId: number
+  zoneId: number
   dob: number
   gender: number
   healthStatus: number
-  imageURL: number
+  imageUrl: number
+  lastFedAt: number
   createdAt: number
-  zoneId: number
   caregiverId: number
   _all: number
 }
@@ -81,12 +86,14 @@ export type AnimalCountAggregateOutputType = {
 
 export type AnimalAvgAggregateInputType = {
   id?: true
+  speciesId?: true
   zoneId?: true
   caregiverId?: true
 }
 
 export type AnimalSumAggregateInputType = {
   id?: true
+  speciesId?: true
   zoneId?: true
   caregiverId?: true
 }
@@ -94,39 +101,42 @@ export type AnimalSumAggregateInputType = {
 export type AnimalMinAggregateInputType = {
   id?: true
   name?: true
-  species?: true
+  speciesId?: true
+  zoneId?: true
   dob?: true
   gender?: true
   healthStatus?: true
-  imageURL?: true
+  imageUrl?: true
+  lastFedAt?: true
   createdAt?: true
-  zoneId?: true
   caregiverId?: true
 }
 
 export type AnimalMaxAggregateInputType = {
   id?: true
   name?: true
-  species?: true
+  speciesId?: true
+  zoneId?: true
   dob?: true
   gender?: true
   healthStatus?: true
-  imageURL?: true
+  imageUrl?: true
+  lastFedAt?: true
   createdAt?: true
-  zoneId?: true
   caregiverId?: true
 }
 
 export type AnimalCountAggregateInputType = {
   id?: true
   name?: true
-  species?: true
+  speciesId?: true
+  zoneId?: true
   dob?: true
   gender?: true
   healthStatus?: true
-  imageURL?: true
+  imageUrl?: true
+  lastFedAt?: true
   createdAt?: true
-  zoneId?: true
   caregiverId?: true
   _all?: true
 }
@@ -220,14 +230,15 @@ export type AnimalGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type AnimalGroupByOutputType = {
   id: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL: string | null
-  createdAt: Date
+  speciesId: number
   zoneId: number
-  caregiverId: number
+  dob: Date
+  gender: $Enums.Gender | null
+  healthStatus: $Enums.HealthStatus
+  imageUrl: string | null
+  lastFedAt: Date | null
+  createdAt: Date
+  caregiverId: number | null
   _count: AnimalCountAggregateOutputType | null
   _avg: AnimalAvgAggregateOutputType | null
   _sum: AnimalSumAggregateOutputType | null
@@ -256,33 +267,41 @@ export type AnimalWhereInput = {
   NOT?: Prisma.AnimalWhereInput | Prisma.AnimalWhereInput[]
   id?: Prisma.IntFilter<"Animal"> | number
   name?: Prisma.StringFilter<"Animal"> | string
-  species?: Prisma.StringFilter<"Animal"> | string
-  dob?: Prisma.StringFilter<"Animal"> | string
-  gender?: Prisma.StringFilter<"Animal"> | string
-  healthStatus?: Prisma.StringFilter<"Animal"> | string
-  imageURL?: Prisma.StringNullableFilter<"Animal"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  speciesId?: Prisma.IntFilter<"Animal"> | number
   zoneId?: Prisma.IntFilter<"Animal"> | number
-  caregiverId?: Prisma.IntFilter<"Animal"> | number
+  dob?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  gender?: Prisma.EnumGenderNullableFilter<"Animal"> | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFilter<"Animal"> | $Enums.HealthStatus
+  imageUrl?: Prisma.StringNullableFilter<"Animal"> | string | null
+  lastFedAt?: Prisma.DateTimeNullableFilter<"Animal"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  caregiverId?: Prisma.IntNullableFilter<"Animal"> | number | null
+  species?: Prisma.XOR<Prisma.SpeciesScalarRelationFilter, Prisma.SpeciesWhereInput>
   zone?: Prisma.XOR<Prisma.ZoneScalarRelationFilter, Prisma.ZoneWhereInput>
-  caregiver?: Prisma.XOR<Prisma.CaregiverScalarRelationFilter, Prisma.CaregiverWhereInput>
-  feedingSchedule?: Prisma.FeedingScheduleListRelationFilter
+  caregiver?: Prisma.XOR<Prisma.CaregiverNullableScalarRelationFilter, Prisma.CaregiverWhereInput> | null
+  feedingSchedules?: Prisma.FeedingScheduleListRelationFilter
+  healthRecords?: Prisma.HealthRecordListRelationFilter
+  feedingLogs?: Prisma.FeedingLogListRelationFilter
 }
 
 export type AnimalOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  species?: Prisma.SortOrder
-  dob?: Prisma.SortOrder
-  gender?: Prisma.SortOrder
-  healthStatus?: Prisma.SortOrder
-  imageURL?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
+  speciesId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
-  caregiverId?: Prisma.SortOrder
+  dob?: Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  healthStatus?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastFedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  caregiverId?: Prisma.SortOrderInput | Prisma.SortOrder
+  species?: Prisma.SpeciesOrderByWithRelationInput
   zone?: Prisma.ZoneOrderByWithRelationInput
   caregiver?: Prisma.CaregiverOrderByWithRelationInput
-  feedingSchedule?: Prisma.FeedingScheduleOrderByRelationAggregateInput
+  feedingSchedules?: Prisma.FeedingScheduleOrderByRelationAggregateInput
+  healthRecords?: Prisma.HealthRecordOrderByRelationAggregateInput
+  feedingLogs?: Prisma.FeedingLogOrderByRelationAggregateInput
 }
 
 export type AnimalWhereUniqueInput = Prisma.AtLeast<{
@@ -291,30 +310,35 @@ export type AnimalWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AnimalWhereInput[]
   NOT?: Prisma.AnimalWhereInput | Prisma.AnimalWhereInput[]
   name?: Prisma.StringFilter<"Animal"> | string
-  species?: Prisma.StringFilter<"Animal"> | string
-  dob?: Prisma.StringFilter<"Animal"> | string
-  gender?: Prisma.StringFilter<"Animal"> | string
-  healthStatus?: Prisma.StringFilter<"Animal"> | string
-  imageURL?: Prisma.StringNullableFilter<"Animal"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  speciesId?: Prisma.IntFilter<"Animal"> | number
   zoneId?: Prisma.IntFilter<"Animal"> | number
-  caregiverId?: Prisma.IntFilter<"Animal"> | number
+  dob?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  gender?: Prisma.EnumGenderNullableFilter<"Animal"> | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFilter<"Animal"> | $Enums.HealthStatus
+  imageUrl?: Prisma.StringNullableFilter<"Animal"> | string | null
+  lastFedAt?: Prisma.DateTimeNullableFilter<"Animal"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  caregiverId?: Prisma.IntNullableFilter<"Animal"> | number | null
+  species?: Prisma.XOR<Prisma.SpeciesScalarRelationFilter, Prisma.SpeciesWhereInput>
   zone?: Prisma.XOR<Prisma.ZoneScalarRelationFilter, Prisma.ZoneWhereInput>
-  caregiver?: Prisma.XOR<Prisma.CaregiverScalarRelationFilter, Prisma.CaregiverWhereInput>
-  feedingSchedule?: Prisma.FeedingScheduleListRelationFilter
+  caregiver?: Prisma.XOR<Prisma.CaregiverNullableScalarRelationFilter, Prisma.CaregiverWhereInput> | null
+  feedingSchedules?: Prisma.FeedingScheduleListRelationFilter
+  healthRecords?: Prisma.HealthRecordListRelationFilter
+  feedingLogs?: Prisma.FeedingLogListRelationFilter
 }, "id">
 
 export type AnimalOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  species?: Prisma.SortOrder
-  dob?: Prisma.SortOrder
-  gender?: Prisma.SortOrder
-  healthStatus?: Prisma.SortOrder
-  imageURL?: Prisma.SortOrderInput | Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
+  speciesId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
-  caregiverId?: Prisma.SortOrder
+  dob?: Prisma.SortOrder
+  gender?: Prisma.SortOrderInput | Prisma.SortOrder
+  healthStatus?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastFedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  caregiverId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AnimalCountOrderByAggregateInput
   _avg?: Prisma.AnimalAvgOrderByAggregateInput
   _max?: Prisma.AnimalMaxOrderByAggregateInput
@@ -328,104 +352,119 @@ export type AnimalScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AnimalScalarWhereWithAggregatesInput | Prisma.AnimalScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Animal"> | number
   name?: Prisma.StringWithAggregatesFilter<"Animal"> | string
-  species?: Prisma.StringWithAggregatesFilter<"Animal"> | string
-  dob?: Prisma.StringWithAggregatesFilter<"Animal"> | string
-  gender?: Prisma.StringWithAggregatesFilter<"Animal"> | string
-  healthStatus?: Prisma.StringWithAggregatesFilter<"Animal"> | string
-  imageURL?: Prisma.StringNullableWithAggregatesFilter<"Animal"> | string | null
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Animal"> | Date | string
+  speciesId?: Prisma.IntWithAggregatesFilter<"Animal"> | number
   zoneId?: Prisma.IntWithAggregatesFilter<"Animal"> | number
-  caregiverId?: Prisma.IntWithAggregatesFilter<"Animal"> | number
+  dob?: Prisma.DateTimeWithAggregatesFilter<"Animal"> | Date | string
+  gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"Animal"> | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusWithAggregatesFilter<"Animal"> | $Enums.HealthStatus
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Animal"> | string | null
+  lastFedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Animal"> | Date | string | null
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Animal"> | Date | string
+  caregiverId?: Prisma.IntNullableWithAggregatesFilter<"Animal"> | number | null
 }
 
 export type AnimalCreateInput = {
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
   createdAt?: Date | string
+  species: Prisma.SpeciesCreateNestedOneWithoutAnimalsInput
   zone: Prisma.ZoneCreateNestedOneWithoutAnimalsInput
-  caregiver: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
-  feedingSchedule?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  caregiver?: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
+  feedingSchedules?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutAnimalInput
 }
 
 export type AnimalUncheckedCreateInput = {
   id?: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
-  createdAt?: Date | string
+  speciesId: number
   zoneId: number
-  caregiverId: number
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  caregiverId?: number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordUncheckedCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutAnimalInput
 }
 
 export type AnimalUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  species?: Prisma.SpeciesUpdateOneRequiredWithoutAnimalsNestedInput
   zone?: Prisma.ZoneUpdateOneRequiredWithoutAnimalsNestedInput
-  caregiver?: Prisma.CaregiverUpdateOneRequiredWithoutAnimalsNestedInput
-  feedingSchedule?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  caregiver?: Prisma.CaregiverUpdateOneWithoutAnimalsNestedInput
+  feedingSchedules?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutAnimalNestedInput
 }
 
 export type AnimalUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
-  caregiverId?: Prisma.IntFieldUpdateOperationsInput | number
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUncheckedUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutAnimalNestedInput
 }
 
 export type AnimalCreateManyInput = {
   id?: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
-  createdAt?: Date | string
+  speciesId: number
   zoneId: number
-  caregiverId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  caregiverId?: number | null
 }
 
 export type AnimalUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AnimalUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
-  caregiverId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type AnimalListRelationFilter = {
@@ -441,18 +480,20 @@ export type AnimalOrderByRelationAggregateInput = {
 export type AnimalCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  species?: Prisma.SortOrder
+  speciesId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
   dob?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   healthStatus?: Prisma.SortOrder
-  imageURL?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  lastFedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  zoneId?: Prisma.SortOrder
   caregiverId?: Prisma.SortOrder
 }
 
 export type AnimalAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  speciesId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
   caregiverId?: Prisma.SortOrder
 }
@@ -460,31 +501,34 @@ export type AnimalAvgOrderByAggregateInput = {
 export type AnimalMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  species?: Prisma.SortOrder
+  speciesId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
   dob?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   healthStatus?: Prisma.SortOrder
-  imageURL?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  lastFedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  zoneId?: Prisma.SortOrder
   caregiverId?: Prisma.SortOrder
 }
 
 export type AnimalMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  species?: Prisma.SortOrder
+  speciesId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
   dob?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   healthStatus?: Prisma.SortOrder
-  imageURL?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  lastFedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  zoneId?: Prisma.SortOrder
   caregiverId?: Prisma.SortOrder
 }
 
 export type AnimalSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  speciesId?: Prisma.SortOrder
   zoneId?: Prisma.SortOrder
   caregiverId?: Prisma.SortOrder
 }
@@ -578,43 +622,139 @@ export type AnimalUncheckedUpdateManyWithoutCaregiverNestedInput = {
   deleteMany?: Prisma.AnimalScalarWhereInput | Prisma.AnimalScalarWhereInput[]
 }
 
-export type AnimalCreateNestedOneWithoutFeedingScheduleInput = {
-  create?: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingScheduleInput, Prisma.AnimalUncheckedCreateWithoutFeedingScheduleInput>
-  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutFeedingScheduleInput
+export type AnimalCreateNestedManyWithoutSpeciesInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutSpeciesInput, Prisma.AnimalUncheckedCreateWithoutSpeciesInput> | Prisma.AnimalCreateWithoutSpeciesInput[] | Prisma.AnimalUncheckedCreateWithoutSpeciesInput[]
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutSpeciesInput | Prisma.AnimalCreateOrConnectWithoutSpeciesInput[]
+  createMany?: Prisma.AnimalCreateManySpeciesInputEnvelope
+  connect?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+}
+
+export type AnimalUncheckedCreateNestedManyWithoutSpeciesInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutSpeciesInput, Prisma.AnimalUncheckedCreateWithoutSpeciesInput> | Prisma.AnimalCreateWithoutSpeciesInput[] | Prisma.AnimalUncheckedCreateWithoutSpeciesInput[]
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutSpeciesInput | Prisma.AnimalCreateOrConnectWithoutSpeciesInput[]
+  createMany?: Prisma.AnimalCreateManySpeciesInputEnvelope
+  connect?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+}
+
+export type AnimalUpdateManyWithoutSpeciesNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutSpeciesInput, Prisma.AnimalUncheckedCreateWithoutSpeciesInput> | Prisma.AnimalCreateWithoutSpeciesInput[] | Prisma.AnimalUncheckedCreateWithoutSpeciesInput[]
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutSpeciesInput | Prisma.AnimalCreateOrConnectWithoutSpeciesInput[]
+  upsert?: Prisma.AnimalUpsertWithWhereUniqueWithoutSpeciesInput | Prisma.AnimalUpsertWithWhereUniqueWithoutSpeciesInput[]
+  createMany?: Prisma.AnimalCreateManySpeciesInputEnvelope
+  set?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  disconnect?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  delete?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  connect?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  update?: Prisma.AnimalUpdateWithWhereUniqueWithoutSpeciesInput | Prisma.AnimalUpdateWithWhereUniqueWithoutSpeciesInput[]
+  updateMany?: Prisma.AnimalUpdateManyWithWhereWithoutSpeciesInput | Prisma.AnimalUpdateManyWithWhereWithoutSpeciesInput[]
+  deleteMany?: Prisma.AnimalScalarWhereInput | Prisma.AnimalScalarWhereInput[]
+}
+
+export type AnimalUncheckedUpdateManyWithoutSpeciesNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutSpeciesInput, Prisma.AnimalUncheckedCreateWithoutSpeciesInput> | Prisma.AnimalCreateWithoutSpeciesInput[] | Prisma.AnimalUncheckedCreateWithoutSpeciesInput[]
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutSpeciesInput | Prisma.AnimalCreateOrConnectWithoutSpeciesInput[]
+  upsert?: Prisma.AnimalUpsertWithWhereUniqueWithoutSpeciesInput | Prisma.AnimalUpsertWithWhereUniqueWithoutSpeciesInput[]
+  createMany?: Prisma.AnimalCreateManySpeciesInputEnvelope
+  set?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  disconnect?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  delete?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  connect?: Prisma.AnimalWhereUniqueInput | Prisma.AnimalWhereUniqueInput[]
+  update?: Prisma.AnimalUpdateWithWhereUniqueWithoutSpeciesInput | Prisma.AnimalUpdateWithWhereUniqueWithoutSpeciesInput[]
+  updateMany?: Prisma.AnimalUpdateManyWithWhereWithoutSpeciesInput | Prisma.AnimalUpdateManyWithWhereWithoutSpeciesInput[]
+  deleteMany?: Prisma.AnimalScalarWhereInput | Prisma.AnimalScalarWhereInput[]
+}
+
+export type NullableEnumGenderFieldUpdateOperationsInput = {
+  set?: $Enums.Gender | null
+}
+
+export type EnumHealthStatusFieldUpdateOperationsInput = {
+  set?: $Enums.HealthStatus
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type AnimalCreateNestedOneWithoutFeedingSchedulesInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingSchedulesInput, Prisma.AnimalUncheckedCreateWithoutFeedingSchedulesInput>
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutFeedingSchedulesInput
   connect?: Prisma.AnimalWhereUniqueInput
 }
 
-export type AnimalUpdateOneRequiredWithoutFeedingScheduleNestedInput = {
-  create?: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingScheduleInput, Prisma.AnimalUncheckedCreateWithoutFeedingScheduleInput>
-  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutFeedingScheduleInput
-  upsert?: Prisma.AnimalUpsertWithoutFeedingScheduleInput
+export type AnimalUpdateOneRequiredWithoutFeedingSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingSchedulesInput, Prisma.AnimalUncheckedCreateWithoutFeedingSchedulesInput>
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutFeedingSchedulesInput
+  upsert?: Prisma.AnimalUpsertWithoutFeedingSchedulesInput
   connect?: Prisma.AnimalWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimalUpdateToOneWithWhereWithoutFeedingScheduleInput, Prisma.AnimalUpdateWithoutFeedingScheduleInput>, Prisma.AnimalUncheckedUpdateWithoutFeedingScheduleInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimalUpdateToOneWithWhereWithoutFeedingSchedulesInput, Prisma.AnimalUpdateWithoutFeedingSchedulesInput>, Prisma.AnimalUncheckedUpdateWithoutFeedingSchedulesInput>
+}
+
+export type AnimalCreateNestedOneWithoutHealthRecordsInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutHealthRecordsInput, Prisma.AnimalUncheckedCreateWithoutHealthRecordsInput>
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutHealthRecordsInput
+  connect?: Prisma.AnimalWhereUniqueInput
+}
+
+export type AnimalUpdateOneRequiredWithoutHealthRecordsNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutHealthRecordsInput, Prisma.AnimalUncheckedCreateWithoutHealthRecordsInput>
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutHealthRecordsInput
+  upsert?: Prisma.AnimalUpsertWithoutHealthRecordsInput
+  connect?: Prisma.AnimalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimalUpdateToOneWithWhereWithoutHealthRecordsInput, Prisma.AnimalUpdateWithoutHealthRecordsInput>, Prisma.AnimalUncheckedUpdateWithoutHealthRecordsInput>
+}
+
+export type AnimalCreateNestedOneWithoutFeedingLogsInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingLogsInput, Prisma.AnimalUncheckedCreateWithoutFeedingLogsInput>
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutFeedingLogsInput
+  connect?: Prisma.AnimalWhereUniqueInput
+}
+
+export type AnimalUpdateOneRequiredWithoutFeedingLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingLogsInput, Prisma.AnimalUncheckedCreateWithoutFeedingLogsInput>
+  connectOrCreate?: Prisma.AnimalCreateOrConnectWithoutFeedingLogsInput
+  upsert?: Prisma.AnimalUpsertWithoutFeedingLogsInput
+  connect?: Prisma.AnimalWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AnimalUpdateToOneWithWhereWithoutFeedingLogsInput, Prisma.AnimalUpdateWithoutFeedingLogsInput>, Prisma.AnimalUncheckedUpdateWithoutFeedingLogsInput>
 }
 
 export type AnimalCreateWithoutZoneInput = {
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
   createdAt?: Date | string
-  caregiver: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
-  feedingSchedule?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  species: Prisma.SpeciesCreateNestedOneWithoutAnimalsInput
+  caregiver?: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
+  feedingSchedules?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutAnimalInput
 }
 
 export type AnimalUncheckedCreateWithoutZoneInput = {
   id?: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
+  speciesId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
   createdAt?: Date | string
-  caregiverId: number
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  caregiverId?: number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordUncheckedCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutAnimalInput
 }
 
 export type AnimalCreateOrConnectWithoutZoneInput = {
@@ -649,39 +789,46 @@ export type AnimalScalarWhereInput = {
   NOT?: Prisma.AnimalScalarWhereInput | Prisma.AnimalScalarWhereInput[]
   id?: Prisma.IntFilter<"Animal"> | number
   name?: Prisma.StringFilter<"Animal"> | string
-  species?: Prisma.StringFilter<"Animal"> | string
-  dob?: Prisma.StringFilter<"Animal"> | string
-  gender?: Prisma.StringFilter<"Animal"> | string
-  healthStatus?: Prisma.StringFilter<"Animal"> | string
-  imageURL?: Prisma.StringNullableFilter<"Animal"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  speciesId?: Prisma.IntFilter<"Animal"> | number
   zoneId?: Prisma.IntFilter<"Animal"> | number
-  caregiverId?: Prisma.IntFilter<"Animal"> | number
+  dob?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  gender?: Prisma.EnumGenderNullableFilter<"Animal"> | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFilter<"Animal"> | $Enums.HealthStatus
+  imageUrl?: Prisma.StringNullableFilter<"Animal"> | string | null
+  lastFedAt?: Prisma.DateTimeNullableFilter<"Animal"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Animal"> | Date | string
+  caregiverId?: Prisma.IntNullableFilter<"Animal"> | number | null
 }
 
 export type AnimalCreateWithoutCaregiverInput = {
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
   createdAt?: Date | string
+  species: Prisma.SpeciesCreateNestedOneWithoutAnimalsInput
   zone: Prisma.ZoneCreateNestedOneWithoutAnimalsInput
-  feedingSchedule?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  feedingSchedules?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutAnimalInput
 }
 
 export type AnimalUncheckedCreateWithoutCaregiverInput = {
   id?: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
-  createdAt?: Date | string
+  speciesId: number
   zoneId: number
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordUncheckedCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutAnimalInput
 }
 
 export type AnimalCreateOrConnectWithoutCaregiverInput = {
@@ -710,168 +857,466 @@ export type AnimalUpdateManyWithWhereWithoutCaregiverInput = {
   data: Prisma.XOR<Prisma.AnimalUpdateManyMutationInput, Prisma.AnimalUncheckedUpdateManyWithoutCaregiverInput>
 }
 
-export type AnimalCreateWithoutFeedingScheduleInput = {
+export type AnimalCreateWithoutSpeciesInput = {
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
   createdAt?: Date | string
   zone: Prisma.ZoneCreateNestedOneWithoutAnimalsInput
-  caregiver: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
+  caregiver?: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
+  feedingSchedules?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutAnimalInput
 }
 
-export type AnimalUncheckedCreateWithoutFeedingScheduleInput = {
+export type AnimalUncheckedCreateWithoutSpeciesInput = {
   id?: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
-  createdAt?: Date | string
   zoneId: number
-  caregiverId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  caregiverId?: number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordUncheckedCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutAnimalInput
 }
 
-export type AnimalCreateOrConnectWithoutFeedingScheduleInput = {
+export type AnimalCreateOrConnectWithoutSpeciesInput = {
   where: Prisma.AnimalWhereUniqueInput
-  create: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingScheduleInput, Prisma.AnimalUncheckedCreateWithoutFeedingScheduleInput>
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutSpeciesInput, Prisma.AnimalUncheckedCreateWithoutSpeciesInput>
 }
 
-export type AnimalUpsertWithoutFeedingScheduleInput = {
-  update: Prisma.XOR<Prisma.AnimalUpdateWithoutFeedingScheduleInput, Prisma.AnimalUncheckedUpdateWithoutFeedingScheduleInput>
-  create: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingScheduleInput, Prisma.AnimalUncheckedCreateWithoutFeedingScheduleInput>
+export type AnimalCreateManySpeciesInputEnvelope = {
+  data: Prisma.AnimalCreateManySpeciesInput | Prisma.AnimalCreateManySpeciesInput[]
+  skipDuplicates?: boolean
+}
+
+export type AnimalUpsertWithWhereUniqueWithoutSpeciesInput = {
+  where: Prisma.AnimalWhereUniqueInput
+  update: Prisma.XOR<Prisma.AnimalUpdateWithoutSpeciesInput, Prisma.AnimalUncheckedUpdateWithoutSpeciesInput>
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutSpeciesInput, Prisma.AnimalUncheckedCreateWithoutSpeciesInput>
+}
+
+export type AnimalUpdateWithWhereUniqueWithoutSpeciesInput = {
+  where: Prisma.AnimalWhereUniqueInput
+  data: Prisma.XOR<Prisma.AnimalUpdateWithoutSpeciesInput, Prisma.AnimalUncheckedUpdateWithoutSpeciesInput>
+}
+
+export type AnimalUpdateManyWithWhereWithoutSpeciesInput = {
+  where: Prisma.AnimalScalarWhereInput
+  data: Prisma.XOR<Prisma.AnimalUpdateManyMutationInput, Prisma.AnimalUncheckedUpdateManyWithoutSpeciesInput>
+}
+
+export type AnimalCreateWithoutFeedingSchedulesInput = {
+  name: string
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  species: Prisma.SpeciesCreateNestedOneWithoutAnimalsInput
+  zone: Prisma.ZoneCreateNestedOneWithoutAnimalsInput
+  caregiver?: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
+  healthRecords?: Prisma.HealthRecordCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutAnimalInput
+}
+
+export type AnimalUncheckedCreateWithoutFeedingSchedulesInput = {
+  id?: number
+  name: string
+  speciesId: number
+  zoneId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  caregiverId?: number | null
+  healthRecords?: Prisma.HealthRecordUncheckedCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutAnimalInput
+}
+
+export type AnimalCreateOrConnectWithoutFeedingSchedulesInput = {
+  where: Prisma.AnimalWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingSchedulesInput, Prisma.AnimalUncheckedCreateWithoutFeedingSchedulesInput>
+}
+
+export type AnimalUpsertWithoutFeedingSchedulesInput = {
+  update: Prisma.XOR<Prisma.AnimalUpdateWithoutFeedingSchedulesInput, Prisma.AnimalUncheckedUpdateWithoutFeedingSchedulesInput>
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingSchedulesInput, Prisma.AnimalUncheckedCreateWithoutFeedingSchedulesInput>
   where?: Prisma.AnimalWhereInput
 }
 
-export type AnimalUpdateToOneWithWhereWithoutFeedingScheduleInput = {
+export type AnimalUpdateToOneWithWhereWithoutFeedingSchedulesInput = {
   where?: Prisma.AnimalWhereInput
-  data: Prisma.XOR<Prisma.AnimalUpdateWithoutFeedingScheduleInput, Prisma.AnimalUncheckedUpdateWithoutFeedingScheduleInput>
+  data: Prisma.XOR<Prisma.AnimalUpdateWithoutFeedingSchedulesInput, Prisma.AnimalUncheckedUpdateWithoutFeedingSchedulesInput>
 }
 
-export type AnimalUpdateWithoutFeedingScheduleInput = {
+export type AnimalUpdateWithoutFeedingSchedulesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  species?: Prisma.SpeciesUpdateOneRequiredWithoutAnimalsNestedInput
   zone?: Prisma.ZoneUpdateOneRequiredWithoutAnimalsNestedInput
-  caregiver?: Prisma.CaregiverUpdateOneRequiredWithoutAnimalsNestedInput
+  caregiver?: Prisma.CaregiverUpdateOneWithoutAnimalsNestedInput
+  healthRecords?: Prisma.HealthRecordUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutAnimalNestedInput
 }
 
-export type AnimalUncheckedUpdateWithoutFeedingScheduleInput = {
+export type AnimalUncheckedUpdateWithoutFeedingSchedulesInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
-  caregiverId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  healthRecords?: Prisma.HealthRecordUncheckedUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutAnimalNestedInput
+}
+
+export type AnimalCreateWithoutHealthRecordsInput = {
+  name: string
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  species: Prisma.SpeciesCreateNestedOneWithoutAnimalsInput
+  zone: Prisma.ZoneCreateNestedOneWithoutAnimalsInput
+  caregiver?: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
+  feedingSchedules?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutAnimalInput
+}
+
+export type AnimalUncheckedCreateWithoutHealthRecordsInput = {
+  id?: number
+  name: string
+  speciesId: number
+  zoneId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  caregiverId?: number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutAnimalInput
+}
+
+export type AnimalCreateOrConnectWithoutHealthRecordsInput = {
+  where: Prisma.AnimalWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutHealthRecordsInput, Prisma.AnimalUncheckedCreateWithoutHealthRecordsInput>
+}
+
+export type AnimalUpsertWithoutHealthRecordsInput = {
+  update: Prisma.XOR<Prisma.AnimalUpdateWithoutHealthRecordsInput, Prisma.AnimalUncheckedUpdateWithoutHealthRecordsInput>
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutHealthRecordsInput, Prisma.AnimalUncheckedCreateWithoutHealthRecordsInput>
+  where?: Prisma.AnimalWhereInput
+}
+
+export type AnimalUpdateToOneWithWhereWithoutHealthRecordsInput = {
+  where?: Prisma.AnimalWhereInput
+  data: Prisma.XOR<Prisma.AnimalUpdateWithoutHealthRecordsInput, Prisma.AnimalUncheckedUpdateWithoutHealthRecordsInput>
+}
+
+export type AnimalUpdateWithoutHealthRecordsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  species?: Prisma.SpeciesUpdateOneRequiredWithoutAnimalsNestedInput
+  zone?: Prisma.ZoneUpdateOneRequiredWithoutAnimalsNestedInput
+  caregiver?: Prisma.CaregiverUpdateOneWithoutAnimalsNestedInput
+  feedingSchedules?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutAnimalNestedInput
+}
+
+export type AnimalUncheckedUpdateWithoutHealthRecordsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutAnimalNestedInput
+}
+
+export type AnimalCreateWithoutFeedingLogsInput = {
+  name: string
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  species: Prisma.SpeciesCreateNestedOneWithoutAnimalsInput
+  zone: Prisma.ZoneCreateNestedOneWithoutAnimalsInput
+  caregiver?: Prisma.CaregiverCreateNestedOneWithoutAnimalsInput
+  feedingSchedules?: Prisma.FeedingScheduleCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordCreateNestedManyWithoutAnimalInput
+}
+
+export type AnimalUncheckedCreateWithoutFeedingLogsInput = {
+  id?: number
+  name: string
+  speciesId: number
+  zoneId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  caregiverId?: number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedCreateNestedManyWithoutAnimalInput
+  healthRecords?: Prisma.HealthRecordUncheckedCreateNestedManyWithoutAnimalInput
+}
+
+export type AnimalCreateOrConnectWithoutFeedingLogsInput = {
+  where: Prisma.AnimalWhereUniqueInput
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingLogsInput, Prisma.AnimalUncheckedCreateWithoutFeedingLogsInput>
+}
+
+export type AnimalUpsertWithoutFeedingLogsInput = {
+  update: Prisma.XOR<Prisma.AnimalUpdateWithoutFeedingLogsInput, Prisma.AnimalUncheckedUpdateWithoutFeedingLogsInput>
+  create: Prisma.XOR<Prisma.AnimalCreateWithoutFeedingLogsInput, Prisma.AnimalUncheckedCreateWithoutFeedingLogsInput>
+  where?: Prisma.AnimalWhereInput
+}
+
+export type AnimalUpdateToOneWithWhereWithoutFeedingLogsInput = {
+  where?: Prisma.AnimalWhereInput
+  data: Prisma.XOR<Prisma.AnimalUpdateWithoutFeedingLogsInput, Prisma.AnimalUncheckedUpdateWithoutFeedingLogsInput>
+}
+
+export type AnimalUpdateWithoutFeedingLogsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  species?: Prisma.SpeciesUpdateOneRequiredWithoutAnimalsNestedInput
+  zone?: Prisma.ZoneUpdateOneRequiredWithoutAnimalsNestedInput
+  caregiver?: Prisma.CaregiverUpdateOneWithoutAnimalsNestedInput
+  feedingSchedules?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUpdateManyWithoutAnimalNestedInput
+}
+
+export type AnimalUncheckedUpdateWithoutFeedingLogsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUncheckedUpdateManyWithoutAnimalNestedInput
 }
 
 export type AnimalCreateManyZoneInput = {
   id?: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
+  speciesId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
   createdAt?: Date | string
-  caregiverId: number
+  caregiverId?: number | null
 }
 
 export type AnimalUpdateWithoutZoneInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  caregiver?: Prisma.CaregiverUpdateOneRequiredWithoutAnimalsNestedInput
-  feedingSchedule?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  species?: Prisma.SpeciesUpdateOneRequiredWithoutAnimalsNestedInput
+  caregiver?: Prisma.CaregiverUpdateOneWithoutAnimalsNestedInput
+  feedingSchedules?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutAnimalNestedInput
 }
 
 export type AnimalUncheckedUpdateWithoutZoneInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  caregiverId?: Prisma.IntFieldUpdateOperationsInput | number
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUncheckedUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutAnimalNestedInput
 }
 
 export type AnimalUncheckedUpdateManyWithoutZoneInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  caregiverId?: Prisma.IntFieldUpdateOperationsInput | number
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type AnimalCreateManyCaregiverInput = {
   id?: number
   name: string
-  species: string
-  dob: string
-  gender: string
-  healthStatus: string
-  imageURL?: string | null
-  createdAt?: Date | string
+  speciesId: number
   zoneId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
 }
 
 export type AnimalUpdateWithoutCaregiverInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  species?: Prisma.SpeciesUpdateOneRequiredWithoutAnimalsNestedInput
   zone?: Prisma.ZoneUpdateOneRequiredWithoutAnimalsNestedInput
-  feedingSchedule?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  feedingSchedules?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutAnimalNestedInput
 }
 
 export type AnimalUncheckedUpdateWithoutCaregiverInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
-  feedingSchedule?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUncheckedUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutAnimalNestedInput
 }
 
 export type AnimalUncheckedUpdateManyWithoutCaregiverInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  species?: Prisma.StringFieldUpdateOperationsInput | string
-  dob?: Prisma.StringFieldUpdateOperationsInput | string
-  gender?: Prisma.StringFieldUpdateOperationsInput | string
-  healthStatus?: Prisma.StringFieldUpdateOperationsInput | string
-  imageURL?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  speciesId?: Prisma.IntFieldUpdateOperationsInput | number
   zoneId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type AnimalCreateManySpeciesInput = {
+  id?: number
+  name: string
+  zoneId: number
+  dob: Date | string
+  gender?: $Enums.Gender | null
+  healthStatus?: $Enums.HealthStatus
+  imageUrl?: string | null
+  lastFedAt?: Date | string | null
+  createdAt?: Date | string
+  caregiverId?: number | null
+}
+
+export type AnimalUpdateWithoutSpeciesInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  zone?: Prisma.ZoneUpdateOneRequiredWithoutAnimalsNestedInput
+  caregiver?: Prisma.CaregiverUpdateOneWithoutAnimalsNestedInput
+  feedingSchedules?: Prisma.FeedingScheduleUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutAnimalNestedInput
+}
+
+export type AnimalUncheckedUpdateWithoutSpeciesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingSchedules?: Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput
+  healthRecords?: Prisma.HealthRecordUncheckedUpdateManyWithoutAnimalNestedInput
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutAnimalNestedInput
+}
+
+export type AnimalUncheckedUpdateManyWithoutSpeciesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
+  dob?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+  healthStatus?: Prisma.EnumHealthStatusFieldUpdateOperationsInput | $Enums.HealthStatus
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastFedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  caregiverId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -880,11 +1325,15 @@ export type AnimalUncheckedUpdateManyWithoutCaregiverInput = {
  */
 
 export type AnimalCountOutputType = {
-  feedingSchedule: number
+  feedingSchedules: number
+  healthRecords: number
+  feedingLogs: number
 }
 
 export type AnimalCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  feedingSchedule?: boolean | AnimalCountOutputTypeCountFeedingScheduleArgs
+  feedingSchedules?: boolean | AnimalCountOutputTypeCountFeedingSchedulesArgs
+  healthRecords?: boolean | AnimalCountOutputTypeCountHealthRecordsArgs
+  feedingLogs?: boolean | AnimalCountOutputTypeCountFeedingLogsArgs
 }
 
 /**
@@ -900,105 +1349,137 @@ export type AnimalCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * AnimalCountOutputType without action
  */
-export type AnimalCountOutputTypeCountFeedingScheduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type AnimalCountOutputTypeCountFeedingSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.FeedingScheduleWhereInput
+}
+
+/**
+ * AnimalCountOutputType without action
+ */
+export type AnimalCountOutputTypeCountHealthRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HealthRecordWhereInput
+}
+
+/**
+ * AnimalCountOutputType without action
+ */
+export type AnimalCountOutputTypeCountFeedingLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeedingLogWhereInput
 }
 
 
 export type AnimalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  species?: boolean
+  speciesId?: boolean
+  zoneId?: boolean
   dob?: boolean
   gender?: boolean
   healthStatus?: boolean
-  imageURL?: boolean
+  imageUrl?: boolean
+  lastFedAt?: boolean
   createdAt?: boolean
-  zoneId?: boolean
   caregiverId?: boolean
+  species?: boolean | Prisma.SpeciesDefaultArgs<ExtArgs>
   zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
-  caregiver?: boolean | Prisma.CaregiverDefaultArgs<ExtArgs>
-  feedingSchedule?: boolean | Prisma.Animal$feedingScheduleArgs<ExtArgs>
+  caregiver?: boolean | Prisma.Animal$caregiverArgs<ExtArgs>
+  feedingSchedules?: boolean | Prisma.Animal$feedingSchedulesArgs<ExtArgs>
+  healthRecords?: boolean | Prisma.Animal$healthRecordsArgs<ExtArgs>
+  feedingLogs?: boolean | Prisma.Animal$feedingLogsArgs<ExtArgs>
   _count?: boolean | Prisma.AnimalCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["animal"]>
 
 export type AnimalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  species?: boolean
+  speciesId?: boolean
+  zoneId?: boolean
   dob?: boolean
   gender?: boolean
   healthStatus?: boolean
-  imageURL?: boolean
+  imageUrl?: boolean
+  lastFedAt?: boolean
   createdAt?: boolean
-  zoneId?: boolean
   caregiverId?: boolean
+  species?: boolean | Prisma.SpeciesDefaultArgs<ExtArgs>
   zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
-  caregiver?: boolean | Prisma.CaregiverDefaultArgs<ExtArgs>
+  caregiver?: boolean | Prisma.Animal$caregiverArgs<ExtArgs>
 }, ExtArgs["result"]["animal"]>
 
 export type AnimalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  species?: boolean
+  speciesId?: boolean
+  zoneId?: boolean
   dob?: boolean
   gender?: boolean
   healthStatus?: boolean
-  imageURL?: boolean
+  imageUrl?: boolean
+  lastFedAt?: boolean
   createdAt?: boolean
-  zoneId?: boolean
   caregiverId?: boolean
+  species?: boolean | Prisma.SpeciesDefaultArgs<ExtArgs>
   zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
-  caregiver?: boolean | Prisma.CaregiverDefaultArgs<ExtArgs>
+  caregiver?: boolean | Prisma.Animal$caregiverArgs<ExtArgs>
 }, ExtArgs["result"]["animal"]>
 
 export type AnimalSelectScalar = {
   id?: boolean
   name?: boolean
-  species?: boolean
+  speciesId?: boolean
+  zoneId?: boolean
   dob?: boolean
   gender?: boolean
   healthStatus?: boolean
-  imageURL?: boolean
+  imageUrl?: boolean
+  lastFedAt?: boolean
   createdAt?: boolean
-  zoneId?: boolean
   caregiverId?: boolean
 }
 
-export type AnimalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "species" | "dob" | "gender" | "healthStatus" | "imageURL" | "createdAt" | "zoneId" | "caregiverId", ExtArgs["result"]["animal"]>
+export type AnimalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "speciesId" | "zoneId" | "dob" | "gender" | "healthStatus" | "imageUrl" | "lastFedAt" | "createdAt" | "caregiverId", ExtArgs["result"]["animal"]>
 export type AnimalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  species?: boolean | Prisma.SpeciesDefaultArgs<ExtArgs>
   zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
-  caregiver?: boolean | Prisma.CaregiverDefaultArgs<ExtArgs>
-  feedingSchedule?: boolean | Prisma.Animal$feedingScheduleArgs<ExtArgs>
+  caregiver?: boolean | Prisma.Animal$caregiverArgs<ExtArgs>
+  feedingSchedules?: boolean | Prisma.Animal$feedingSchedulesArgs<ExtArgs>
+  healthRecords?: boolean | Prisma.Animal$healthRecordsArgs<ExtArgs>
+  feedingLogs?: boolean | Prisma.Animal$feedingLogsArgs<ExtArgs>
   _count?: boolean | Prisma.AnimalCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AnimalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  species?: boolean | Prisma.SpeciesDefaultArgs<ExtArgs>
   zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
-  caregiver?: boolean | Prisma.CaregiverDefaultArgs<ExtArgs>
+  caregiver?: boolean | Prisma.Animal$caregiverArgs<ExtArgs>
 }
 export type AnimalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  species?: boolean | Prisma.SpeciesDefaultArgs<ExtArgs>
   zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
-  caregiver?: boolean | Prisma.CaregiverDefaultArgs<ExtArgs>
+  caregiver?: boolean | Prisma.Animal$caregiverArgs<ExtArgs>
 }
 
 export type $AnimalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Animal"
   objects: {
+    species: Prisma.$SpeciesPayload<ExtArgs>
     zone: Prisma.$ZonePayload<ExtArgs>
-    caregiver: Prisma.$CaregiverPayload<ExtArgs>
-    feedingSchedule: Prisma.$FeedingSchedulePayload<ExtArgs>[]
+    caregiver: Prisma.$CaregiverPayload<ExtArgs> | null
+    feedingSchedules: Prisma.$FeedingSchedulePayload<ExtArgs>[]
+    healthRecords: Prisma.$HealthRecordPayload<ExtArgs>[]
+    feedingLogs: Prisma.$FeedingLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
-    species: string
-    dob: string
-    gender: string
-    healthStatus: string
-    imageURL: string | null
-    createdAt: Date
+    speciesId: number
     zoneId: number
-    caregiverId: number
+    dob: Date
+    gender: $Enums.Gender | null
+    healthStatus: $Enums.HealthStatus
+    imageUrl: string | null
+    lastFedAt: Date | null
+    createdAt: Date
+    caregiverId: number | null
   }, ExtArgs["result"]["animal"]>
   composites: {}
 }
@@ -1393,9 +1874,12 @@ readonly fields: AnimalFieldRefs;
  */
 export interface Prisma__AnimalClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  species<T extends Prisma.SpeciesDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SpeciesDefaultArgs<ExtArgs>>): Prisma.Prisma__SpeciesClient<runtime.Types.Result.GetResult<Prisma.$SpeciesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   zone<T extends Prisma.ZoneDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ZoneDefaultArgs<ExtArgs>>): Prisma.Prisma__ZoneClient<runtime.Types.Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  caregiver<T extends Prisma.CaregiverDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CaregiverDefaultArgs<ExtArgs>>): Prisma.Prisma__CaregiverClient<runtime.Types.Result.GetResult<Prisma.$CaregiverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  feedingSchedule<T extends Prisma.Animal$feedingScheduleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animal$feedingScheduleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedingSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  caregiver<T extends Prisma.Animal$caregiverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animal$caregiverArgs<ExtArgs>>): Prisma.Prisma__CaregiverClient<runtime.Types.Result.GetResult<Prisma.$CaregiverPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  feedingSchedules<T extends Prisma.Animal$feedingSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animal$feedingSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedingSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  healthRecords<T extends Prisma.Animal$healthRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animal$healthRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HealthRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  feedingLogs<T extends Prisma.Animal$feedingLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Animal$feedingLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedingLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1427,13 +1911,14 @@ export interface Prisma__AnimalClient<T, Null = never, ExtArgs extends runtime.T
 export interface AnimalFieldRefs {
   readonly id: Prisma.FieldRef<"Animal", 'Int'>
   readonly name: Prisma.FieldRef<"Animal", 'String'>
-  readonly species: Prisma.FieldRef<"Animal", 'String'>
-  readonly dob: Prisma.FieldRef<"Animal", 'String'>
-  readonly gender: Prisma.FieldRef<"Animal", 'String'>
-  readonly healthStatus: Prisma.FieldRef<"Animal", 'String'>
-  readonly imageURL: Prisma.FieldRef<"Animal", 'String'>
-  readonly createdAt: Prisma.FieldRef<"Animal", 'DateTime'>
+  readonly speciesId: Prisma.FieldRef<"Animal", 'Int'>
   readonly zoneId: Prisma.FieldRef<"Animal", 'Int'>
+  readonly dob: Prisma.FieldRef<"Animal", 'DateTime'>
+  readonly gender: Prisma.FieldRef<"Animal", 'Gender'>
+  readonly healthStatus: Prisma.FieldRef<"Animal", 'HealthStatus'>
+  readonly imageUrl: Prisma.FieldRef<"Animal", 'String'>
+  readonly lastFedAt: Prisma.FieldRef<"Animal", 'DateTime'>
+  readonly createdAt: Prisma.FieldRef<"Animal", 'DateTime'>
   readonly caregiverId: Prisma.FieldRef<"Animal", 'Int'>
 }
     
@@ -1836,9 +2321,28 @@ export type AnimalDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Animal.feedingSchedule
+ * Animal.caregiver
  */
-export type Animal$feedingScheduleArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Animal$caregiverArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Caregiver
+   */
+  select?: Prisma.CaregiverSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Caregiver
+   */
+  omit?: Prisma.CaregiverOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CaregiverInclude<ExtArgs> | null
+  where?: Prisma.CaregiverWhereInput
+}
+
+/**
+ * Animal.feedingSchedules
+ */
+export type Animal$feedingSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the FeedingSchedule
    */
@@ -1857,6 +2361,54 @@ export type Animal$feedingScheduleArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.FeedingScheduleScalarFieldEnum | Prisma.FeedingScheduleScalarFieldEnum[]
+}
+
+/**
+ * Animal.healthRecords
+ */
+export type Animal$healthRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HealthRecord
+   */
+  select?: Prisma.HealthRecordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HealthRecord
+   */
+  omit?: Prisma.HealthRecordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HealthRecordInclude<ExtArgs> | null
+  where?: Prisma.HealthRecordWhereInput
+  orderBy?: Prisma.HealthRecordOrderByWithRelationInput | Prisma.HealthRecordOrderByWithRelationInput[]
+  cursor?: Prisma.HealthRecordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HealthRecordScalarFieldEnum | Prisma.HealthRecordScalarFieldEnum[]
+}
+
+/**
+ * Animal.feedingLogs
+ */
+export type Animal$feedingLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeedingLog
+   */
+  select?: Prisma.FeedingLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FeedingLog
+   */
+  omit?: Prisma.FeedingLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedingLogInclude<ExtArgs> | null
+  where?: Prisma.FeedingLogWhereInput
+  orderBy?: Prisma.FeedingLogOrderByWithRelationInput | Prisma.FeedingLogOrderByWithRelationInput[]
+  cursor?: Prisma.FeedingLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeedingLogScalarFieldEnum | Prisma.FeedingLogScalarFieldEnum[]
 }
 
 /**
