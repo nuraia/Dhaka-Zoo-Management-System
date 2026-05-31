@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models.ts'
-export type * from './prismaNamespace.ts'
+export type * from '../models'
+export type * from './prismaNamespace'
 
 export const Decimal = runtime.Decimal
 
@@ -56,9 +56,17 @@ export const ModelName = {
   Zone: 'Zone',
   Caregiver: 'Caregiver',
   FoodSupplier: 'FoodSupplier',
+  Species: 'Species',
   Animal: 'Animal',
+  FoodItem: 'FoodItem',
   FeedingSchedule: 'FeedingSchedule',
-  Ticket: 'Ticket'
+  HealthRecord: 'HealthRecord',
+  FeedingLog: 'FeedingLog',
+  Ticket: 'Ticket',
+  TicketZone: 'TicketZone',
+  DayPlan: 'DayPlan',
+  DayPlanZone: 'DayPlanZone',
+  AuditLog: 'AuditLog'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,10 +88,10 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  phone: 'phone',
   email: 'email',
   passwordHash: 'passwordHash',
   role: 'role',
-  phone: 'phone',
   createdAt: 'createdAt'
 } as const
 
@@ -93,10 +101,10 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const AuthorityScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  role: 'role',
   email: 'email',
   phone: 'phone',
-  department: 'department'
+  position: 'position',
+  createdAt: 'createdAt'
 } as const
 
 export type AuthorityScalarFieldEnum = (typeof AuthorityScalarFieldEnum)[keyof typeof AuthorityScalarFieldEnum]
@@ -107,8 +115,9 @@ export const ZoneScalarFieldEnum = {
   name: 'name',
   habitatType: 'habitatType',
   capacity: 'capacity',
-  MapCoords: 'MapCoords',
-  authorityId: 'authorityId'
+  mapCoords: 'mapCoords',
+  description: 'description',
+  status: 'status'
 } as const
 
 export type ZoneScalarFieldEnum = (typeof ZoneScalarFieldEnum)[keyof typeof ZoneScalarFieldEnum]
@@ -120,7 +129,9 @@ export const CaregiverScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   shift: 'shift',
-  authorityId: 'authorityId'
+  experience: 'experience',
+  authorityId: 'authorityId',
+  zoneId: 'zoneId'
 } as const
 
 export type CaregiverScalarFieldEnum = (typeof CaregiverScalarFieldEnum)[keyof typeof CaregiverScalarFieldEnum]
@@ -132,52 +143,142 @@ export const FoodSupplierScalarFieldEnum = {
   email: 'email',
   phone: 'phone',
   address: 'address',
-  supplyType: 'supplyType'
+  supplyItems: 'supplyItems'
 } as const
 
 export type FoodSupplierScalarFieldEnum = (typeof FoodSupplierScalarFieldEnum)[keyof typeof FoodSupplierScalarFieldEnum]
 
 
+export const SpeciesScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  dietType: 'dietType',
+  habitat: 'habitat',
+  description: 'description'
+} as const
+
+export type SpeciesScalarFieldEnum = (typeof SpeciesScalarFieldEnum)[keyof typeof SpeciesScalarFieldEnum]
+
+
 export const AnimalScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  species: 'species',
+  speciesId: 'speciesId',
+  zoneId: 'zoneId',
   dob: 'dob',
   gender: 'gender',
   healthStatus: 'healthStatus',
-  imageURL: 'imageURL',
+  imageUrl: 'imageUrl',
+  lastFedAt: 'lastFedAt',
   createdAt: 'createdAt',
-  zoneId: 'zoneId',
   caregiverId: 'caregiverId'
 } as const
 
 export type AnimalScalarFieldEnum = (typeof AnimalScalarFieldEnum)[keyof typeof AnimalScalarFieldEnum]
 
 
+export const FoodItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  category: 'category',
+  unit: 'unit'
+} as const
+
+export type FoodItemScalarFieldEnum = (typeof FoodItemScalarFieldEnum)[keyof typeof FoodItemScalarFieldEnum]
+
+
 export const FeedingScheduleScalarFieldEnum = {
   id: 'id',
-  foodItem: 'foodItem',
-  quantity: 'quantity',
-  feedTime: 'feedTime',
-  frequency: 'frequency',
   animalId: 'animalId',
+  foodItemId: 'foodItemId',
+  time: 'time',
+  frequency: 'frequency',
+  quantity: 'quantity',
   supplierId: 'supplierId'
 } as const
 
 export type FeedingScheduleScalarFieldEnum = (typeof FeedingScheduleScalarFieldEnum)[keyof typeof FeedingScheduleScalarFieldEnum]
 
 
+export const HealthRecordScalarFieldEnum = {
+  id: 'id',
+  animalId: 'animalId',
+  status: 'status',
+  notes: 'notes',
+  recordedAt: 'recordedAt'
+} as const
+
+export type HealthRecordScalarFieldEnum = (typeof HealthRecordScalarFieldEnum)[keyof typeof HealthRecordScalarFieldEnum]
+
+
+export const FeedingLogScalarFieldEnum = {
+  id: 'id',
+  feedingScheduleId: 'feedingScheduleId',
+  animalId: 'animalId',
+  fedAt: 'fedAt',
+  quantity: 'quantity',
+  markedByUserId: 'markedByUserId'
+} as const
+
+export type FeedingLogScalarFieldEnum = (typeof FeedingLogScalarFieldEnum)[keyof typeof FeedingLogScalarFieldEnum]
+
+
 export const TicketScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   visitDate: 'visitDate',
   type: 'type',
   price: 'price',
+  qrCode: 'qrCode',
   status: 'status',
-  createdAt: 'createdAt',
-  userId: 'userId'
+  createdAt: 'createdAt'
 } as const
 
 export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
+
+
+export const TicketZoneScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  zoneId: 'zoneId'
+} as const
+
+export type TicketZoneScalarFieldEnum = (typeof TicketZoneScalarFieldEnum)[keyof typeof TicketZoneScalarFieldEnum]
+
+
+export const DayPlanScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  notes: 'notes',
+  createdAt: 'createdAt'
+} as const
+
+export type DayPlanScalarFieldEnum = (typeof DayPlanScalarFieldEnum)[keyof typeof DayPlanScalarFieldEnum]
+
+
+export const DayPlanZoneScalarFieldEnum = {
+  id: 'id',
+  dayPlanId: 'dayPlanId',
+  zoneId: 'zoneId',
+  visitOrder: 'visitOrder'
+} as const
+
+export type DayPlanZoneScalarFieldEnum = (typeof DayPlanZoneScalarFieldEnum)[keyof typeof DayPlanZoneScalarFieldEnum]
+
+
+export const AuditLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  action: 'action',
+  tableName: 'tableName',
+  recordId: 'recordId',
+  oldValue: 'oldValue',
+  newValue: 'newValue',
+  createdAt: 'createdAt'
+} as const
+
+export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -186,6 +287,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -202,4 +311,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

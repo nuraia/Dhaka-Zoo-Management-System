@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model Caregiver
@@ -28,12 +28,16 @@ export type AggregateCaregiver = {
 
 export type CaregiverAvgAggregateOutputType = {
   id: number | null
+  experience: number | null
   authorityId: number | null
+  zoneId: number | null
 }
 
 export type CaregiverSumAggregateOutputType = {
   id: number | null
+  experience: number | null
   authorityId: number | null
+  zoneId: number | null
 }
 
 export type CaregiverMinAggregateOutputType = {
@@ -42,7 +46,9 @@ export type CaregiverMinAggregateOutputType = {
   email: string | null
   phone: string | null
   shift: string | null
+  experience: number | null
   authorityId: number | null
+  zoneId: number | null
 }
 
 export type CaregiverMaxAggregateOutputType = {
@@ -51,7 +57,9 @@ export type CaregiverMaxAggregateOutputType = {
   email: string | null
   phone: string | null
   shift: string | null
+  experience: number | null
   authorityId: number | null
+  zoneId: number | null
 }
 
 export type CaregiverCountAggregateOutputType = {
@@ -60,19 +68,25 @@ export type CaregiverCountAggregateOutputType = {
   email: number
   phone: number
   shift: number
+  experience: number
   authorityId: number
+  zoneId: number
   _all: number
 }
 
 
 export type CaregiverAvgAggregateInputType = {
   id?: true
+  experience?: true
   authorityId?: true
+  zoneId?: true
 }
 
 export type CaregiverSumAggregateInputType = {
   id?: true
+  experience?: true
   authorityId?: true
+  zoneId?: true
 }
 
 export type CaregiverMinAggregateInputType = {
@@ -81,7 +95,9 @@ export type CaregiverMinAggregateInputType = {
   email?: true
   phone?: true
   shift?: true
+  experience?: true
   authorityId?: true
+  zoneId?: true
 }
 
 export type CaregiverMaxAggregateInputType = {
@@ -90,7 +106,9 @@ export type CaregiverMaxAggregateInputType = {
   email?: true
   phone?: true
   shift?: true
+  experience?: true
   authorityId?: true
+  zoneId?: true
 }
 
 export type CaregiverCountAggregateInputType = {
@@ -99,7 +117,9 @@ export type CaregiverCountAggregateInputType = {
   email?: true
   phone?: true
   shift?: true
+  experience?: true
   authorityId?: true
+  zoneId?: true
   _all?: true
 }
 
@@ -195,7 +215,9 @@ export type CaregiverGroupByOutputType = {
   email: string
   phone: string | null
   shift: string | null
+  experience: number
   authorityId: number
+  zoneId: number
   _count: CaregiverCountAggregateOutputType | null
   _avg: CaregiverAvgAggregateOutputType | null
   _sum: CaregiverSumAggregateOutputType | null
@@ -227,9 +249,12 @@ export type CaregiverWhereInput = {
   email?: Prisma.StringFilter<"Caregiver"> | string
   phone?: Prisma.StringNullableFilter<"Caregiver"> | string | null
   shift?: Prisma.StringNullableFilter<"Caregiver"> | string | null
+  experience?: Prisma.IntFilter<"Caregiver"> | number
   authorityId?: Prisma.IntFilter<"Caregiver"> | number
-  authority?: Prisma.XOR<Prisma.AuthorityScalarRelationFilter, Prisma.AuthorityWhereInput>
+  zoneId?: Prisma.IntFilter<"Caregiver"> | number
   animals?: Prisma.AnimalListRelationFilter
+  authority?: Prisma.XOR<Prisma.AuthorityScalarRelationFilter, Prisma.AuthorityWhereInput>
+  zone?: Prisma.XOR<Prisma.ZoneScalarRelationFilter, Prisma.ZoneWhereInput>
 }
 
 export type CaregiverOrderByWithRelationInput = {
@@ -238,9 +263,12 @@ export type CaregiverOrderByWithRelationInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   shift?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrder
   authorityId?: Prisma.SortOrder
-  authority?: Prisma.AuthorityOrderByWithRelationInput
+  zoneId?: Prisma.SortOrder
   animals?: Prisma.AnimalOrderByRelationAggregateInput
+  authority?: Prisma.AuthorityOrderByWithRelationInput
+  zone?: Prisma.ZoneOrderByWithRelationInput
 }
 
 export type CaregiverWhereUniqueInput = Prisma.AtLeast<{
@@ -252,9 +280,12 @@ export type CaregiverWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Caregiver"> | string
   phone?: Prisma.StringNullableFilter<"Caregiver"> | string | null
   shift?: Prisma.StringNullableFilter<"Caregiver"> | string | null
+  experience?: Prisma.IntFilter<"Caregiver"> | number
   authorityId?: Prisma.IntFilter<"Caregiver"> | number
-  authority?: Prisma.XOR<Prisma.AuthorityScalarRelationFilter, Prisma.AuthorityWhereInput>
+  zoneId?: Prisma.IntFilter<"Caregiver"> | number
   animals?: Prisma.AnimalListRelationFilter
+  authority?: Prisma.XOR<Prisma.AuthorityScalarRelationFilter, Prisma.AuthorityWhereInput>
+  zone?: Prisma.XOR<Prisma.ZoneScalarRelationFilter, Prisma.ZoneWhereInput>
 }, "id" | "email">
 
 export type CaregiverOrderByWithAggregationInput = {
@@ -263,7 +294,9 @@ export type CaregiverOrderByWithAggregationInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   shift?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrder
   authorityId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
   _count?: Prisma.CaregiverCountOrderByAggregateInput
   _avg?: Prisma.CaregiverAvgOrderByAggregateInput
   _max?: Prisma.CaregiverMaxOrderByAggregateInput
@@ -280,7 +313,9 @@ export type CaregiverScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Caregiver"> | string
   phone?: Prisma.StringNullableWithAggregatesFilter<"Caregiver"> | string | null
   shift?: Prisma.StringNullableWithAggregatesFilter<"Caregiver"> | string | null
+  experience?: Prisma.IntWithAggregatesFilter<"Caregiver"> | number
   authorityId?: Prisma.IntWithAggregatesFilter<"Caregiver"> | number
+  zoneId?: Prisma.IntWithAggregatesFilter<"Caregiver"> | number
 }
 
 export type CaregiverCreateInput = {
@@ -288,8 +323,10 @@ export type CaregiverCreateInput = {
   email: string
   phone?: string | null
   shift?: string | null
-  authority: Prisma.AuthorityCreateNestedOneWithoutCaregiversInput
+  experience: number
   animals?: Prisma.AnimalCreateNestedManyWithoutCaregiverInput
+  authority: Prisma.AuthorityCreateNestedOneWithoutCaregiversInput
+  zone: Prisma.ZoneCreateNestedOneWithoutCaregiversInput
 }
 
 export type CaregiverUncheckedCreateInput = {
@@ -298,7 +335,9 @@ export type CaregiverUncheckedCreateInput = {
   email: string
   phone?: string | null
   shift?: string | null
+  experience: number
   authorityId: number
+  zoneId: number
   animals?: Prisma.AnimalUncheckedCreateNestedManyWithoutCaregiverInput
 }
 
@@ -307,8 +346,10 @@ export type CaregiverUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority?: Prisma.AuthorityUpdateOneRequiredWithoutCaregiversNestedInput
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   animals?: Prisma.AnimalUpdateManyWithoutCaregiverNestedInput
+  authority?: Prisma.AuthorityUpdateOneRequiredWithoutCaregiversNestedInput
+  zone?: Prisma.ZoneUpdateOneRequiredWithoutCaregiversNestedInput
 }
 
 export type CaregiverUncheckedUpdateInput = {
@@ -317,7 +358,9 @@ export type CaregiverUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   authorityId?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
   animals?: Prisma.AnimalUncheckedUpdateManyWithoutCaregiverNestedInput
 }
 
@@ -327,7 +370,9 @@ export type CaregiverCreateManyInput = {
   email: string
   phone?: string | null
   shift?: string | null
+  experience: number
   authorityId: number
+  zoneId: number
 }
 
 export type CaregiverUpdateManyMutationInput = {
@@ -335,6 +380,7 @@ export type CaregiverUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CaregiverUncheckedUpdateManyInput = {
@@ -343,7 +389,9 @@ export type CaregiverUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   authorityId?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CaregiverListRelationFilter = {
@@ -362,12 +410,16 @@ export type CaregiverCountOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   shift?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   authorityId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
 }
 
 export type CaregiverAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   authorityId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
 }
 
 export type CaregiverMaxOrderByAggregateInput = {
@@ -376,7 +428,9 @@ export type CaregiverMaxOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   shift?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   authorityId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
 }
 
 export type CaregiverMinOrderByAggregateInput = {
@@ -385,17 +439,21 @@ export type CaregiverMinOrderByAggregateInput = {
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   shift?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   authorityId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
 }
 
 export type CaregiverSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  experience?: Prisma.SortOrder
   authorityId?: Prisma.SortOrder
+  zoneId?: Prisma.SortOrder
 }
 
-export type CaregiverScalarRelationFilter = {
-  is?: Prisma.CaregiverWhereInput
-  isNot?: Prisma.CaregiverWhereInput
+export type CaregiverNullableScalarRelationFilter = {
+  is?: Prisma.CaregiverWhereInput | null
+  isNot?: Prisma.CaregiverWhereInput | null
 }
 
 export type CaregiverCreateNestedManyWithoutAuthorityInput = {
@@ -440,16 +498,60 @@ export type CaregiverUncheckedUpdateManyWithoutAuthorityNestedInput = {
   deleteMany?: Prisma.CaregiverScalarWhereInput | Prisma.CaregiverScalarWhereInput[]
 }
 
+export type CaregiverCreateNestedManyWithoutZoneInput = {
+  create?: Prisma.XOR<Prisma.CaregiverCreateWithoutZoneInput, Prisma.CaregiverUncheckedCreateWithoutZoneInput> | Prisma.CaregiverCreateWithoutZoneInput[] | Prisma.CaregiverUncheckedCreateWithoutZoneInput[]
+  connectOrCreate?: Prisma.CaregiverCreateOrConnectWithoutZoneInput | Prisma.CaregiverCreateOrConnectWithoutZoneInput[]
+  createMany?: Prisma.CaregiverCreateManyZoneInputEnvelope
+  connect?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+}
+
+export type CaregiverUncheckedCreateNestedManyWithoutZoneInput = {
+  create?: Prisma.XOR<Prisma.CaregiverCreateWithoutZoneInput, Prisma.CaregiverUncheckedCreateWithoutZoneInput> | Prisma.CaregiverCreateWithoutZoneInput[] | Prisma.CaregiverUncheckedCreateWithoutZoneInput[]
+  connectOrCreate?: Prisma.CaregiverCreateOrConnectWithoutZoneInput | Prisma.CaregiverCreateOrConnectWithoutZoneInput[]
+  createMany?: Prisma.CaregiverCreateManyZoneInputEnvelope
+  connect?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+}
+
+export type CaregiverUpdateManyWithoutZoneNestedInput = {
+  create?: Prisma.XOR<Prisma.CaregiverCreateWithoutZoneInput, Prisma.CaregiverUncheckedCreateWithoutZoneInput> | Prisma.CaregiverCreateWithoutZoneInput[] | Prisma.CaregiverUncheckedCreateWithoutZoneInput[]
+  connectOrCreate?: Prisma.CaregiverCreateOrConnectWithoutZoneInput | Prisma.CaregiverCreateOrConnectWithoutZoneInput[]
+  upsert?: Prisma.CaregiverUpsertWithWhereUniqueWithoutZoneInput | Prisma.CaregiverUpsertWithWhereUniqueWithoutZoneInput[]
+  createMany?: Prisma.CaregiverCreateManyZoneInputEnvelope
+  set?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  disconnect?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  delete?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  connect?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  update?: Prisma.CaregiverUpdateWithWhereUniqueWithoutZoneInput | Prisma.CaregiverUpdateWithWhereUniqueWithoutZoneInput[]
+  updateMany?: Prisma.CaregiverUpdateManyWithWhereWithoutZoneInput | Prisma.CaregiverUpdateManyWithWhereWithoutZoneInput[]
+  deleteMany?: Prisma.CaregiverScalarWhereInput | Prisma.CaregiverScalarWhereInput[]
+}
+
+export type CaregiverUncheckedUpdateManyWithoutZoneNestedInput = {
+  create?: Prisma.XOR<Prisma.CaregiverCreateWithoutZoneInput, Prisma.CaregiverUncheckedCreateWithoutZoneInput> | Prisma.CaregiverCreateWithoutZoneInput[] | Prisma.CaregiverUncheckedCreateWithoutZoneInput[]
+  connectOrCreate?: Prisma.CaregiverCreateOrConnectWithoutZoneInput | Prisma.CaregiverCreateOrConnectWithoutZoneInput[]
+  upsert?: Prisma.CaregiverUpsertWithWhereUniqueWithoutZoneInput | Prisma.CaregiverUpsertWithWhereUniqueWithoutZoneInput[]
+  createMany?: Prisma.CaregiverCreateManyZoneInputEnvelope
+  set?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  disconnect?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  delete?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  connect?: Prisma.CaregiverWhereUniqueInput | Prisma.CaregiverWhereUniqueInput[]
+  update?: Prisma.CaregiverUpdateWithWhereUniqueWithoutZoneInput | Prisma.CaregiverUpdateWithWhereUniqueWithoutZoneInput[]
+  updateMany?: Prisma.CaregiverUpdateManyWithWhereWithoutZoneInput | Prisma.CaregiverUpdateManyWithWhereWithoutZoneInput[]
+  deleteMany?: Prisma.CaregiverScalarWhereInput | Prisma.CaregiverScalarWhereInput[]
+}
+
 export type CaregiverCreateNestedOneWithoutAnimalsInput = {
   create?: Prisma.XOR<Prisma.CaregiverCreateWithoutAnimalsInput, Prisma.CaregiverUncheckedCreateWithoutAnimalsInput>
   connectOrCreate?: Prisma.CaregiverCreateOrConnectWithoutAnimalsInput
   connect?: Prisma.CaregiverWhereUniqueInput
 }
 
-export type CaregiverUpdateOneRequiredWithoutAnimalsNestedInput = {
+export type CaregiverUpdateOneWithoutAnimalsNestedInput = {
   create?: Prisma.XOR<Prisma.CaregiverCreateWithoutAnimalsInput, Prisma.CaregiverUncheckedCreateWithoutAnimalsInput>
   connectOrCreate?: Prisma.CaregiverCreateOrConnectWithoutAnimalsInput
   upsert?: Prisma.CaregiverUpsertWithoutAnimalsInput
+  disconnect?: Prisma.CaregiverWhereInput | boolean
+  delete?: Prisma.CaregiverWhereInput | boolean
   connect?: Prisma.CaregiverWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CaregiverUpdateToOneWithWhereWithoutAnimalsInput, Prisma.CaregiverUpdateWithoutAnimalsInput>, Prisma.CaregiverUncheckedUpdateWithoutAnimalsInput>
 }
@@ -459,7 +561,9 @@ export type CaregiverCreateWithoutAuthorityInput = {
   email: string
   phone?: string | null
   shift?: string | null
+  experience: number
   animals?: Prisma.AnimalCreateNestedManyWithoutCaregiverInput
+  zone: Prisma.ZoneCreateNestedOneWithoutCaregiversInput
 }
 
 export type CaregiverUncheckedCreateWithoutAuthorityInput = {
@@ -468,6 +572,8 @@ export type CaregiverUncheckedCreateWithoutAuthorityInput = {
   email: string
   phone?: string | null
   shift?: string | null
+  experience: number
+  zoneId: number
   animals?: Prisma.AnimalUncheckedCreateNestedManyWithoutCaregiverInput
 }
 
@@ -506,7 +612,56 @@ export type CaregiverScalarWhereInput = {
   email?: Prisma.StringFilter<"Caregiver"> | string
   phone?: Prisma.StringNullableFilter<"Caregiver"> | string | null
   shift?: Prisma.StringNullableFilter<"Caregiver"> | string | null
+  experience?: Prisma.IntFilter<"Caregiver"> | number
   authorityId?: Prisma.IntFilter<"Caregiver"> | number
+  zoneId?: Prisma.IntFilter<"Caregiver"> | number
+}
+
+export type CaregiverCreateWithoutZoneInput = {
+  name: string
+  email: string
+  phone?: string | null
+  shift?: string | null
+  experience: number
+  animals?: Prisma.AnimalCreateNestedManyWithoutCaregiverInput
+  authority: Prisma.AuthorityCreateNestedOneWithoutCaregiversInput
+}
+
+export type CaregiverUncheckedCreateWithoutZoneInput = {
+  id?: number
+  name: string
+  email: string
+  phone?: string | null
+  shift?: string | null
+  experience: number
+  authorityId: number
+  animals?: Prisma.AnimalUncheckedCreateNestedManyWithoutCaregiverInput
+}
+
+export type CaregiverCreateOrConnectWithoutZoneInput = {
+  where: Prisma.CaregiverWhereUniqueInput
+  create: Prisma.XOR<Prisma.CaregiverCreateWithoutZoneInput, Prisma.CaregiverUncheckedCreateWithoutZoneInput>
+}
+
+export type CaregiverCreateManyZoneInputEnvelope = {
+  data: Prisma.CaregiverCreateManyZoneInput | Prisma.CaregiverCreateManyZoneInput[]
+  skipDuplicates?: boolean
+}
+
+export type CaregiverUpsertWithWhereUniqueWithoutZoneInput = {
+  where: Prisma.CaregiverWhereUniqueInput
+  update: Prisma.XOR<Prisma.CaregiverUpdateWithoutZoneInput, Prisma.CaregiverUncheckedUpdateWithoutZoneInput>
+  create: Prisma.XOR<Prisma.CaregiverCreateWithoutZoneInput, Prisma.CaregiverUncheckedCreateWithoutZoneInput>
+}
+
+export type CaregiverUpdateWithWhereUniqueWithoutZoneInput = {
+  where: Prisma.CaregiverWhereUniqueInput
+  data: Prisma.XOR<Prisma.CaregiverUpdateWithoutZoneInput, Prisma.CaregiverUncheckedUpdateWithoutZoneInput>
+}
+
+export type CaregiverUpdateManyWithWhereWithoutZoneInput = {
+  where: Prisma.CaregiverScalarWhereInput
+  data: Prisma.XOR<Prisma.CaregiverUpdateManyMutationInput, Prisma.CaregiverUncheckedUpdateManyWithoutZoneInput>
 }
 
 export type CaregiverCreateWithoutAnimalsInput = {
@@ -514,7 +669,9 @@ export type CaregiverCreateWithoutAnimalsInput = {
   email: string
   phone?: string | null
   shift?: string | null
+  experience: number
   authority: Prisma.AuthorityCreateNestedOneWithoutCaregiversInput
+  zone: Prisma.ZoneCreateNestedOneWithoutCaregiversInput
 }
 
 export type CaregiverUncheckedCreateWithoutAnimalsInput = {
@@ -523,7 +680,9 @@ export type CaregiverUncheckedCreateWithoutAnimalsInput = {
   email: string
   phone?: string | null
   shift?: string | null
+  experience: number
   authorityId: number
+  zoneId: number
 }
 
 export type CaregiverCreateOrConnectWithoutAnimalsInput = {
@@ -547,7 +706,9 @@ export type CaregiverUpdateWithoutAnimalsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   authority?: Prisma.AuthorityUpdateOneRequiredWithoutCaregiversNestedInput
+  zone?: Prisma.ZoneUpdateOneRequiredWithoutCaregiversNestedInput
 }
 
 export type CaregiverUncheckedUpdateWithoutAnimalsInput = {
@@ -556,7 +717,9 @@ export type CaregiverUncheckedUpdateWithoutAnimalsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   authorityId?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 export type CaregiverCreateManyAuthorityInput = {
@@ -565,6 +728,8 @@ export type CaregiverCreateManyAuthorityInput = {
   email: string
   phone?: string | null
   shift?: string | null
+  experience: number
+  zoneId: number
 }
 
 export type CaregiverUpdateWithoutAuthorityInput = {
@@ -572,7 +737,9 @@ export type CaregiverUpdateWithoutAuthorityInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   animals?: Prisma.AnimalUpdateManyWithoutCaregiverNestedInput
+  zone?: Prisma.ZoneUpdateOneRequiredWithoutCaregiversNestedInput
 }
 
 export type CaregiverUncheckedUpdateWithoutAuthorityInput = {
@@ -581,6 +748,8 @@ export type CaregiverUncheckedUpdateWithoutAuthorityInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
   animals?: Prisma.AnimalUncheckedUpdateManyWithoutCaregiverNestedInput
 }
 
@@ -590,6 +759,49 @@ export type CaregiverUncheckedUpdateManyWithoutAuthorityInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  zoneId?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type CaregiverCreateManyZoneInput = {
+  id?: number
+  name: string
+  email: string
+  phone?: string | null
+  shift?: string | null
+  experience: number
+  authorityId: number
+}
+
+export type CaregiverUpdateWithoutZoneInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  animals?: Prisma.AnimalUpdateManyWithoutCaregiverNestedInput
+  authority?: Prisma.AuthorityUpdateOneRequiredWithoutCaregiversNestedInput
+}
+
+export type CaregiverUncheckedUpdateWithoutZoneInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  authorityId?: Prisma.IntFieldUpdateOperationsInput | number
+  animals?: Prisma.AnimalUncheckedUpdateManyWithoutCaregiverNestedInput
+}
+
+export type CaregiverUncheckedUpdateManyWithoutZoneInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shift?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  authorityId?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -629,9 +841,12 @@ export type CaregiverSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   email?: boolean
   phone?: boolean
   shift?: boolean
+  experience?: boolean
   authorityId?: boolean
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  zoneId?: boolean
   animals?: boolean | Prisma.Caregiver$animalsArgs<ExtArgs>
+  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.CaregiverCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["caregiver"]>
 
@@ -641,8 +856,11 @@ export type CaregiverSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   email?: boolean
   phone?: boolean
   shift?: boolean
+  experience?: boolean
   authorityId?: boolean
+  zoneId?: boolean
   authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["caregiver"]>
 
 export type CaregiverSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -651,8 +869,11 @@ export type CaregiverSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   email?: boolean
   phone?: boolean
   shift?: boolean
+  experience?: boolean
   authorityId?: boolean
+  zoneId?: boolean
   authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["caregiver"]>
 
 export type CaregiverSelectScalar = {
@@ -661,27 +882,33 @@ export type CaregiverSelectScalar = {
   email?: boolean
   phone?: boolean
   shift?: boolean
+  experience?: boolean
   authorityId?: boolean
+  zoneId?: boolean
 }
 
-export type CaregiverOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "shift" | "authorityId", ExtArgs["result"]["caregiver"]>
+export type CaregiverOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "shift" | "experience" | "authorityId" | "zoneId", ExtArgs["result"]["caregiver"]>
 export type CaregiverInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
   animals?: boolean | Prisma.Caregiver$animalsArgs<ExtArgs>
+  authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.CaregiverCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CaregiverIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
 }
 export type CaregiverIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   authority?: boolean | Prisma.AuthorityDefaultArgs<ExtArgs>
+  zone?: boolean | Prisma.ZoneDefaultArgs<ExtArgs>
 }
 
 export type $CaregiverPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Caregiver"
   objects: {
-    authority: Prisma.$AuthorityPayload<ExtArgs>
     animals: Prisma.$AnimalPayload<ExtArgs>[]
+    authority: Prisma.$AuthorityPayload<ExtArgs>
+    zone: Prisma.$ZonePayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -689,7 +916,9 @@ export type $CaregiverPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     email: string
     phone: string | null
     shift: string | null
+    experience: number
     authorityId: number
+    zoneId: number
   }, ExtArgs["result"]["caregiver"]>
   composites: {}
 }
@@ -1084,8 +1313,9 @@ readonly fields: CaregiverFieldRefs;
  */
 export interface Prisma__CaregiverClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  authority<T extends Prisma.AuthorityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AuthorityDefaultArgs<ExtArgs>>): Prisma.Prisma__AuthorityClient<runtime.Types.Result.GetResult<Prisma.$AuthorityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   animals<T extends Prisma.Caregiver$animalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Caregiver$animalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  authority<T extends Prisma.AuthorityDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AuthorityDefaultArgs<ExtArgs>>): Prisma.Prisma__AuthorityClient<runtime.Types.Result.GetResult<Prisma.$AuthorityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  zone<T extends Prisma.ZoneDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ZoneDefaultArgs<ExtArgs>>): Prisma.Prisma__ZoneClient<runtime.Types.Result.GetResult<Prisma.$ZonePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1120,7 +1350,9 @@ export interface CaregiverFieldRefs {
   readonly email: Prisma.FieldRef<"Caregiver", 'String'>
   readonly phone: Prisma.FieldRef<"Caregiver", 'String'>
   readonly shift: Prisma.FieldRef<"Caregiver", 'String'>
+  readonly experience: Prisma.FieldRef<"Caregiver", 'Int'>
   readonly authorityId: Prisma.FieldRef<"Caregiver", 'Int'>
+  readonly zoneId: Prisma.FieldRef<"Caregiver", 'Int'>
 }
     
 

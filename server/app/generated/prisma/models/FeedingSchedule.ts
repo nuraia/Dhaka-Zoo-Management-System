@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums.ts"
-import type * as Prisma from "../internal/prismaNamespace.ts"
+import type * as $Enums from "../enums"
+import type * as Prisma from "../internal/prismaNamespace"
 
 /**
  * Model FeedingSchedule
@@ -29,42 +29,44 @@ export type AggregateFeedingSchedule = {
 export type FeedingScheduleAvgAggregateOutputType = {
   id: number | null
   animalId: number | null
+  foodItemId: number | null
   supplierId: number | null
 }
 
 export type FeedingScheduleSumAggregateOutputType = {
   id: number | null
   animalId: number | null
+  foodItemId: number | null
   supplierId: number | null
 }
 
 export type FeedingScheduleMinAggregateOutputType = {
   id: number | null
-  foodItem: string | null
-  quantity: string | null
-  feedTime: string | null
-  frequency: string | null
   animalId: number | null
+  foodItemId: number | null
+  time: string | null
+  frequency: string | null
+  quantity: string | null
   supplierId: number | null
 }
 
 export type FeedingScheduleMaxAggregateOutputType = {
   id: number | null
-  foodItem: string | null
-  quantity: string | null
-  feedTime: string | null
-  frequency: string | null
   animalId: number | null
+  foodItemId: number | null
+  time: string | null
+  frequency: string | null
+  quantity: string | null
   supplierId: number | null
 }
 
 export type FeedingScheduleCountAggregateOutputType = {
   id: number
-  foodItem: number
-  quantity: number
-  feedTime: number
-  frequency: number
   animalId: number
+  foodItemId: number
+  time: number
+  frequency: number
+  quantity: number
   supplierId: number
   _all: number
 }
@@ -73,42 +75,44 @@ export type FeedingScheduleCountAggregateOutputType = {
 export type FeedingScheduleAvgAggregateInputType = {
   id?: true
   animalId?: true
+  foodItemId?: true
   supplierId?: true
 }
 
 export type FeedingScheduleSumAggregateInputType = {
   id?: true
   animalId?: true
+  foodItemId?: true
   supplierId?: true
 }
 
 export type FeedingScheduleMinAggregateInputType = {
   id?: true
-  foodItem?: true
-  quantity?: true
-  feedTime?: true
-  frequency?: true
   animalId?: true
+  foodItemId?: true
+  time?: true
+  frequency?: true
+  quantity?: true
   supplierId?: true
 }
 
 export type FeedingScheduleMaxAggregateInputType = {
   id?: true
-  foodItem?: true
-  quantity?: true
-  feedTime?: true
-  frequency?: true
   animalId?: true
+  foodItemId?: true
+  time?: true
+  frequency?: true
+  quantity?: true
   supplierId?: true
 }
 
 export type FeedingScheduleCountAggregateInputType = {
   id?: true
-  foodItem?: true
-  quantity?: true
-  feedTime?: true
-  frequency?: true
   animalId?: true
+  foodItemId?: true
+  time?: true
+  frequency?: true
+  quantity?: true
   supplierId?: true
   _all?: true
 }
@@ -201,12 +205,12 @@ export type FeedingScheduleGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 
 export type FeedingScheduleGroupByOutputType = {
   id: number
-  foodItem: string
-  quantity: string
-  feedTime: string
-  frequency: string
   animalId: number
-  supplierId: number
+  foodItemId: number
+  time: string
+  frequency: string
+  quantity: string
+  supplierId: number | null
   _count: FeedingScheduleCountAggregateOutputType | null
   _avg: FeedingScheduleAvgAggregateOutputType | null
   _sum: FeedingScheduleSumAggregateOutputType | null
@@ -234,26 +238,30 @@ export type FeedingScheduleWhereInput = {
   OR?: Prisma.FeedingScheduleWhereInput[]
   NOT?: Prisma.FeedingScheduleWhereInput | Prisma.FeedingScheduleWhereInput[]
   id?: Prisma.IntFilter<"FeedingSchedule"> | number
-  foodItem?: Prisma.StringFilter<"FeedingSchedule"> | string
-  quantity?: Prisma.StringFilter<"FeedingSchedule"> | string
-  feedTime?: Prisma.StringFilter<"FeedingSchedule"> | string
-  frequency?: Prisma.StringFilter<"FeedingSchedule"> | string
   animalId?: Prisma.IntFilter<"FeedingSchedule"> | number
-  supplierId?: Prisma.IntFilter<"FeedingSchedule"> | number
+  foodItemId?: Prisma.IntFilter<"FeedingSchedule"> | number
+  time?: Prisma.StringFilter<"FeedingSchedule"> | string
+  frequency?: Prisma.StringFilter<"FeedingSchedule"> | string
+  quantity?: Prisma.StringFilter<"FeedingSchedule"> | string
+  supplierId?: Prisma.IntNullableFilter<"FeedingSchedule"> | number | null
   animal?: Prisma.XOR<Prisma.AnimalScalarRelationFilter, Prisma.AnimalWhereInput>
-  supplier?: Prisma.XOR<Prisma.FoodSupplierScalarRelationFilter, Prisma.FoodSupplierWhereInput>
+  foodItem?: Prisma.XOR<Prisma.FoodItemScalarRelationFilter, Prisma.FoodItemWhereInput>
+  supplier?: Prisma.XOR<Prisma.FoodSupplierNullableScalarRelationFilter, Prisma.FoodSupplierWhereInput> | null
+  feedingLogs?: Prisma.FeedingLogListRelationFilter
 }
 
 export type FeedingScheduleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  foodItem?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  feedTime?: Prisma.SortOrder
-  frequency?: Prisma.SortOrder
   animalId?: Prisma.SortOrder
-  supplierId?: Prisma.SortOrder
+  foodItemId?: Prisma.SortOrder
+  time?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   animal?: Prisma.AnimalOrderByWithRelationInput
+  foodItem?: Prisma.FoodItemOrderByWithRelationInput
   supplier?: Prisma.FoodSupplierOrderByWithRelationInput
+  feedingLogs?: Prisma.FeedingLogOrderByRelationAggregateInput
 }
 
 export type FeedingScheduleWhereUniqueInput = Prisma.AtLeast<{
@@ -261,24 +269,26 @@ export type FeedingScheduleWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.FeedingScheduleWhereInput | Prisma.FeedingScheduleWhereInput[]
   OR?: Prisma.FeedingScheduleWhereInput[]
   NOT?: Prisma.FeedingScheduleWhereInput | Prisma.FeedingScheduleWhereInput[]
-  foodItem?: Prisma.StringFilter<"FeedingSchedule"> | string
-  quantity?: Prisma.StringFilter<"FeedingSchedule"> | string
-  feedTime?: Prisma.StringFilter<"FeedingSchedule"> | string
-  frequency?: Prisma.StringFilter<"FeedingSchedule"> | string
   animalId?: Prisma.IntFilter<"FeedingSchedule"> | number
-  supplierId?: Prisma.IntFilter<"FeedingSchedule"> | number
+  foodItemId?: Prisma.IntFilter<"FeedingSchedule"> | number
+  time?: Prisma.StringFilter<"FeedingSchedule"> | string
+  frequency?: Prisma.StringFilter<"FeedingSchedule"> | string
+  quantity?: Prisma.StringFilter<"FeedingSchedule"> | string
+  supplierId?: Prisma.IntNullableFilter<"FeedingSchedule"> | number | null
   animal?: Prisma.XOR<Prisma.AnimalScalarRelationFilter, Prisma.AnimalWhereInput>
-  supplier?: Prisma.XOR<Prisma.FoodSupplierScalarRelationFilter, Prisma.FoodSupplierWhereInput>
+  foodItem?: Prisma.XOR<Prisma.FoodItemScalarRelationFilter, Prisma.FoodItemWhereInput>
+  supplier?: Prisma.XOR<Prisma.FoodSupplierNullableScalarRelationFilter, Prisma.FoodSupplierWhereInput> | null
+  feedingLogs?: Prisma.FeedingLogListRelationFilter
 }, "id">
 
 export type FeedingScheduleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  foodItem?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  feedTime?: Prisma.SortOrder
-  frequency?: Prisma.SortOrder
   animalId?: Prisma.SortOrder
-  supplierId?: Prisma.SortOrder
+  foodItemId?: Prisma.SortOrder
+  time?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
+  supplierId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.FeedingScheduleCountOrderByAggregateInput
   _avg?: Prisma.FeedingScheduleAvgOrderByAggregateInput
   _max?: Prisma.FeedingScheduleMaxOrderByAggregateInput
@@ -291,77 +301,80 @@ export type FeedingScheduleScalarWhereWithAggregatesInput = {
   OR?: Prisma.FeedingScheduleScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FeedingScheduleScalarWhereWithAggregatesInput | Prisma.FeedingScheduleScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"FeedingSchedule"> | number
-  foodItem?: Prisma.StringWithAggregatesFilter<"FeedingSchedule"> | string
-  quantity?: Prisma.StringWithAggregatesFilter<"FeedingSchedule"> | string
-  feedTime?: Prisma.StringWithAggregatesFilter<"FeedingSchedule"> | string
-  frequency?: Prisma.StringWithAggregatesFilter<"FeedingSchedule"> | string
   animalId?: Prisma.IntWithAggregatesFilter<"FeedingSchedule"> | number
-  supplierId?: Prisma.IntWithAggregatesFilter<"FeedingSchedule"> | number
+  foodItemId?: Prisma.IntWithAggregatesFilter<"FeedingSchedule"> | number
+  time?: Prisma.StringWithAggregatesFilter<"FeedingSchedule"> | string
+  frequency?: Prisma.StringWithAggregatesFilter<"FeedingSchedule"> | string
+  quantity?: Prisma.StringWithAggregatesFilter<"FeedingSchedule"> | string
+  supplierId?: Prisma.IntNullableWithAggregatesFilter<"FeedingSchedule"> | number | null
 }
 
 export type FeedingScheduleCreateInput = {
-  foodItem: string
-  quantity: string
-  feedTime: string
+  time: string
   frequency: string
-  animal: Prisma.AnimalCreateNestedOneWithoutFeedingScheduleInput
-  supplier: Prisma.FoodSupplierCreateNestedOneWithoutFeedingScheduleInput
+  quantity: string
+  animal: Prisma.AnimalCreateNestedOneWithoutFeedingSchedulesInput
+  foodItem: Prisma.FoodItemCreateNestedOneWithoutFeedingSchedulesInput
+  supplier?: Prisma.FoodSupplierCreateNestedOneWithoutFeedingSchedulesInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutFeedingScheduleInput
 }
 
 export type FeedingScheduleUncheckedCreateInput = {
   id?: number
-  foodItem: string
-  quantity: string
-  feedTime: string
-  frequency: string
   animalId: number
-  supplierId: number
+  foodItemId: number
+  time: string
+  frequency: string
+  quantity: string
+  supplierId?: number | null
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutFeedingScheduleInput
 }
 
 export type FeedingScheduleUpdateInput = {
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
+  time?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.StringFieldUpdateOperationsInput | string
-  animal?: Prisma.AnimalUpdateOneRequiredWithoutFeedingScheduleNestedInput
-  supplier?: Prisma.FoodSupplierUpdateOneRequiredWithoutFeedingScheduleNestedInput
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  animal?: Prisma.AnimalUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  foodItem?: Prisma.FoodItemUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  supplier?: Prisma.FoodSupplierUpdateOneWithoutFeedingSchedulesNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutFeedingScheduleNestedInput
 }
 
 export type FeedingScheduleUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
-  frequency?: Prisma.StringFieldUpdateOperationsInput | string
   animalId?: Prisma.IntFieldUpdateOperationsInput | number
-  supplierId?: Prisma.IntFieldUpdateOperationsInput | number
+  foodItemId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutFeedingScheduleNestedInput
 }
 
 export type FeedingScheduleCreateManyInput = {
   id?: number
-  foodItem: string
-  quantity: string
-  feedTime: string
-  frequency: string
   animalId: number
-  supplierId: number
+  foodItemId: number
+  time: string
+  frequency: string
+  quantity: string
+  supplierId?: number | null
 }
 
 export type FeedingScheduleUpdateManyMutationInput = {
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
+  time?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FeedingScheduleUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
-  frequency?: Prisma.StringFieldUpdateOperationsInput | string
   animalId?: Prisma.IntFieldUpdateOperationsInput | number
-  supplierId?: Prisma.IntFieldUpdateOperationsInput | number
+  foodItemId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type FeedingScheduleListRelationFilter = {
@@ -376,44 +389,51 @@ export type FeedingScheduleOrderByRelationAggregateInput = {
 
 export type FeedingScheduleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  foodItem?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  feedTime?: Prisma.SortOrder
-  frequency?: Prisma.SortOrder
   animalId?: Prisma.SortOrder
+  foodItemId?: Prisma.SortOrder
+  time?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
 }
 
 export type FeedingScheduleAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   animalId?: Prisma.SortOrder
+  foodItemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
 }
 
 export type FeedingScheduleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  foodItem?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  feedTime?: Prisma.SortOrder
-  frequency?: Prisma.SortOrder
   animalId?: Prisma.SortOrder
+  foodItemId?: Prisma.SortOrder
+  time?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
 }
 
 export type FeedingScheduleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  foodItem?: Prisma.SortOrder
-  quantity?: Prisma.SortOrder
-  feedTime?: Prisma.SortOrder
-  frequency?: Prisma.SortOrder
   animalId?: Prisma.SortOrder
+  foodItemId?: Prisma.SortOrder
+  time?: Prisma.SortOrder
+  frequency?: Prisma.SortOrder
+  quantity?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
 }
 
 export type FeedingScheduleSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   animalId?: Prisma.SortOrder
+  foodItemId?: Prisma.SortOrder
   supplierId?: Prisma.SortOrder
+}
+
+export type FeedingScheduleScalarRelationFilter = {
+  is?: Prisma.FeedingScheduleWhereInput
+  isNot?: Prisma.FeedingScheduleWhereInput
 }
 
 export type FeedingScheduleCreateNestedManyWithoutSupplierInput = {
@@ -500,21 +520,79 @@ export type FeedingScheduleUncheckedUpdateManyWithoutAnimalNestedInput = {
   deleteMany?: Prisma.FeedingScheduleScalarWhereInput | Prisma.FeedingScheduleScalarWhereInput[]
 }
 
+export type FeedingScheduleCreateNestedManyWithoutFoodItemInput = {
+  create?: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput> | Prisma.FeedingScheduleCreateWithoutFoodItemInput[] | Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput[]
+  connectOrCreate?: Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput | Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput[]
+  createMany?: Prisma.FeedingScheduleCreateManyFoodItemInputEnvelope
+  connect?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+}
+
+export type FeedingScheduleUncheckedCreateNestedManyWithoutFoodItemInput = {
+  create?: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput> | Prisma.FeedingScheduleCreateWithoutFoodItemInput[] | Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput[]
+  connectOrCreate?: Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput | Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput[]
+  createMany?: Prisma.FeedingScheduleCreateManyFoodItemInputEnvelope
+  connect?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+}
+
+export type FeedingScheduleUpdateManyWithoutFoodItemNestedInput = {
+  create?: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput> | Prisma.FeedingScheduleCreateWithoutFoodItemInput[] | Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput[]
+  connectOrCreate?: Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput | Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput[]
+  upsert?: Prisma.FeedingScheduleUpsertWithWhereUniqueWithoutFoodItemInput | Prisma.FeedingScheduleUpsertWithWhereUniqueWithoutFoodItemInput[]
+  createMany?: Prisma.FeedingScheduleCreateManyFoodItemInputEnvelope
+  set?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  disconnect?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  delete?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  connect?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  update?: Prisma.FeedingScheduleUpdateWithWhereUniqueWithoutFoodItemInput | Prisma.FeedingScheduleUpdateWithWhereUniqueWithoutFoodItemInput[]
+  updateMany?: Prisma.FeedingScheduleUpdateManyWithWhereWithoutFoodItemInput | Prisma.FeedingScheduleUpdateManyWithWhereWithoutFoodItemInput[]
+  deleteMany?: Prisma.FeedingScheduleScalarWhereInput | Prisma.FeedingScheduleScalarWhereInput[]
+}
+
+export type FeedingScheduleUncheckedUpdateManyWithoutFoodItemNestedInput = {
+  create?: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput> | Prisma.FeedingScheduleCreateWithoutFoodItemInput[] | Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput[]
+  connectOrCreate?: Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput | Prisma.FeedingScheduleCreateOrConnectWithoutFoodItemInput[]
+  upsert?: Prisma.FeedingScheduleUpsertWithWhereUniqueWithoutFoodItemInput | Prisma.FeedingScheduleUpsertWithWhereUniqueWithoutFoodItemInput[]
+  createMany?: Prisma.FeedingScheduleCreateManyFoodItemInputEnvelope
+  set?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  disconnect?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  delete?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  connect?: Prisma.FeedingScheduleWhereUniqueInput | Prisma.FeedingScheduleWhereUniqueInput[]
+  update?: Prisma.FeedingScheduleUpdateWithWhereUniqueWithoutFoodItemInput | Prisma.FeedingScheduleUpdateWithWhereUniqueWithoutFoodItemInput[]
+  updateMany?: Prisma.FeedingScheduleUpdateManyWithWhereWithoutFoodItemInput | Prisma.FeedingScheduleUpdateManyWithWhereWithoutFoodItemInput[]
+  deleteMany?: Prisma.FeedingScheduleScalarWhereInput | Prisma.FeedingScheduleScalarWhereInput[]
+}
+
+export type FeedingScheduleCreateNestedOneWithoutFeedingLogsInput = {
+  create?: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFeedingLogsInput, Prisma.FeedingScheduleUncheckedCreateWithoutFeedingLogsInput>
+  connectOrCreate?: Prisma.FeedingScheduleCreateOrConnectWithoutFeedingLogsInput
+  connect?: Prisma.FeedingScheduleWhereUniqueInput
+}
+
+export type FeedingScheduleUpdateOneRequiredWithoutFeedingLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFeedingLogsInput, Prisma.FeedingScheduleUncheckedCreateWithoutFeedingLogsInput>
+  connectOrCreate?: Prisma.FeedingScheduleCreateOrConnectWithoutFeedingLogsInput
+  upsert?: Prisma.FeedingScheduleUpsertWithoutFeedingLogsInput
+  connect?: Prisma.FeedingScheduleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FeedingScheduleUpdateToOneWithWhereWithoutFeedingLogsInput, Prisma.FeedingScheduleUpdateWithoutFeedingLogsInput>, Prisma.FeedingScheduleUncheckedUpdateWithoutFeedingLogsInput>
+}
+
 export type FeedingScheduleCreateWithoutSupplierInput = {
-  foodItem: string
-  quantity: string
-  feedTime: string
+  time: string
   frequency: string
-  animal: Prisma.AnimalCreateNestedOneWithoutFeedingScheduleInput
+  quantity: string
+  animal: Prisma.AnimalCreateNestedOneWithoutFeedingSchedulesInput
+  foodItem: Prisma.FoodItemCreateNestedOneWithoutFeedingSchedulesInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutFeedingScheduleInput
 }
 
 export type FeedingScheduleUncheckedCreateWithoutSupplierInput = {
   id?: number
-  foodItem: string
-  quantity: string
-  feedTime: string
-  frequency: string
   animalId: number
+  foodItemId: number
+  time: string
+  frequency: string
+  quantity: string
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutFeedingScheduleInput
 }
 
 export type FeedingScheduleCreateOrConnectWithoutSupplierInput = {
@@ -548,29 +626,31 @@ export type FeedingScheduleScalarWhereInput = {
   OR?: Prisma.FeedingScheduleScalarWhereInput[]
   NOT?: Prisma.FeedingScheduleScalarWhereInput | Prisma.FeedingScheduleScalarWhereInput[]
   id?: Prisma.IntFilter<"FeedingSchedule"> | number
-  foodItem?: Prisma.StringFilter<"FeedingSchedule"> | string
-  quantity?: Prisma.StringFilter<"FeedingSchedule"> | string
-  feedTime?: Prisma.StringFilter<"FeedingSchedule"> | string
-  frequency?: Prisma.StringFilter<"FeedingSchedule"> | string
   animalId?: Prisma.IntFilter<"FeedingSchedule"> | number
-  supplierId?: Prisma.IntFilter<"FeedingSchedule"> | number
+  foodItemId?: Prisma.IntFilter<"FeedingSchedule"> | number
+  time?: Prisma.StringFilter<"FeedingSchedule"> | string
+  frequency?: Prisma.StringFilter<"FeedingSchedule"> | string
+  quantity?: Prisma.StringFilter<"FeedingSchedule"> | string
+  supplierId?: Prisma.IntNullableFilter<"FeedingSchedule"> | number | null
 }
 
 export type FeedingScheduleCreateWithoutAnimalInput = {
-  foodItem: string
-  quantity: string
-  feedTime: string
+  time: string
   frequency: string
-  supplier: Prisma.FoodSupplierCreateNestedOneWithoutFeedingScheduleInput
+  quantity: string
+  foodItem: Prisma.FoodItemCreateNestedOneWithoutFeedingSchedulesInput
+  supplier?: Prisma.FoodSupplierCreateNestedOneWithoutFeedingSchedulesInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutFeedingScheduleInput
 }
 
 export type FeedingScheduleUncheckedCreateWithoutAnimalInput = {
   id?: number
-  foodItem: string
-  quantity: string
-  feedTime: string
+  foodItemId: number
+  time: string
   frequency: string
-  supplierId: number
+  quantity: string
+  supplierId?: number | null
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutFeedingScheduleInput
 }
 
 export type FeedingScheduleCreateOrConnectWithoutAnimalInput = {
@@ -599,152 +679,333 @@ export type FeedingScheduleUpdateManyWithWhereWithoutAnimalInput = {
   data: Prisma.XOR<Prisma.FeedingScheduleUpdateManyMutationInput, Prisma.FeedingScheduleUncheckedUpdateManyWithoutAnimalInput>
 }
 
+export type FeedingScheduleCreateWithoutFoodItemInput = {
+  time: string
+  frequency: string
+  quantity: string
+  animal: Prisma.AnimalCreateNestedOneWithoutFeedingSchedulesInput
+  supplier?: Prisma.FoodSupplierCreateNestedOneWithoutFeedingSchedulesInput
+  feedingLogs?: Prisma.FeedingLogCreateNestedManyWithoutFeedingScheduleInput
+}
+
+export type FeedingScheduleUncheckedCreateWithoutFoodItemInput = {
+  id?: number
+  animalId: number
+  time: string
+  frequency: string
+  quantity: string
+  supplierId?: number | null
+  feedingLogs?: Prisma.FeedingLogUncheckedCreateNestedManyWithoutFeedingScheduleInput
+}
+
+export type FeedingScheduleCreateOrConnectWithoutFoodItemInput = {
+  where: Prisma.FeedingScheduleWhereUniqueInput
+  create: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput>
+}
+
+export type FeedingScheduleCreateManyFoodItemInputEnvelope = {
+  data: Prisma.FeedingScheduleCreateManyFoodItemInput | Prisma.FeedingScheduleCreateManyFoodItemInput[]
+  skipDuplicates?: boolean
+}
+
+export type FeedingScheduleUpsertWithWhereUniqueWithoutFoodItemInput = {
+  where: Prisma.FeedingScheduleWhereUniqueInput
+  update: Prisma.XOR<Prisma.FeedingScheduleUpdateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedUpdateWithoutFoodItemInput>
+  create: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedCreateWithoutFoodItemInput>
+}
+
+export type FeedingScheduleUpdateWithWhereUniqueWithoutFoodItemInput = {
+  where: Prisma.FeedingScheduleWhereUniqueInput
+  data: Prisma.XOR<Prisma.FeedingScheduleUpdateWithoutFoodItemInput, Prisma.FeedingScheduleUncheckedUpdateWithoutFoodItemInput>
+}
+
+export type FeedingScheduleUpdateManyWithWhereWithoutFoodItemInput = {
+  where: Prisma.FeedingScheduleScalarWhereInput
+  data: Prisma.XOR<Prisma.FeedingScheduleUpdateManyMutationInput, Prisma.FeedingScheduleUncheckedUpdateManyWithoutFoodItemInput>
+}
+
+export type FeedingScheduleCreateWithoutFeedingLogsInput = {
+  time: string
+  frequency: string
+  quantity: string
+  animal: Prisma.AnimalCreateNestedOneWithoutFeedingSchedulesInput
+  foodItem: Prisma.FoodItemCreateNestedOneWithoutFeedingSchedulesInput
+  supplier?: Prisma.FoodSupplierCreateNestedOneWithoutFeedingSchedulesInput
+}
+
+export type FeedingScheduleUncheckedCreateWithoutFeedingLogsInput = {
+  id?: number
+  animalId: number
+  foodItemId: number
+  time: string
+  frequency: string
+  quantity: string
+  supplierId?: number | null
+}
+
+export type FeedingScheduleCreateOrConnectWithoutFeedingLogsInput = {
+  where: Prisma.FeedingScheduleWhereUniqueInput
+  create: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFeedingLogsInput, Prisma.FeedingScheduleUncheckedCreateWithoutFeedingLogsInput>
+}
+
+export type FeedingScheduleUpsertWithoutFeedingLogsInput = {
+  update: Prisma.XOR<Prisma.FeedingScheduleUpdateWithoutFeedingLogsInput, Prisma.FeedingScheduleUncheckedUpdateWithoutFeedingLogsInput>
+  create: Prisma.XOR<Prisma.FeedingScheduleCreateWithoutFeedingLogsInput, Prisma.FeedingScheduleUncheckedCreateWithoutFeedingLogsInput>
+  where?: Prisma.FeedingScheduleWhereInput
+}
+
+export type FeedingScheduleUpdateToOneWithWhereWithoutFeedingLogsInput = {
+  where?: Prisma.FeedingScheduleWhereInput
+  data: Prisma.XOR<Prisma.FeedingScheduleUpdateWithoutFeedingLogsInput, Prisma.FeedingScheduleUncheckedUpdateWithoutFeedingLogsInput>
+}
+
+export type FeedingScheduleUpdateWithoutFeedingLogsInput = {
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  animal?: Prisma.AnimalUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  foodItem?: Prisma.FoodItemUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  supplier?: Prisma.FoodSupplierUpdateOneWithoutFeedingSchedulesNestedInput
+}
+
+export type FeedingScheduleUncheckedUpdateWithoutFeedingLogsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  animalId?: Prisma.IntFieldUpdateOperationsInput | number
+  foodItemId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
 export type FeedingScheduleCreateManySupplierInput = {
   id?: number
-  foodItem: string
-  quantity: string
-  feedTime: string
-  frequency: string
   animalId: number
+  foodItemId: number
+  time: string
+  frequency: string
+  quantity: string
 }
 
 export type FeedingScheduleUpdateWithoutSupplierInput = {
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
+  time?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.StringFieldUpdateOperationsInput | string
-  animal?: Prisma.AnimalUpdateOneRequiredWithoutFeedingScheduleNestedInput
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  animal?: Prisma.AnimalUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  foodItem?: Prisma.FoodItemUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutFeedingScheduleNestedInput
 }
 
 export type FeedingScheduleUncheckedUpdateWithoutSupplierInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
-  frequency?: Prisma.StringFieldUpdateOperationsInput | string
   animalId?: Prisma.IntFieldUpdateOperationsInput | number
+  foodItemId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutFeedingScheduleNestedInput
 }
 
 export type FeedingScheduleUncheckedUpdateManyWithoutSupplierInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
-  frequency?: Prisma.StringFieldUpdateOperationsInput | string
   animalId?: Prisma.IntFieldUpdateOperationsInput | number
+  foodItemId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FeedingScheduleCreateManyAnimalInput = {
   id?: number
-  foodItem: string
-  quantity: string
-  feedTime: string
+  foodItemId: number
+  time: string
   frequency: string
-  supplierId: number
+  quantity: string
+  supplierId?: number | null
 }
 
 export type FeedingScheduleUpdateWithoutAnimalInput = {
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
+  time?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.StringFieldUpdateOperationsInput | string
-  supplier?: Prisma.FoodSupplierUpdateOneRequiredWithoutFeedingScheduleNestedInput
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  foodItem?: Prisma.FoodItemUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  supplier?: Prisma.FoodSupplierUpdateOneWithoutFeedingSchedulesNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutFeedingScheduleNestedInput
 }
 
 export type FeedingScheduleUncheckedUpdateWithoutAnimalInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
+  foodItemId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutFeedingScheduleNestedInput
 }
 
 export type FeedingScheduleUncheckedUpdateManyWithoutAnimalInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
-  foodItem?: Prisma.StringFieldUpdateOperationsInput | string
-  quantity?: Prisma.StringFieldUpdateOperationsInput | string
-  feedTime?: Prisma.StringFieldUpdateOperationsInput | string
+  foodItemId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
   frequency?: Prisma.StringFieldUpdateOperationsInput | string
-  supplierId?: Prisma.IntFieldUpdateOperationsInput | number
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
+export type FeedingScheduleCreateManyFoodItemInput = {
+  id?: number
+  animalId: number
+  time: string
+  frequency: string
+  quantity: string
+  supplierId?: number | null
+}
+
+export type FeedingScheduleUpdateWithoutFoodItemInput = {
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  animal?: Prisma.AnimalUpdateOneRequiredWithoutFeedingSchedulesNestedInput
+  supplier?: Prisma.FoodSupplierUpdateOneWithoutFeedingSchedulesNestedInput
+  feedingLogs?: Prisma.FeedingLogUpdateManyWithoutFeedingScheduleNestedInput
+}
+
+export type FeedingScheduleUncheckedUpdateWithoutFoodItemInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  animalId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  feedingLogs?: Prisma.FeedingLogUncheckedUpdateManyWithoutFeedingScheduleNestedInput
+}
+
+export type FeedingScheduleUncheckedUpdateManyWithoutFoodItemInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  animalId?: Prisma.IntFieldUpdateOperationsInput | number
+  time?: Prisma.StringFieldUpdateOperationsInput | string
+  frequency?: Prisma.StringFieldUpdateOperationsInput | string
+  quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  supplierId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+
+/**
+ * Count Type FeedingScheduleCountOutputType
+ */
+
+export type FeedingScheduleCountOutputType = {
+  feedingLogs: number
+}
+
+export type FeedingScheduleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  feedingLogs?: boolean | FeedingScheduleCountOutputTypeCountFeedingLogsArgs
+}
+
+/**
+ * FeedingScheduleCountOutputType without action
+ */
+export type FeedingScheduleCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeedingScheduleCountOutputType
+   */
+  select?: Prisma.FeedingScheduleCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * FeedingScheduleCountOutputType without action
+ */
+export type FeedingScheduleCountOutputTypeCountFeedingLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FeedingLogWhereInput
+}
 
 
 export type FeedingScheduleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  foodItem?: boolean
-  quantity?: boolean
-  feedTime?: boolean
-  frequency?: boolean
   animalId?: boolean
+  foodItemId?: boolean
+  time?: boolean
+  frequency?: boolean
+  quantity?: boolean
   supplierId?: boolean
   animal?: boolean | Prisma.AnimalDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.FoodSupplierDefaultArgs<ExtArgs>
+  foodItem?: boolean | Prisma.FoodItemDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.FeedingSchedule$supplierArgs<ExtArgs>
+  feedingLogs?: boolean | Prisma.FeedingSchedule$feedingLogsArgs<ExtArgs>
+  _count?: boolean | Prisma.FeedingScheduleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["feedingSchedule"]>
 
 export type FeedingScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  foodItem?: boolean
-  quantity?: boolean
-  feedTime?: boolean
-  frequency?: boolean
   animalId?: boolean
+  foodItemId?: boolean
+  time?: boolean
+  frequency?: boolean
+  quantity?: boolean
   supplierId?: boolean
   animal?: boolean | Prisma.AnimalDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.FoodSupplierDefaultArgs<ExtArgs>
+  foodItem?: boolean | Prisma.FoodItemDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.FeedingSchedule$supplierArgs<ExtArgs>
 }, ExtArgs["result"]["feedingSchedule"]>
 
 export type FeedingScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  foodItem?: boolean
-  quantity?: boolean
-  feedTime?: boolean
-  frequency?: boolean
   animalId?: boolean
+  foodItemId?: boolean
+  time?: boolean
+  frequency?: boolean
+  quantity?: boolean
   supplierId?: boolean
   animal?: boolean | Prisma.AnimalDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.FoodSupplierDefaultArgs<ExtArgs>
+  foodItem?: boolean | Prisma.FoodItemDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.FeedingSchedule$supplierArgs<ExtArgs>
 }, ExtArgs["result"]["feedingSchedule"]>
 
 export type FeedingScheduleSelectScalar = {
   id?: boolean
-  foodItem?: boolean
-  quantity?: boolean
-  feedTime?: boolean
-  frequency?: boolean
   animalId?: boolean
+  foodItemId?: boolean
+  time?: boolean
+  frequency?: boolean
+  quantity?: boolean
   supplierId?: boolean
 }
 
-export type FeedingScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "foodItem" | "quantity" | "feedTime" | "frequency" | "animalId" | "supplierId", ExtArgs["result"]["feedingSchedule"]>
+export type FeedingScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "animalId" | "foodItemId" | "time" | "frequency" | "quantity" | "supplierId", ExtArgs["result"]["feedingSchedule"]>
 export type FeedingScheduleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   animal?: boolean | Prisma.AnimalDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.FoodSupplierDefaultArgs<ExtArgs>
+  foodItem?: boolean | Prisma.FoodItemDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.FeedingSchedule$supplierArgs<ExtArgs>
+  feedingLogs?: boolean | Prisma.FeedingSchedule$feedingLogsArgs<ExtArgs>
+  _count?: boolean | Prisma.FeedingScheduleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FeedingScheduleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   animal?: boolean | Prisma.AnimalDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.FoodSupplierDefaultArgs<ExtArgs>
+  foodItem?: boolean | Prisma.FoodItemDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.FeedingSchedule$supplierArgs<ExtArgs>
 }
 export type FeedingScheduleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   animal?: boolean | Prisma.AnimalDefaultArgs<ExtArgs>
-  supplier?: boolean | Prisma.FoodSupplierDefaultArgs<ExtArgs>
+  foodItem?: boolean | Prisma.FoodItemDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.FeedingSchedule$supplierArgs<ExtArgs>
 }
 
 export type $FeedingSchedulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "FeedingSchedule"
   objects: {
     animal: Prisma.$AnimalPayload<ExtArgs>
-    supplier: Prisma.$FoodSupplierPayload<ExtArgs>
+    foodItem: Prisma.$FoodItemPayload<ExtArgs>
+    supplier: Prisma.$FoodSupplierPayload<ExtArgs> | null
+    feedingLogs: Prisma.$FeedingLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
-    foodItem: string
-    quantity: string
-    feedTime: string
-    frequency: string
     animalId: number
-    supplierId: number
+    foodItemId: number
+    time: string
+    frequency: string
+    quantity: string
+    supplierId: number | null
   }, ExtArgs["result"]["feedingSchedule"]>
   composites: {}
 }
@@ -1140,7 +1401,9 @@ readonly fields: FeedingScheduleFieldRefs;
 export interface Prisma__FeedingScheduleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   animal<T extends Prisma.AnimalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AnimalDefaultArgs<ExtArgs>>): Prisma.Prisma__AnimalClient<runtime.Types.Result.GetResult<Prisma.$AnimalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  supplier<T extends Prisma.FoodSupplierDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoodSupplierDefaultArgs<ExtArgs>>): Prisma.Prisma__FoodSupplierClient<runtime.Types.Result.GetResult<Prisma.$FoodSupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  foodItem<T extends Prisma.FoodItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FoodItemDefaultArgs<ExtArgs>>): Prisma.Prisma__FoodItemClient<runtime.Types.Result.GetResult<Prisma.$FoodItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  supplier<T extends Prisma.FeedingSchedule$supplierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FeedingSchedule$supplierArgs<ExtArgs>>): Prisma.Prisma__FoodSupplierClient<runtime.Types.Result.GetResult<Prisma.$FoodSupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  feedingLogs<T extends Prisma.FeedingSchedule$feedingLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FeedingSchedule$feedingLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FeedingLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1171,11 +1434,11 @@ export interface Prisma__FeedingScheduleClient<T, Null = never, ExtArgs extends 
  */
 export interface FeedingScheduleFieldRefs {
   readonly id: Prisma.FieldRef<"FeedingSchedule", 'Int'>
-  readonly foodItem: Prisma.FieldRef<"FeedingSchedule", 'String'>
-  readonly quantity: Prisma.FieldRef<"FeedingSchedule", 'String'>
-  readonly feedTime: Prisma.FieldRef<"FeedingSchedule", 'String'>
-  readonly frequency: Prisma.FieldRef<"FeedingSchedule", 'String'>
   readonly animalId: Prisma.FieldRef<"FeedingSchedule", 'Int'>
+  readonly foodItemId: Prisma.FieldRef<"FeedingSchedule", 'Int'>
+  readonly time: Prisma.FieldRef<"FeedingSchedule", 'String'>
+  readonly frequency: Prisma.FieldRef<"FeedingSchedule", 'String'>
+  readonly quantity: Prisma.FieldRef<"FeedingSchedule", 'String'>
   readonly supplierId: Prisma.FieldRef<"FeedingSchedule", 'Int'>
 }
     
@@ -1575,6 +1838,49 @@ export type FeedingScheduleDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many FeedingSchedules to delete.
    */
   limit?: number
+}
+
+/**
+ * FeedingSchedule.supplier
+ */
+export type FeedingSchedule$supplierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FoodSupplier
+   */
+  select?: Prisma.FoodSupplierSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FoodSupplier
+   */
+  omit?: Prisma.FoodSupplierOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FoodSupplierInclude<ExtArgs> | null
+  where?: Prisma.FoodSupplierWhereInput
+}
+
+/**
+ * FeedingSchedule.feedingLogs
+ */
+export type FeedingSchedule$feedingLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FeedingLog
+   */
+  select?: Prisma.FeedingLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FeedingLog
+   */
+  omit?: Prisma.FeedingLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FeedingLogInclude<ExtArgs> | null
+  where?: Prisma.FeedingLogWhereInput
+  orderBy?: Prisma.FeedingLogOrderByWithRelationInput | Prisma.FeedingLogOrderByWithRelationInput[]
+  cursor?: Prisma.FeedingLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FeedingLogScalarFieldEnum | Prisma.FeedingLogScalarFieldEnum[]
 }
 
 /**
